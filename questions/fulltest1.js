@@ -4,9 +4,9 @@
 // Corrected Q33 (original was invalid – student scoring 72% cannot fail when pass mark is 40%)
 // ============================================================
 
-const PASSAGE = `Artificial Intelligence is rapidly transforming modern industries. While it increases efficiency and reduces human effort, it also raises concerns about job displacement. Experts believe that although some jobs may disappear, new opportunities requiring advanced skills will emerge.`;
+var PASSAGE = `Artificial Intelligence is rapidly transforming modern industries. While it increases efficiency and reduces human effort, it also raises concerns about job displacement. Experts believe that although some jobs may disappear, new opportunities requiring advanced skills will emerge.`;
 
-const questions = [
+var questions = [
 
   // ─── SECTION A: ENGLISH (Q1–30) ───
 
@@ -366,5 +366,5 @@ const questions = [
 ];
 
 // Answer key lookup
-const ANSWER_KEY = {};
+var ANSWER_KEY = {};
 questions.forEach(q => { ANSWER_KEY[q.id] = q.answer; });
