@@ -33,8 +33,12 @@ document.addEventListener("DOMContentLoaded", function() {
 // ── FIREBASE ──────────────────────────────────────────────
 function initFirebase() {
   try {
+    if (typeof firebase === "undefined") {
+      setStatus("🔴 Firebase SDK not loaded. Check internet connection.");
+      return;
+    }
     db = firebase.database();
-    setStatus("🟢 Connected to Firebase");
+    setStatus("🟢 Connected to Firebase — Ready to draw!");
     document.getElementById("liveIndicator").classList.add("connected");
     // Load existing board if any
     db.ref("blackboard/current").once("value").then(function(snap) {
@@ -43,10 +47,14 @@ function initFirebase() {
         var img = new Image();
         img.onload = function() { ctx.drawImage(img, 0, 0); };
         img.src = data.imageData;
+        setStatus("🟢 Previous board loaded — draw or clear to start fresh");
       }
+    }).catch(function(e) {
+      setStatus("🔴 Database error: " + e.message + " — Check Firebase rules (set to public)");
     });
   } catch(e) {
-    setStatus("🔴 Firebase not configured — check bb-config.js");
+    setStatus("🔴 Error: " + e.message);
+    console.error(e);
   }
 }
 

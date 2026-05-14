@@ -11,6 +11,12 @@ document.addEventListener("DOMContentLoaded", function() {
 // ── FIREBASE ──────────────────────────────────────────────
 function initFirebase() {
   try {
+    if (typeof firebase === "undefined") {
+      showOffline();
+      console.error("Firebase SDK not loaded");
+      return;
+    }
+
     db = firebase.database();
 
     // Register as viewer
@@ -24,6 +30,9 @@ function initFirebase() {
         return;
       }
       showBoard(data);
+    }, function(error) {
+      console.error("DB read error:", error);
+      showOffline();
     });
 
     // Listen for announcements
