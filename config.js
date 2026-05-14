@@ -55,14 +55,14 @@ var PART_TESTS = [
   // ENGLISH
   {
     id: "eng_part1", subject: "english",
-    title: "English Part Test 1", description: "Grammar & Vocabulary · 30 Q",
+    title: "English Part Test 1", description: "Grammar & Vocabulary Reading & Error Detection · 30 Q",
     password: "eng001", duration: 1800, totalMarks: 30,
     sections: { English: 30 },
-    questionsFile: "questions/eng_part1.js", live: false
+    questionsFile: "questions/eng_part1.js", live: true
   },
   {
     id: "eng_part2", subject: "english",
-    title: "English Part Test 2", description: "Reading & Error Detection · 30 Q",
+    title: "English Part Test 2", description: "Grammar & Vocabulary Reading & Error Detection · 30 Q",
     password: "eng002", duration: 1800, totalMarks: 30,
     sections: { English: 30 },
     questionsFile: "questions/eng_part2.js", live: false
@@ -125,7 +125,7 @@ var PART_TESTS = [
 var PDF_RESOURCES = [
   {
     category: "books",
-    title:    "GOA SSC Police Constable Reference Book",
+    title:    "GOA SSC English Reference Book",
     subject:  "General",
     date:     "2025-05-14",
     url:      "https://drive.google.com/file/d/1CL9lbCk5z8_kydKrgNv8fmFr4qI2SJdo/view"
@@ -140,7 +140,7 @@ var PDF_RESOURCES = [
 // ──────────────────────────────────────────────────────────
 var QUESTION_BANK = [
   {
-    date:  "2025-05-14",
+    date:  "2025-05-15",
     label: "Today",
     subject: "Mixed",
     questions: [
