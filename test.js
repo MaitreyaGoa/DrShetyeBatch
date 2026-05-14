@@ -217,17 +217,58 @@ function saveResultCentral(result) {
   showPage("resultPage");
   renderResult(result);
   var statusEl = document.getElementById("savingStatus");
-  statusEl.style.display = "block";
-  statusEl.style.background = "#dbeafe"; statusEl.style.color = "#1e3a8a";
-  statusEl.textContent = "⏳ Saving your result...";
 
   if (!SCRIPT_URL || SCRIPT_URL === "PASTE_YOUR_APPS_SCRIPT_URL_HERE") {
-    statusEl.textContent = "⚠️ Admin: Configure SCRIPT_URL in config.js";
-    statusEl.style.background = "#fef3c7"; statusEl.style.color = "#92400e"; return;
+    statusEl.style.display = "none";
+    return;
   }
-  fetch(SCRIPT_URL, { method:"POST", mode:"no-cors", headers:{"Content-Type":"text/plain"}, body:JSON.stringify(result) })
-  .then(function () { statusEl.textContent = "✅ Result saved!"; statusEl.style.background = "#dcfce7"; statusEl.style.color = "#166534"; })
-  .catch(function () { statusEl.textContent = "⚠️ Could not save. Inform coordinator."; statusEl.style.background = "#fef3c7"; statusEl.style.color = "#92400e"; });
+
+  statusEl.style.display = "block";
+  statusEl.style.background = "rgba(99,102,241,0.1)";
+  statusEl.style.color = "rgba(255,255,255,0.5)";
+  statusEl.style.border = "0.5px solid rgba(99,102,241,0.2)";
+  statusEl.style.borderRadius = "9px";
+  statusEl.style.fontSize = "12px";
+  statusEl.textContent = "⏳ Saving your result...";
+
+  // Send as GET params — Apps Script handles this without CORS issues
+  var secScores = result.scores || {};
+  var params = [
+    "action=save",
+    "testId="     + encodeURIComponent(result.testId),
+    "testTitle="  + encodeURIComponent(result.testTitle),
+    "name="       + encodeURIComponent(result.name),
+    "timestamp="  + encodeURIComponent(result.timestamp),
+    "english="    + encodeURIComponent(secScores["English"]   || 0),
+    "maths="      + encodeURIComponent(secScores["Maths"]     || 0),
+    "reasoning="  + encodeURIComponent(secScores["Reasoning"] || 0),
+    "konkani="    + encodeURIComponent(secScores["Konkani"]   || 0),
+    "total="      + encodeURIComponent(result.total),
+    "outOf="      + encodeURIComponent(result.outOf || 50)
+  ].join("&");
+
+  var saveUrl = SCRIPT_URL + "?" + params;
+
+  fetch(saveUrl, { method: "GET", mode: "cors" })
+  .then(function(r) { return r.json(); })
+  .then(function(res) {
+    if (res.success) {
+      statusEl.textContent = "✅ Result saved!";
+      statusEl.style.background = "rgba(16,185,129,0.1)";
+      statusEl.style.color = "#34d399";
+      statusEl.style.borderColor = "rgba(16,185,129,0.25)";
+      setTimeout(function() { statusEl.style.display = "none"; }, 3000);
+    } else {
+      throw new Error(res.error || "Save failed");
+    }
+  })
+  .catch(function(err) {
+    console.error("Save error:", err);
+    statusEl.textContent = "⚠️ Could not save. Please inform coordinator.";
+    statusEl.style.background = "rgba(245,158,11,0.08)";
+    statusEl.style.color = "#fbbf24";
+    statusEl.style.borderColor = "rgba(245,158,11,0.2)";
+  });
 }
 
 // ── RENDER RESULT ─────────────────────────────────────────
