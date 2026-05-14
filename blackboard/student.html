@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Live Blackboard – Student | Dr Shetye Academic Program</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="bb-styles.css"/>
+</head>
+<body class="student-body">
+
+  <div class="bb-header">
+    <div class="bb-header-left">
+      <span class="bb-logo">🎓</span>
+      <div>
+        <div class="bb-brand">Dr Shetye Academic Program</div>
+        <div class="bb-sub">Live Blackboard – Student View</div>
+      </div>
+    </div>
+    <div class="bb-header-right">
+      <div class="live-indicator" id="liveIndicator">
+        <span class="live-dot"></span> Live
+      </div>
+      <div class="last-update" id="lastUpdate">Waiting for teacher...</div>
+    </div>
+  </div>
+
+  <!-- ANNOUNCEMENT BANNER -->
+  <div id="announceBanner" class="announce-banner" style="display:none;">
+    <span class="announce-banner-icon">📢</span>
+    <span id="announceBannerText"></span>
+    <button class="announce-close" onclick="this.parentElement.style.display='none'">✕</button>
+  </div>
+
+  <!-- BOARD DISPLAY -->
+  <div class="student-board-wrap">
+
+    <div class="student-board-header">
+      <div class="board-title-row">
+        <span class="board-title-icon">📋</span>
+        <span class="board-title-text">Today's Blackboard</span>
+        <span id="boardTimestamp" class="board-timestamp"></span>
+      </div>
+      <div class="refresh-info">
+        <span class="refresh-dot"></span>
+        Updates automatically in real-time
+      </div>
+    </div>
+
+    <div id="offlineMsg" class="offline-msg" style="display:none;">
+      <div class="offline-icon">📡</div>
+      <div class="offline-text">Waiting for teacher to go live...</div>
+      <div class="offline-sub">The blackboard will appear here automatically when the teacher starts</div>
+    </div>
+
+    <div id="boardImageWrap" class="board-image-wrap" style="display:none;">
+      <img id="boardImage" class="board-image" src="" alt="Live Blackboard"/>
+    </div>
+
+    <!-- NOTES SECTION -->
+    <div class="notes-section">
+      <h3 class="notes-title">📝 Previous Boards</h3>
+      <div id="notesList" class="notes-list">
+        <p class="notes-empty">No saved boards yet.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="bb-config.js"></script>
+  <script src="bb-student.js"></script>
+</body>
+</html>
