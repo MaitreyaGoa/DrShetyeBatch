@@ -54,7 +54,7 @@ function loadResults(testId) {
     panel.innerHTML = '<div style="background:#fef3c7;border-left:4px solid #f59e0b;padding:18px;border-radius:8px;"><strong style="color:#92400e;">⚠️ Configure SCRIPT_URL in config.js to load results.</strong></div>'; return;
   }
 
-  fetch(SCRIPT_URL + "?testId=" + testId)
+  fetch(SCRIPT_URL + "?action=read&testId=" + testId)
     .then(function (r) { return r.json(); })
     .then(function (res) { renderResultsTable(test, res.data || []); })
     .catch(function () { panel.innerHTML = '<div style="background:#fee2e2;border-left:4px solid #dc2626;padding:18px;border-radius:8px;"><strong style="color:#991b1b;">❌ Could not load data.</strong></div>'; });
@@ -87,7 +87,7 @@ function exportCSV(testId) {
   if (!SCRIPT_URL || SCRIPT_URL === "PASTE_YOUR_APPS_SCRIPT_URL_HERE") { alert("Configure SCRIPT_URL first."); return; }
   var allTests = (FULL_TESTS || []).concat(PART_TESTS || []);
   var test = allTests.find(function (t) { return t.id === testId; });
-  fetch(SCRIPT_URL + "?testId=" + testId)
+  fetch(SCRIPT_URL + "?action=read&testId=" + testId)
     .then(function (r) { return r.json(); })
     .then(function (res) {
       if (!res.data || res.data.length === 0) { alert("No data."); return; }
