@@ -81,7 +81,7 @@ function buildTestRow(test, type) {
 
   // Top-5 button (always visible for live tests)
   var top5Btn = test.live
-    ? '<button class="btn btn-sm btn-ghost" onclick="showTop5(\'' + test.id + '\',\'' + test.title + '\',this)">🏅 Top 5</button>'
+    ? '<button class="btn btn-sm btn-ghost" onclick="showTop5(\'' + test.id + '\',\'' + test.title + '\',' + test.totalMarks + ',this)">🏅 Toppers</button>'
     : '';
 
   var startBtn = test.live
@@ -114,47 +114,84 @@ function buildTestRow(test, type) {
 // ══════════════════════════════════════════════════════════
 // TOP 5 PERFORMANCE
 // ══════════════════════════════════════════════════════════
-function showTop5(testId, testTitle, btn) {
+
+// Store refresh timers so we can clear them
+var top5Timers = {};
+
+function showTop5(testId, testTitle, totalMarks, btn) {
   var panel = document.getElementById("top5-" + testId);
+
+  // Toggle close
   if (!panel.classList.contains("hidden")) {
     panel.classList.add("hidden");
-    btn.textContent = "🏅 Top 5";
+    btn.innerHTML = '🏅 Toppers';
+    if (top5Timers[testId]) { clearInterval(top5Timers[testId]); delete top5Timers[testId]; }
     return;
   }
+
+  // Open panel
   panel.classList.remove("hidden");
-  btn.textContent = "✕ Hide";
-  panel.innerHTML = '<p class="top5-loading">⏳ Loading top performers...</p>';
+  btn.innerHTML = '✕ Hide';
 
+  // Load immediately then every 30 seconds
+  fetchTop5(testId, testTitle, totalMarks, panel);
+  top5Timers[testId] = setInterval(function () {
+    fetchTop5(testId, testTitle, totalMarks, panel);
+  }, 30000);
+}
+
+function fetchTop5(testId, testTitle, totalMarks, panel) {
   if (!SCRIPT_URL || SCRIPT_URL === "PASTE_YOUR_APPS_SCRIPT_URL_HERE") {
-    panel.innerHTML = renderTop5Placeholder(testTitle);
+    panel.innerHTML =
+      '<div class="top5-header">🏆 Toppers – ' + testTitle + '</div>' +
+      '<p class="top5-empty" style="color:rgba(245,158,11,0.7);">Configure SCRIPT_URL in config.js to see live results.</p>';
     return;
   }
 
-  fetch(SCRIPT_URL + "?testId=" + testId + "&top=5")
+  fetch(SCRIPT_URL + "?testId=" + testId)
     .then(function (r) { return r.json(); })
     .then(function (res) {
       if (!res.success || !res.data || res.data.length === 0) {
-        panel.innerHTML = '<p class="top5-empty">No results yet for ' + testTitle + '</p>';
+        panel.innerHTML =
+          '<div class="top5-header">🏆 Toppers – ' + testTitle + '</div>' +
+          '<p class="top5-empty">No submissions yet. Be the first to attempt!</p>';
         return;
       }
-      var html = '<div class="top5-header">🏆 Top 5 – ' + testTitle + '</div><ol class="top5-list">';
-      res.data.slice(0, 5).forEach(function (r, i) {
-        var medal = ["🥇","🥈","🥉","4️⃣","5️⃣"][i];
-        html += '<li class="top5-item"><span class="top5-rank">' + medal + '</span>'
-              + '<span class="top5-name">' + r.name + '</span>'
-              + '<span class="top5-score">' + r.total + '/' + (r.outOf || 50) + '</span></li>';
+
+      // Sort by total descending, take top 5
+      var top = res.data.slice(0, 5);
+      var medals = ["🥇", "🥈", "🥉", "4", "5"];
+      var total = res.data.length;
+      var outOf = totalMarks || 50;
+
+      var html = '<div class="top5-header">'
+        + '🏆 Top Performers – ' + testTitle
+        + '<span class="top5-count">' + total + ' attempted</span>'
+        + '</div>'
+        + '<ol class="top5-list">';
+
+      top.forEach(function (r, i) {
+        var pct = Math.round((r.total / outOf) * 100);
+        var barW = Math.max(4, pct);
+        html += '<li class="top5-item">'
+          + '<span class="top5-rank">' + (i < 3 ? medals[i] : '<span class="top5-num">' + (i+1) + '</span>') + '</span>'
+          + '<div class="top5-info">'
+          +   '<span class="top5-name">' + r.name + '</span>'
+          +   '<div class="top5-bar-wrap"><div class="top5-bar" style="width:' + barW + '%"></div></div>'
+          + '</div>'
+          + '<span class="top5-score">' + r.total + '<span class="top5-outof">/' + outOf + '</span></span>'
+          + '</li>';
       });
-      html += '</ol>';
+
+      html += '</ol>'
+        + '<div class="top5-footer">Auto-refreshes every 30s</div>';
       panel.innerHTML = html;
     })
     .catch(function () {
-      panel.innerHTML = '<p class="top5-empty">Could not load results.</p>';
+      panel.innerHTML =
+        '<div class="top5-header">🏆 Toppers – ' + testTitle + '</div>' +
+        '<p class="top5-empty">Could not load. Check your connection.</p>';
     });
-}
-
-function renderTop5Placeholder(title) {
-  return '<div class="top5-header">🏆 Top 5 – ' + title + '</div>'
-    + '<p style="color:#f59e0b;font-size:.82rem;padding:10px;">⚠️ Configure SCRIPT_URL in config.js to see live results.</p>';
 }
 
 // ══════════════════════════════════════════════════════════
