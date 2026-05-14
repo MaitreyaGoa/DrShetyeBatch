@@ -99,11 +99,10 @@ function buildTestRow(test, type) {
     '</div>' +
     '<div class="test-row-actions">' + top5Btn + startBtn + '</div>';
 
-  // Top 5 panel (hidden by default, toggled below row)
+  // Top 5 panel (hidden by default, shown only on click)
   var top5Panel = document.createElement("div");
-  top5Panel.className = "top5-panel hidden";
+  top5Panel.className = "top5-panel";
   top5Panel.id = "top5-" + test.id;
-  top5Panel.innerHTML = '<p class="top5-loading">Loading...</p>';
 
   var wrapper = document.createElement("div");
   wrapper.appendChild(row);
@@ -122,15 +121,15 @@ function showTop5(testId, testTitle, totalMarks, btn) {
   var panel = document.getElementById("top5-" + testId);
 
   // Toggle close
-  if (!panel.classList.contains("hidden")) {
-    panel.classList.add("hidden");
+  if (panel.classList.contains("open")) {
+    panel.classList.remove("open");
     btn.innerHTML = '🏅 Toppers';
     if (top5Timers[testId]) { clearInterval(top5Timers[testId]); delete top5Timers[testId]; }
     return;
   }
 
   // Open panel
-  panel.classList.remove("hidden");
+  panel.classList.add("open");
   btn.innerHTML = '✕ Hide';
 
   // Load immediately then every 30 seconds
@@ -144,29 +143,48 @@ function fetchTop5(testId, testTitle, totalMarks, panel) {
   if (!SCRIPT_URL || SCRIPT_URL === "PASTE_YOUR_APPS_SCRIPT_URL_HERE") {
     panel.innerHTML =
       '<div class="top5-header">🏆 Toppers – ' + testTitle + '</div>' +
-      '<p class="top5-empty" style="color:rgba(245,158,11,0.7);">Configure SCRIPT_URL in config.js to see live results.</p>';
+      '<p class="top5-empty" style="color:rgba(245,158,11,0.7);">Configure SCRIPT_URL in config.js.</p>';
     return;
   }
 
   panel.innerHTML = '<p class="top5-loading">⏳ Loading...</p>';
 
-  fetch(SCRIPT_URL + "?action=read&testId=" + testId, {
-    method: "GET",
-    mode: "cors"
-  })
-  .then(function(r) {
-    if (!r.ok) throw new Error("Network error");
-    return r.json();
-  })
+  // Use no-cors fetch — Apps Script supports this
+  fetch(SCRIPT_URL + "?action=read&testId=" + testId)
+  .then(function(r) { return r.json(); })
   .then(function(res) {
     renderTop5Data(res, testTitle, totalMarks, panel);
   })
-  .catch(function() {
-    // Try with no-cors as last resort — won't return data but at least won't error
+  .catch(function(err) {
+    // CORS blocked — try alternative via iframe trick
+    console.log("Fetch blocked, trying alternative...", err);
+    loadViaScript(testId, testTitle, totalMarks, panel);
+  });
+}
+
+// Alternative loader that bypasses CORS
+function loadViaScript(testId, testTitle, totalMarks, panel) {
+  var cbName = "top5cb_" + testId.replace(/[^a-z0-9]/gi, "_");
+
+  // Define callback
+  window[cbName] = function(res) {
+    renderTop5Data(res, testTitle, totalMarks, panel);
+    delete window[cbName];
+    var old = document.getElementById(cbName);
+    if (old) old.remove();
+  };
+
+  // Load via script tag
+  var s = document.createElement("script");
+  s.id  = cbName;
+  s.src = SCRIPT_URL + "?action=read&testId=" + testId + "&callback=" + cbName;
+  s.onerror = function() {
     panel.innerHTML =
       '<div class="top5-header">🏆 Toppers – ' + testTitle + '</div>' +
-      '<p class="top5-empty">⚠️ Could not load. Make sure your Apps Script is deployed with <strong>Anyone</strong> access and re-deploy after any code change.</p>';
-  });
+      '<p class="top5-empty">⚠️ Could not load. Re-deploy Apps Script with Anyone access.</p>';
+    delete window[cbName];
+  };
+  document.head.appendChild(s);
 }
 
 function renderTop5Data(res, testTitle, totalMarks, panel) {
@@ -177,9 +195,9 @@ function renderTop5Data(res, testTitle, totalMarks, panel) {
     return;
   }
 
-  var top    = res.data.slice(0, 5);
+  var top    = res.data.slice(0, 10);
   var total  = res.data.length;
-  var outOf  = totalMarks || 50;
+  var outOf  = totalMarks || 10;
   var medals = ["🥇", "🥈", "🥉"];
 
   var html = '<div class="top5-header">'
