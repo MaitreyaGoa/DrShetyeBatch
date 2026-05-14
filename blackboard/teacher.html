@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Live Blackboard – Teacher | Dr Shetye Academic Program</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="bb-styles.css"/>
+</head>
+<body class="teacher-body">
+
+  <div class="bb-header">
+    <div class="bb-header-left">
+      <span class="bb-logo">🎓</span>
+      <div>
+        <div class="bb-brand">Dr Shetye Academic Program</div>
+        <div class="bb-sub">Live Blackboard – Teacher View</div>
+      </div>
+    </div>
+    <div class="bb-header-right">
+      <div class="live-indicator" id="liveIndicator">
+        <span class="live-dot"></span> Live
+      </div>
+      <div class="viewer-count" id="viewerCount">👁 0 viewing</div>
+    </div>
+  </div>
+
+  <!-- LOGIN -->
+  <div id="loginWrap" class="login-wrap">
+    <div class="login-card">
+      <div class="login-icon">🔐</div>
+      <h2 class="login-title">Teacher Login</h2>
+      <p class="login-sub">Only the teacher can write on the blackboard</p>
+      <input type="password" id="teacherPass" class="login-input" placeholder="Enter teacher password"/>
+      <button class="btn-login" onclick="teacherLogin()">Enter Blackboard</button>
+      <p id="loginErr" class="login-err" style="display:none;">❌ Wrong password</p>
+    </div>
+  </div>
+
+  <!-- BLACKBOARD -->
+  <div id="boardWrap" class="board-wrap" style="display:none;">
+
+    <div class="board-toolbar">
+      <div class="toolbar-left">
+        <button class="tool-btn active" onclick="setTool('chalk')" id="tool-chalk" title="Chalk">✏️ Chalk</button>
+        <button class="tool-btn" onclick="setTool('marker')" id="tool-marker" title="Marker">🖊 Marker</button>
+        <button class="tool-btn" onclick="setTool('eraser')" id="tool-eraser" title="Eraser">🧹 Eraser</button>
+        <div class="color-picker-wrap">
+          <span class="color-label">Color:</span>
+          <button class="color-dot" style="background:#ffffff;" onclick="setColor('#ffffff')" title="White"></button>
+          <button class="color-dot" style="background:#ffff66;" onclick="setColor('#ffff66')" title="Yellow"></button>
+          <button class="color-dot" style="background:#66ffff;" onclick="setColor('#66ffff')" title="Cyan"></button>
+          <button class="color-dot" style="background:#ff8866;" onclick="setColor('#ff8866')" title="Orange"></button>
+          <button class="color-dot" style="background:#88ff88;" onclick="setColor('#88ff88')" title="Green"></button>
+          <button class="color-dot" style="background:#ff88cc;" onclick="setColor('#ff88cc')" title="Pink"></button>
+        </div>
+        <div class="size-wrap">
+          <span class="color-label">Size:</span>
+          <input type="range" id="brushSize" min="2" max="30" value="4" oninput="updateBrushSize(this.value)"/>
+          <span id="sizeVal">4</span>
+        </div>
+      </div>
+      <div class="toolbar-right">
+        <button class="tool-btn" onclick="addTextBox()" title="Add Text">T+ Text</button>
+        <button class="tool-btn" onclick="clearBoard()" title="Clear Board">🗑 Clear</button>
+        <button class="btn-publish" onclick="publishBoard()" id="publishBtn">
+          <span id="publishText">📡 Publish to Students</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="announce-bar">
+      <span class="announce-label">📢 Announcement:</span>
+      <input type="text" id="announceText" class="announce-input" placeholder="Type a quick message for students (e.g. 'Class starts in 5 mins')"/>
+      <button class="btn-announce" onclick="publishAnnouncement()">Send</button>
+    </div>
+
+    <div class="board-container">
+      <canvas id="blackboard" class="blackboard"></canvas>
+      <div id="textOverlay" class="text-overlay"></div>
+    </div>
+
+    <div class="board-status">
+      <span id="boardStatus" class="status-text">Ready to draw</span>
+      <span class="status-hint">Draw freely → Click "Publish" → Students see it instantly</span>
+    </div>
+
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="bb-config.js"></script>
+  <script src="bb-teacher.js"></script>
+</body>
+</html>
