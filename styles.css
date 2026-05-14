@@ -58,6 +58,60 @@ body {
   line-height: 1.5;
 }
 
+/* ── WHATSAPP BAR ─────────────────────────────────────────── */
+.wa-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(90deg, #075e54, #128c7e);
+  color: #fff;
+  text-decoration: none;
+  padding: 9px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  transition: opacity 0.2s;
+  flex-wrap: wrap;
+  text-align: center;
+}
+.wa-bar:hover { opacity: 0.92; }
+.wa-bar::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  animation: wa-shine 3s infinite;
+}
+@keyframes wa-shine {
+  0%   { left: -100%; }
+  50%  { left: 150%; }
+  100% { left: 150%; }
+}
+.wa-icon {
+  display: flex;
+  align-items: center;
+  color: #25d366;
+  flex-shrink: 0;
+}
+.wa-text {
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 0.1px;
+}
+.wa-cta {
+  background: #25d366;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+  flex-shrink: 0;
+}
+
 /* ── HEADER ──────────────────────────────────────────────────── */
 .site-header {
   background: rgba(0,0,0,0.82);
