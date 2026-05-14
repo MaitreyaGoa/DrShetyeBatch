@@ -4,7 +4,7 @@
 // ╚══════════════════════════════════════════════════════════╝
 
 var ADMIN_PASSWORD = "shetye@admin";
-var SCRIPT_URL     = "https://script.google.com/macros/s/AKfycbwc7NM-tgwtxCjZOOyLaFnLe41spGbr-0hzmYChly6cXjbzV4jrXSmelLxXN9IxPK2ZBA/exec";
+var SCRIPT_URL     = "PASTE_YOUR_APPS_SCRIPT_URL_HERE";
 
 // ──────────────────────────────────────────────────────────
 // 1. FULL TESTS
@@ -123,32 +123,13 @@ var PART_TESTS = [
 //      Replace /view with /preview for in-browser, or use direct download link
 // ──────────────────────────────────────────────────────────
 var PDF_RESOURCES = [
-  // ── CLASS NOTES ──
-  // {
-  //   category: "notes",
-  //   title:    "English Grammar Notes – Chapter 1",
-  //   subject:  "English",
-  //   date:     "2025-05-01",
-  //   url:      "https://drive.google.com/file/d/YOUR_FILE_ID/view"
-  // },
-
-  // ── REFERENCE BOOKS ──
-  // {
-  //   category: "books",
-  //   title:    "SSC Police Constable Guide 2025",
-  //   subject:  "General",
-  //   date:     "2025-05-01",
-  //   url:      "https://drive.google.com/file/d/YOUR_FILE_ID/view"
-  // },
-
-  // ── STUDY MATERIAL ──
-  // {
-  //   category: "material",
-  //   title:    "Maths Formula Sheet",
-  //   subject:  "Maths",
-  //   date:     "2025-05-01",
-  //   url:      "https://drive.google.com/file/d/YOUR_FILE_ID/view"
-  // }
+  {
+    category: "books",
+    title:    "GOA SSC Police Constable Reference Book",
+    subject:  "General",
+    date:     "2025-05-14",
+    url:      "https://drive.google.com/file/d/1CL9lbCk5z8_kydKrgNv8fmFr4qI2SJdo/view"
+  }
 ];
 
 // ──────────────────────────────────────────────────────────
