@@ -228,6 +228,14 @@ function buildPDFRow(item) {
   row.className = "pdf-row";
   var subjectIcon = { English:"📘", Maths:"📐", Reasoning:"🧠", Konkani:"📖", General:"📄" };
   var icon = subjectIcon[item.subject] || "📄";
+
+  // Extract file ID from Google Drive URL for direct download
+  var fileId = "";
+  var match = item.url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (match) fileId = match[1];
+  var viewUrl     = "https://drive.google.com/file/d/" + fileId + "/preview";
+  var downloadUrl = "https://drive.google.com/uc?export=download&id=" + fileId;
+
   row.innerHTML =
     '<div class="pdf-row-info">' +
       '<span class="pdf-icon">' + icon + '</span>' +
@@ -237,8 +245,8 @@ function buildPDFRow(item) {
       '</div>' +
     '</div>' +
     '<div class="pdf-row-actions">' +
-      '<a href="' + item.url + '" target="_blank" class="btn btn-sm btn-outline">👁 View</a>' +
-      '<a href="' + item.url.replace("/view","").replace("/preview","") + '&export=download" class="btn btn-sm btn-primary">⬇ Download</a>' +
+      '<a href="' + viewUrl + '" target="_blank" class="btn btn-sm btn-outline">👁 View</a>' +
+      '<a href="' + downloadUrl + '" target="_blank" class="btn btn-sm btn-primary">⬇ Download</a>' +
     '</div>';
   return row;
 }
