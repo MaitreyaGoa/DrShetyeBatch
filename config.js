@@ -77,10 +77,10 @@ var PART_TESTS = [
   },
   {
     id: "math_part2", subject: "maths",
-    title: "Maths Part Test 2", description: "Percentage & Profit-Loss · 20 Q",
-    password: "mat002", duration: 1800, totalMarks: 20,
-    sections: { Maths: 20 },
-    questionsFile: "questions/math_part2.js", live: false
+    title: "Maths Part Test 2", description: "Profit Loss · SI · LCM · Pipes · 10 Q",
+    password: "mat002", duration: 600, totalMarks: 10,
+    sections: { Maths: 10 },
+    questionsFile: "questions/math_part2.js", live: true
   },
   // REASONING
   {
