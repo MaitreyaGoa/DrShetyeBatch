@@ -1,22 +1,32 @@
 // ============================================================
 // FIREBASE CONFIG – Dr Shetye Live Blackboard
-// Fill in your Firebase project credentials below
-// See SETUP_GUIDE.md for step-by-step instructions
 // ============================================================
 
-var TEACHER_PASSWORD = "shetye@board";   // Change this!
+var TEACHER_PASSWORD = "shetye@board";
 
 var FIREBASE_CONFIG = {
-  apiKey:            "PASTE_YOUR_API_KEY_HERE",
-  authDomain:        "PASTE_YOUR_AUTH_DOMAIN_HERE",
-  databaseURL:       "PASTE_YOUR_DATABASE_URL_HERE",
-  projectId:         "PASTE_YOUR_PROJECT_ID_HERE",
-  storageBucket:     "PASTE_YOUR_STORAGE_BUCKET_HERE",
-  messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID_HERE",
-  appId:             "PASTE_YOUR_APP_ID_HERE"
+  apiKey:            "AIzaSyDm8gQdtj_H89SftMO62ndVN-P5c6PU6F8",
+  authDomain:        "shetye-blackboard.firebaseapp.com",
+  databaseURL:       "https://shetye-blackboard-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId:         "shetye-blackboard",
+  storageBucket:     "shetye-blackboard.firebasestorage.app",
+  messagingSenderId: "153698821134",
+  appId:             "1:153698821134:web:9c7a00492b09385edb885f"
 };
 
-// Initialize Firebase
-if (typeof firebase !== "undefined") {
-  firebase.initializeApp(FIREBASE_CONFIG);
-}
+// Initialize Firebase — wait for SDK to load
+(function initFirebaseApp() {
+  if (typeof firebase !== "undefined") {
+    try {
+      // Check if already initialized
+      if (!firebase.apps.length) {
+        firebase.initializeApp(FIREBASE_CONFIG);
+      }
+      console.log("Firebase initialized OK");
+    } catch(e) {
+      console.error("Firebase init error:", e);
+    }
+  } else {
+    console.error("Firebase SDK not loaded");
+  }
+})();
