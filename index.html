@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dr Shetye Academic Program</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+  <!-- ═══ HEADER ═══ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-brand">
+        <span class="brand-icon">🎓</span>
+        <div>
+          <h1 class="brand-title">Dr Shetye Academic Program</h1>
+          <p class="brand-sub">GOA SSC Police Constable Preparation</p>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <span class="admin-link" onclick="openAdminModal()">⚙ Admin</span>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero">
+    <h2 class="hero-title">Your Complete Study Platform</h2>
+    <p class="hero-sub">Tests · Notes · Books · Study Material · Question Bank</p>
+  </section>
+
+  <!-- ═══ MAIN MENU ═══ -->
+  <main class="main-content">
+    <div class="menu-grid">
+
+      <!-- 1. FULL TEST -->
+      <div class="menu-card" id="card-fulltest">
+        <div class="menu-card-header" onclick="toggleSection('fulltest')">
+          <div class="menu-card-left">
+            <span class="menu-icon">📋</span>
+            <div>
+              <h3 class="menu-title">Full Test</h3>
+              <p class="menu-desc">Complete mock tests – All sections</p>
+            </div>
+          </div>
+          <span class="chevron" id="chev-fulltest">▼</span>
+        </div>
+        <div class="menu-dropdown hidden" id="drop-fulltest">
+          <div id="fulltest-list" class="test-list"></div>
+        </div>
+      </div>
+
+      <!-- 2. PART TEST -->
+      <div class="menu-card" id="card-parttest">
+        <div class="menu-card-header" onclick="toggleSection('parttest')">
+          <div class="menu-card-left">
+            <span class="menu-icon">📝</span>
+            <div>
+              <h3 class="menu-title">Part Test</h3>
+              <p class="menu-desc">Section-wise tests – English, Maths, Reasoning, Konkani</p>
+            </div>
+          </div>
+          <span class="chevron" id="chev-parttest">▼</span>
+        </div>
+        <div class="menu-dropdown hidden" id="drop-parttest">
+          <!-- Subject tabs -->
+          <div class="subject-tabs">
+            <button class="sub-tab active" onclick="showSubject('english', this)">📘 English</button>
+            <button class="sub-tab" onclick="showSubject('maths', this)">📐 Maths</button>
+            <button class="sub-tab" onclick="showSubject('reasoning', this)">🧠 Reasoning</button>
+            <button class="sub-tab" onclick="showSubject('konkani', this)">📖 Konkani</button>
+          </div>
+          <div id="part-english" class="subject-panel">
+            <div id="part-english-list" class="test-list"></div>
+          </div>
+          <div id="part-maths" class="subject-panel hidden">
+            <div id="part-maths-list" class="test-list"></div>
+          </div>
+          <div id="part-reasoning" class="subject-panel hidden">
+            <div id="part-reasoning-list" class="test-list"></div>
+          </div>
+          <div id="part-konkani" class="subject-panel hidden">
+            <div id="part-konkani-list" class="test-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. CLASS NOTES -->
+      <div class="menu-card" id="card-notes">
+        <div class="menu-card-header" onclick="toggleSection('notes')">
+          <div class="menu-card-left">
+            <span class="menu-icon">📒</span>
+            <div>
+              <h3 class="menu-title">Class Notes</h3>
+              <p class="menu-desc">Upload &amp; share PDF notes with students</p>
+            </div>
+          </div>
+          <span class="chevron" id="chev-notes">▼</span>
+        </div>
+        <div class="menu-dropdown hidden" id="drop-notes">
+          <div id="notes-list" class="pdf-list"></div>
+          <div id="notes-empty" class="empty-msg">No notes uploaded yet.</div>
+        </div>
+      </div>
+
+      <!-- 4. REFERENCE BOOKS -->
+      <div class="menu-card" id="card-books">
+        <div class="menu-card-header" onclick="toggleSection('books')">
+          <div class="menu-card-left">
+            <span class="menu-icon">📚</span>
+            <div>
+              <h3 class="menu-title">Reference Books</h3>
+              <p class="menu-desc">Recommended books &amp; PDFs for exam prep</p>
+            </div>
+          </div>
+          <span class="chevron" id="chev-books">▼</span>
+        </div>
+        <div class="menu-dropdown hidden" id="drop-books">
+          <div id="books-list" class="pdf-list"></div>
+          <div id="books-empty" class="empty-msg">No books uploaded yet.</div>
+        </div>
+      </div>
+
+      <!-- 5. STUDY MATERIAL -->
+      <div class="menu-card" id="card-material">
+        <div class="menu-card-header" onclick="toggleSection('material')">
+          <div class="menu-card-left">
+            <span class="menu-icon">🗂</span>
+            <div>
+              <h3 class="menu-title">Study Material</h3>
+              <p class="menu-desc">Handouts, summaries &amp; practice sheets</p>
+            </div>
+          </div>
+          <span class="chevron" id="chev-material">▼</span>
+        </div>
+        <div class="menu-dropdown hidden" id="drop-material">
+          <div id="material-list" class="pdf-list"></div>
+          <div id="material-empty" class="empty-msg">No material uploaded yet.</div>
+        </div>
+      </div>
+
+      <!-- 6. QUESTION BANK -->
+      <div class="menu-card" id="card-qbank">
+        <div class="menu-card-header" onclick="toggleSection('qbank')">
+          <div class="menu-card-left">
+            <span class="menu-icon">❓</span>
+            <div>
+              <h3 class="menu-title">Question Bank</h3>
+              <p class="menu-desc">Daily questions – tap to reveal answers &amp; explanations</p>
+            </div>
+          </div>
+          <span class="chevron" id="chev-qbank">▼</span>
+        </div>
+        <div class="menu-dropdown hidden" id="drop-qbank">
+          <div class="qbank-toolbar">
+            <div class="qbank-date-tabs" id="qbankDateTabs"></div>
+          </div>
+          <div id="qbank-questions" class="qbank-list"></div>
+          <div id="qbank-empty" class="empty-msg">No questions uploaded yet.</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-name">Maitreya Hinde</span>
+      <span class="footer-sep">|</span>
+      <span>📞 7358425108</span>
+      <span class="footer-sep">|</span>
+      <span>Academic Coordinator</span>
+    </div>
+  </footer>
+
+  <!-- ═══ ADMIN MODAL ═══ -->
+  <div id="adminModal" class="modal-overlay" style="display:none;">
+    <div class="modal-box">
+      <h3 class="modal-title">Admin Login</h3>
+      <input type="password" id="adminPass" class="modal-input" placeholder="Enter admin password"/>
+      <div class="modal-btns">
+        <button class="btn btn-primary" onclick="adminLogin()">Login</button>
+        <button class="btn btn-outline" onclick="closeModal('adminModal')">Cancel</button>
+      </div>
+      <p id="adminError" class="error-msg" style="display:none;">❌ Wrong password</p>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="home.js"></script>
+</body>
+</html>
