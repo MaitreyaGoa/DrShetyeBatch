@@ -148,50 +148,64 @@ function fetchTop5(testId, testTitle, totalMarks, panel) {
     return;
   }
 
-  fetch(SCRIPT_URL + "?testId=" + testId)
-    .then(function (r) { return r.json(); })
-    .then(function (res) {
-      if (!res.success || !res.data || res.data.length === 0) {
-        panel.innerHTML =
-          '<div class="top5-header">🏆 Toppers – ' + testTitle + '</div>' +
-          '<p class="top5-empty">No submissions yet. Be the first to attempt!</p>';
-        return;
-      }
+  panel.innerHTML = '<p class="top5-loading">⏳ Loading...</p>';
 
-      // Sort by total descending, take top 5
-      var top = res.data.slice(0, 5);
-      var medals = ["🥇", "🥈", "🥉", "4", "5"];
-      var total = res.data.length;
-      var outOf = totalMarks || 50;
+  fetch(SCRIPT_URL + "?action=read&testId=" + testId, {
+    method: "GET",
+    mode: "cors"
+  })
+  .then(function(r) {
+    if (!r.ok) throw new Error("Network error");
+    return r.json();
+  })
+  .then(function(res) {
+    renderTop5Data(res, testTitle, totalMarks, panel);
+  })
+  .catch(function() {
+    // Try with no-cors as last resort — won't return data but at least won't error
+    panel.innerHTML =
+      '<div class="top5-header">🏆 Toppers – ' + testTitle + '</div>' +
+      '<p class="top5-empty">⚠️ Could not load. Make sure your Apps Script is deployed with <strong>Anyone</strong> access and re-deploy after any code change.</p>';
+  });
+}
 
-      var html = '<div class="top5-header">'
-        + '🏆 Top Performers – ' + testTitle
-        + '<span class="top5-count">' + total + ' attempted</span>'
-        + '</div>'
-        + '<ol class="top5-list">';
+function renderTop5Data(res, testTitle, totalMarks, panel) {
+  if (!res.success || !res.data || res.data.length === 0) {
+    panel.innerHTML =
+      '<div class="top5-header">🏆 Toppers – ' + testTitle + '</div>' +
+      '<p class="top5-empty">No submissions yet. Be the first to attempt!</p>';
+    return;
+  }
 
-      top.forEach(function (r, i) {
-        var pct = Math.round((r.total / outOf) * 100);
-        var barW = Math.max(4, pct);
-        html += '<li class="top5-item">'
-          + '<span class="top5-rank">' + (i < 3 ? medals[i] : '<span class="top5-num">' + (i+1) + '</span>') + '</span>'
-          + '<div class="top5-info">'
-          +   '<span class="top5-name">' + r.name + '</span>'
-          +   '<div class="top5-bar-wrap"><div class="top5-bar" style="width:' + barW + '%"></div></div>'
-          + '</div>'
-          + '<span class="top5-score">' + r.total + '<span class="top5-outof">/' + outOf + '</span></span>'
-          + '</li>';
-      });
+  var top    = res.data.slice(0, 5);
+  var total  = res.data.length;
+  var outOf  = totalMarks || 50;
+  var medals = ["🥇", "🥈", "🥉"];
 
-      html += '</ol>'
-        + '<div class="top5-footer">Auto-refreshes every 30s</div>';
-      panel.innerHTML = html;
-    })
-    .catch(function () {
-      panel.innerHTML =
-        '<div class="top5-header">🏆 Toppers – ' + testTitle + '</div>' +
-        '<p class="top5-empty">Could not load. Check your connection.</p>';
-    });
+  var html = '<div class="top5-header">'
+    + '🏆 Top Performers – ' + testTitle
+    + '<span class="top5-count">' + total + ' attempted</span>'
+    + '</div>'
+    + '<ol class="top5-list">';
+
+  top.forEach(function(r, i) {
+    var pct  = Math.round((r.total / outOf) * 100);
+    var rank = i < 3
+      ? medals[i]
+      : '<span class="top5-num">' + (i + 1) + '</span>';
+
+    html += '<li class="top5-item">'
+      + '<span class="top5-rank">' + rank + '</span>'
+      + '<div class="top5-info">'
+      +   '<span class="top5-name">' + r.name + '</span>'
+      +   '<div class="top5-bar-wrap"><div class="top5-bar" style="width:' + Math.max(4, pct) + '%"></div></div>'
+      + '</div>'
+      + '<span class="top5-score">' + r.total + '<span class="top5-outof">/' + outOf + '</span></span>'
+      + '</li>';
+  });
+
+  html += '</ol><div class="top5-footer">🔄 Auto-refreshes every 30s</div>';
+  panel.innerHTML = html;
 }
 
 // ══════════════════════════════════════════════════════════
