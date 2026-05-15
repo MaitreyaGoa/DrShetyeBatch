@@ -13,8 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
   var params = new URLSearchParams(window.location.search);
   var testId = params.get("id");
 
-  // Search in both FULL_TESTS and PART_TESTS
-  var allTests = (FULL_TESTS || []).concat(PART_TESTS || []);
+  // Search in FULL_TESTS, PYQ_TESTS and PART_TESTS
+  var allTests = (FULL_TESTS || []).concat(PYQ_TESTS || []).concat(PART_TESTS || []);
   for (var i = 0; i < allTests.length; i++) {
     if (allTests[i].id === testId) { currentTest = allTests[i]; break; }
   }
@@ -122,6 +122,10 @@ function renderQuestion(idx) {
   var html = '<div class="question-num">Question '+(idx+1)+' of '+questions.length+'</div>';
   if (q.passage && idx < 5) html += '<div class="passage-box">'+q.passage+'</div>';
   if (q.clozeContext) html += '<div class="passage-box" style="font-style:italic;">'+q.clozeContext+'</div>';
+  // Show embedded image if present
+  if (q.image) {
+    html += '<div class="question-image-wrap"><img src="'+q.image+'" class="question-image" alt="Question image"/></div>';
+  }
   html += '<div class="question-text">'+(idx+1)+'. '+q.text+'</div>';
   html += '<ul class="options-list">';
   var labels = ["A","B","C","D"];
