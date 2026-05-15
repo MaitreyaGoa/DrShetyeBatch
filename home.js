@@ -2,6 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", function () {
   renderFullTests();
+  renderPYQTests();
   renderPartTests();
   renderPDFs();
   renderQuestionBank();
@@ -31,6 +32,23 @@ function renderFullTests() {
   container.innerHTML = "";
   FULL_TESTS.forEach(function (test) {
     container.appendChild(buildTestRow(test, "fulltest"));
+  });
+}
+
+// ══════════════════════════════════════════════════════════
+// 1B. PREVIOUS YEAR TESTS
+// ══════════════════════════════════════════════════════════
+function renderPYQTests() {
+  var container = document.getElementById("pyq-list");
+  if (!container) return;
+  container.innerHTML = "";
+  var pyqTests = typeof PYQ_TESTS !== "undefined" ? PYQ_TESTS : [];
+  if (pyqTests.length === 0) {
+    container.innerHTML = '<p class="empty-msg">No PYQ tests added yet.</p>';
+    return;
+  }
+  pyqTests.forEach(function (test) {
+    container.appendChild(buildTestRow(test, "pyq"));
   });
 }
 
