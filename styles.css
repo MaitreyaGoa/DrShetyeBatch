@@ -958,3 +958,24 @@ body {
   border-color: rgba(37,211,102,0.5);
   transform: translateY(-1px);
 }
+
+/* ── PYQ ICON ─────────────────────────────────────────────────── */
+.mi-pyq { background: linear-gradient(135deg, rgba(245,158,11,0.22), rgba(245,158,11,0.08)); }
+
+/* ── QUESTION IMAGE ───────────────────────────────────────────── */
+.question-image-wrap {
+  margin-bottom: 16px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px;
+  display: inline-block;
+  max-width: 100%;
+  border: 0.5px solid rgba(255,255,255,0.15);
+}
+.question-image {
+  max-width: 100%;
+  max-height: 220px;
+  display: block;
+  object-fit: contain;
+  border-radius: 6px;
+}
