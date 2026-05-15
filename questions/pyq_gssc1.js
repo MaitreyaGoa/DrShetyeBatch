@@ -1,8 +1,8 @@
 // ============================================================
 // Dr Shetye Academic Program
 // Previous Year GOA SSC PC Exam – PYQ Test 1
-// 60 Questions / 60 Marks / 75 Minutes
-// Source: Official GSSC Exam Paper (Candidate: UTKARSHA MAYEKAR)
+// 50 Questions / 50 Marks / 65 Minutes
+// Sections: English (30) + Maths (10) + Reasoning (10)
 // All answers verified
 // ============================================================
 
@@ -12,79 +12,7 @@ var PASSAGE2 = "In recent years, technological advancements have reshaped the wa
 
 var questions = [
 
-  // ── SECTION 1: KONKANI (Q1–10) ───────────────────────────
-  {
-    id: 301, section: "Konkani",
-    text: "इलोसो पोर, घर राखंकू थोर – या उमायाची जाप किती? (What is the answer to this riddle: 'So small, yet guards the house'?)",
-    options: ["कांटो (Thorn)", "सुणो (Dog)", "किळो (Lock/Key)", "कुलप (Lock)"],
-    answer: "D",
-    explanation: "A lock (कुलप) is small yet guards the house. Answer: D."
-  },
-  {
-    id: 302, section: "Konkani",
-    text: "हेर उतरांकडेन असंबंदीत वा गटा भायल उतर खंयच? (Which word is unrelated/does not belong to the group?)",
-    options: ["आणो (Anna - coin)", "पयसो (Paisa - coin)", "रुपया (Rupee - currency)", "चेक (Cheque)"],
-    answer: "D",
-    explanation: "Aano, Payso, Rupee are Konkani/Indian currency terms. Cheque is a banking instrument - odd one out."
-  },
-  {
-    id: 303, section: "Konkani",
-    text: "आदया तपार रायबारी आसतालो तो कसल काम करतालो? (What work did the messenger/ambassador do in the old days?)",
-    options: ["झगडीं लावपाच (Creating fights)", "लग्नां जुळोवपाच (Arranging marriages)", "विग्नां हाडपाच (Creating obstacles)", "सपनां पळोवपाच (Watching dreams)"],
-    answer: "B",
-    explanation: "The old-time messenger (Raibari) used to arrange marriages. Answer: B."
-  },
-  {
-    id: 304, section: "Konkani",
-    text: "थंड हा-या उरफाट उतर किती? (What is the opposite/antonym of 'थंड' (cold)?)",
-    options: ["शितळ (Cool)", "सौम्य (Mild)", "किरांव (Warm)", "हनू (Hot)"],
-    answer: "D",
-    explanation: "Opposite of थंड (cold) = हनू (hot). Answer: D."
-  },
-  {
-    id: 305, section: "Konkani",
-    text: "हातंतूल वेगळ उतर खंयच? (Which is the odd one out — all are place names in Goa?)",
-    options: ["शिवोले (Shivolim)", "बांबोळे (Bambolim)", "दिवचले (Divar)", "खावचेल (Xaviel/outsider)"],
-    answer: "D",
-    explanation: "Shivolim, Bambolim, Divar are villages in Goa. Khavchel means outsider — does not belong."
-  },
-  {
-    id: 306, section: "Konkani",
-    text: "हातंतूल फूल खंयच? (Which of these is a flower/fruit?)",
-    options: ["अनस (Pineapple)", "सफरचंद (Apple)", "दसण (Flower - Marigold/Dasnam)", "आंतेर (Jackfruit)"],
-    answer: "C",
-    explanation: "Dasnam (दसण) is a flower. The others are fruits. Answer: C."
-  },
-  {
-    id: 307, section: "Konkani",
-    text: "'गणू' हाचो उरफाटो अर्थ ____________. (What is the opposite meaning of 'Ganu'?)",
-    options: ["दुगणू (Double)", "विगणू (Uncounted/Countless)", "सगणू (With qualities)", "पांयगणू (Five times)"],
-    answer: "A",
-    explanation: "Ganu means to count. Duganu = double count. Answer: A."
-  },
-  {
-    id: 308, section: "Konkani",
-    text: "फुर्र जावप म्हणयार किती? (What does 'Phurr jaavp' mean in Konkani?)",
-    options: ["बेजार जावप (To be bored/tired)", "तिडक येवप (To be angry/irritated)", "खोशी जावप (To be happy)", "आवाज करप (To make noise)"],
-    answer: "B",
-    explanation: "Phurr jaavp means to become angry/irritated suddenly. Answer: B."
-  },
-  {
-    id: 309, section: "Konkani",
-    text: "इंग्लीशींत या 'more' या उतराक कोंकणींत सकयल दिल खंयच उतर वापरतात? (Which Konkani word is used for the English word 'more'?)",
-    options: ["मायज (Respect)", "लांब (Long)", "व्हड (Big/More)", "मोठ (Large)"],
-    answer: "A",
-    explanation: "In Konkani, 'more' is expressed as 'Maayj' in certain contexts. Answer: A."
-  },
-  {
-    id: 310, section: "Konkani",
-    text: "'Responsibility' या इंग्लिश उतराक हपरिभाशीक कोंकणी उतर? (What is the Konkani technical term for 'Responsibility'?)",
-    options: ["जापसालदारकी (Responsibility)", "काय2क्षमता (Efficiency)", "तांक (Power/Strength)", "तयारी (Preparation)"],
-    answer: "A",
-    explanation: "Jaapsaldaarki (जापसालदारकी) is the Konkani term for Responsibility. Answer: A."
-  },
-
-  // ── SECTION 2: ENGLISH (Q11–40) ──────────────────────────
+  // ── SECTION 1: ENGLISH (Q1–30) ──────────────────────────
 
   // Reading Comprehension – Passage 1 (Q11-15)
   {
