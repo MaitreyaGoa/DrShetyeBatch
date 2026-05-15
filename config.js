@@ -54,11 +54,11 @@ var PYQ_TESTS = [
   {
     id:          "pyq_gssc1",
     title:       "GSSC PYQ Test 1",
-    description: "Official GSSC Paper · 60 Questions · Konkani + English + Maths + Reasoning",
+    description: "Official GSSC Paper · 50 Questions · English + Maths + Reasoning",
     password:    "pyq001",
-    duration:    4500,
-    totalMarks:  60,
-    sections:    { Konkani: 10, English: 30, Maths: 10, Reasoning: 10 },
+    duration:    3900,
+    totalMarks:  50,
+    sections:    { English: 30, Maths: 10, Reasoning: 10 },
     questionsFile: "questions/pyq_gssc1.js",
     live:        true
   },
