@@ -1,10 +1,10 @@
-// admin.js – Admin panel: shows all Full Tests + Part Tests with merit lists
+// admin.js – Admin panel: shows Full Tests + PYQ Tests + Part Tests with merit lists
 
 var activeTestId = null;
 
 document.addEventListener("DOMContentLoaded", function () {
   buildTabs();
-  var allTests = (FULL_TESTS || []).concat(PART_TESTS || []);
+  var allTests = (FULL_TESTS || []).concat(PYQ_TESTS || []).concat(PART_TESTS || []);
   var firstLive = null;
   for (var i = 0; i < allTests.length; i++) { if (allTests[i].live) { firstLive = allTests[i]; break; } }
   if (firstLive) loadResults(firstLive.id);
@@ -19,6 +19,12 @@ function buildTabs() {
   ftLabel.textContent = "Full Tests";
   tabsEl.appendChild(ftLabel);
   (FULL_TESTS || []).forEach(function (test) { tabsEl.appendChild(makeTab(test)); });
+
+  var pyqLabel = document.createElement("div");
+  pyqLabel.className = "tab-group-label";
+  pyqLabel.textContent = "Previous Year Tests";
+  tabsEl.appendChild(pyqLabel);
+  (PYQ_TESTS || []).forEach(function (test) { tabsEl.appendChild(makeTab(test)); });
 
   var ptLabel = document.createElement("div");
   ptLabel.className = "tab-group-label";
@@ -42,7 +48,7 @@ function loadResults(testId) {
   var tab = document.getElementById("tab-" + testId);
   if (tab) tab.classList.add("active");
 
-  var allTests = (FULL_TESTS || []).concat(PART_TESTS || []);
+  var allTests = (FULL_TESTS || []).concat(PYQ_TESTS || []).concat(PART_TESTS || []);
   var test = null;
   for (var i = 0; i < allTests.length; i++) { if (allTests[i].id === testId) { test = allTests[i]; break; } }
   var panel = document.getElementById("adminResultsPanel");
@@ -85,7 +91,7 @@ function renderResultsTable(test, data) {
 
 function exportCSV(testId) {
   if (!SCRIPT_URL || SCRIPT_URL === "PASTE_YOUR_APPS_SCRIPT_URL_HERE") { alert("Configure SCRIPT_URL first."); return; }
-  var allTests = (FULL_TESTS || []).concat(PART_TESTS || []);
+  var allTests = (FULL_TESTS || []).concat(PYQ_TESTS || []).concat(PART_TESTS || []);
   var test = allTests.find(function (t) { return t.id === testId; });
   fetch(SCRIPT_URL + "?action=read&testId=" + testId)
     .then(function (r) { return r.json(); })
