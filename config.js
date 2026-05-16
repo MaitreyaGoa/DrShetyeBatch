@@ -4,7 +4,7 @@
 // ╚══════════════════════════════════════════════════════════╝
 
 var ADMIN_PASSWORD = "shetye@admin";
-var SCRIPT_URL     = "https://script.google.com/macros/s/AKfycbwc7NM-tgwtxCjZOOyLaFnLe41spGbr-0hzmYChly6cXjbzV4jrXSmelLxXN9IxPK2ZBA/exec";
+var SCRIPT_URL     = "PASTE_YOUR_APPS_SCRIPT_URL_HERE";
 
 // ──────────────────────────────────────────────────────────
 // 1. FULL TESTS
@@ -65,13 +65,13 @@ var PYQ_TESTS = [
   {
     id:          "pyq_gssc2",
     title:       "GSSC PYQ Test 2",
-    description: "Official GSSC Paper · 60 Questions",
+    description: "Official GSSC Paper · 50 Questions · English + Maths + Reasoning",
     password:    "pyq002",
-    duration:    4500,
-    totalMarks:  60,
-    sections:    { Konkani: 10, English: 30, Maths: 10, Reasoning: 10 },
+    duration:    3900,
+    totalMarks:  50,
+    sections:    { English: 30, Maths: 10, Reasoning: 10 },
     questionsFile: "questions/pyq_gssc2.js",
-    live:        false
+    live:        true
   },
   {
     id:          "pyq_gssc3",
