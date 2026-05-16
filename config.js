@@ -4,7 +4,7 @@
 // ╚══════════════════════════════════════════════════════════╝
 
 var ADMIN_PASSWORD = "shetye@admin";
-var SCRIPT_URL     = "PASTE_YOUR_APPS_SCRIPT_URL_HERE";
+var SCRIPT_URL     = "https://script.google.com/macros/s/AKfycbwc7NM-tgwtxCjZOOyLaFnLe41spGbr-0hzmYChly6cXjbzV4jrXSmelLxXN9IxPK2ZBA/exec";
 
 // ──────────────────────────────────────────────────────────
 // 1. FULL TESTS
