@@ -979,3 +979,66 @@ body {
   object-fit: contain;
   border-radius: 6px;
 }
+
+/* ── FOOTER WEBSITE LINKS ─────────────────────────────────────── */
+.footer-websites {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 0.5px solid rgba(255,255,255,0.06);
+}
+.footer-site-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 8px 14px;
+  text-decoration: none;
+  transition: all 0.2s;
+  min-width: 180px;
+}
+.footer-site-link:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.2);
+  transform: translateY(-1px);
+}
+.footer-site-icon {
+  font-size: 18px;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.footer-site-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+}
+.footer-site-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: -0.1px;
+}
+.footer-site-desc {
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+}
+.footer-site-arrow {
+  font-size: 12px;
+  color: rgba(255,255,255,0.25);
+  transition: color 0.2s;
+}
+.footer-site-link:hover .footer-site-arrow {
+  color: rgba(255,255,255,0.6);
+}
