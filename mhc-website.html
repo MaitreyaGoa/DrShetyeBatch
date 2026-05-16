@@ -83,9 +83,10 @@ nav.scrolled{background:rgba(0,0,0,0.93);backdrop-filter:blur(20px);border-botto
 .org-connector-v{width:1px;height:40px;background:rgba(255,255,255,0.1);margin:0 auto;}
 .org-connector-h{display:flex;justify-content:center;align-items:center;gap:0;}
 .org-h-line{flex:1;max-width:200px;height:1px;background:rgba(255,255,255,0.1);}
-.org-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
-@media(max-width:700px){.org-row{grid-template-columns:1fr;}}
-.org-card{background:var(--dark2);padding:28px 24px;text-align:center;transition:background 0.3s;}
+.org-row{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);max-width:700px;margin:0 auto;}
+@media(max-width:600px){.org-row{grid-template-columns:1fr;}}
+.org-card{background:var(--dark2);padding:36px 32px;text-align:center;transition:background 0.3s;position:relative;overflow:hidden;}
+.org-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--org-accent,var(--gold));opacity:0.6;}
 .org-card:hover{background:var(--dark3);}
 .org-role{font-size:9px;letter-spacing:3px;text-transform:uppercase;font-weight:600;margin-bottom:10px;}
 .org-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#fff;}
@@ -300,24 +301,21 @@ footer{background:var(--dark2);border-top:1px solid var(--border);padding:70px 4
     <div class="org-wrap" style="margin-top:80px;padding-top:60px;border-top:1px solid var(--border)">
       <div class="sec-lbl" style="justify-content:center;margin-bottom:40px"><div class="sec-lbl-line"></div><div class="sec-lbl-text">Organizational Structure</div><div class="sec-lbl-line"></div></div>
       <!-- Director -->
-      <div class="org-top">
-        <div class="org-director" style="background:linear-gradient(135deg,rgba(201,147,58,0.12),rgba(201,147,58,0.04));border:1px solid rgba(201,147,58,0.3);padding:24px 48px;text-align:center;">
+      <div class="org-top" style="justify-content:center;">
+        <div class="org-director" style="max-width:700px;width:100%;background:linear-gradient(135deg,rgba(201,147,58,0.12),rgba(201,147,58,0.04));border:1px solid rgba(201,147,58,0.3);padding:24px 48px;text-align:center;">
           <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold2);margin-bottom:10px;font-weight:600">Director</div>
           <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#fff">Maitreya Hinde</div>
           <div style="font-size:10px;color:var(--muted);margin-top:5px;letter-spacing:1px">Founder &middot; Managing Director</div>
         </div>
       </div>
-      <div class="org-connector-v"></div>
-      <div class="org-row">
-        <div class="org-card">
+      <div class="org-connector-v" style="max-width:700px;margin:0 auto;"></div>
+      <div class="org-row" style="grid-template-columns:1fr 1fr;max-width:700px;margin:0 auto;">
+        <div class="org-card" style="--org-accent:#FF6B9D">
           <div class="org-role" style="color:#FF6B9D">CEO</div>
           <div class="org-name">Dr. Namrata Prabhu Hinde</div>
-        </div><div class="org-card">
+        </div><div class="org-card" style="--org-accent:#38b6d8">
           <div class="org-role" style="color:#38b6d8">CFO</div>
           <div class="org-name">Manoj Hinde</div>
-        </div><div class="org-card">
-          <div class="org-role" style="color:#22c55e">COO</div>
-          <div class="org-name">Ibrahim Shaikh</div>
         </div>
       </div>
     </div>
@@ -498,13 +496,7 @@ footer{background:var(--dark2);border-top:1px solid var(--border);padding:70px 4
           <div class="tc-desc">Head of Hinde Academy with full operational authority. Manages financial operations, profitability, compliance and consistent academic quality delivery.</div>
           <div class="tc-tags"><span class="tc-tag">Hinde Academy</span><span class="tc-tag">Finance</span><span class="tc-tag">Operations</span></div>
         </div>
-        <div class="team-card">
-          <div class="tc-role" style="color:#22c55e">COO</div>
-          <div class="tc-name">Ibrahim Shaikh</div>
-          <div class="tc-desc">Business operations lead for MHC Green — solar client acquisition, execution and delivery. Oversees day-to-day cross-vertical operational coordination.</div>
-          <div class="tc-tags"><span class="tc-tag">MHC Green</span><span class="tc-tag">Operations</span><span class="tc-tag">Solar</span></div>
-        </div>
-      </div>
+        
     </div>
   </div>
 </section>
