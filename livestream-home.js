@@ -1,107 +1,72 @@
 // livestream-home.js
-// Reads live stream config from localStorage and renders the card on the homepage.
+// Reads live stream URL from Google Apps Script and renders the homepage card.
+// Requires SCRIPT_URL to be defined in config.js (already is).
 
 (function () {
-  function getLSConfig() {
-    try {
-      var raw = localStorage.getItem('ls_config');
-      return raw ? JSON.parse(raw) : null;
-    } catch (e) { return null; }
-  }
-
   function extractYTId(url) {
     if (!url) return null;
-    // youtu.be/ID
-    var m = url.match(/youtu\.be\/([A-Za-z0-9_\-]{11})/);
-    if (m) return m[1];
-    // watch?v=ID
-    m = url.match(/[?&]v=([A-Za-z0-9_\-]{11})/);
-    if (m) return m[1];
-    // live/ID
-    m = url.match(/live\/([A-Za-z0-9_\-]{11})/);
-    if (m) return m[1];
-    // embed/ID
-    m = url.match(/embed\/([A-Za-z0-9_\-]{11})/);
-    if (m) return m[1];
-    // bare 11-char ID
+    var pp = [/youtu\.be\/([A-Za-z0-9_\-]{11})/, /[?&]v=([A-Za-z0-9_\-]{11})/, /live\/([A-Za-z0-9_\-]{11})/, /embed\/([A-Za-z0-9_\-]{11})/];
+    for (var i = 0; i < pp.length; i++) { var m = url.match(pp[i]); if (m) return m[1]; }
     if (/^[A-Za-z0-9_\-]{11}$/.test(url.trim())) return url.trim();
     return null;
   }
 
-  function renderLSCard() {
-    var cfg = getLSConfig();
+  function renderCard(data) {
     var container = document.getElementById('ls-content');
-    var badge = document.getElementById('lsBadgeHeader');
     if (!container) return;
 
-    if (!cfg || !cfg.url) {
-      // No stream configured – show offline state
-      container.innerHTML = '<div class="ls-no-stream">' +
-        '<div class="ls-offline-icon">📡</div>' +
-        '<p style="font-weight:600;color:#555;">No Live Class Scheduled</p>' +
-        '<p style="font-size:12px;color:#999;margin-top:4px;">Check back at class time or join our WhatsApp channel for announcements.</p>' +
+    if (!data || !data.active || !data.url) {
+      container.innerHTML =
+        '<div class="ls-no-stream">' +
+          '<div class="ls-offline-icon">📡</div>' +
+          '<p style="font-weight:600;color:#555;">No Live Class Right Now</p>' +
+          '<p style="font-size:12px;color:#999;margin-top:4px;">Join our WhatsApp channel for announcements.</p>' +
         '</div>';
       return;
     }
 
-    var ytId = extractYTId(cfg.url);
-    var isLive = cfg.status === 'live';
-    var topic = cfg.topic || 'Online Class';
-    var schedule = cfg.schedule || '';
-    var chatUrl = ytId ? 'https://www.youtube.com/live_chat?v=' + ytId + '&embed_domain=' + location.hostname : '';
-    var watchUrl = cfg.url;
+    var ytId = extractYTId(data.url);
+    var thumb = ytId
+      ? '<img src="https://img.youtube.com/vi/' + ytId + '/mqdefault.jpg" style="width:100%;border-radius:10px;margin-bottom:12px;" onerror="this.style.display=\'none\'">'
+      : '';
 
-    // Show LIVE badge in header
-    if (badge) badge.style.display = isLive ? 'inline-flex' : 'none';
-
-    var statusHtml = '';
-    if (isLive) {
-      statusHtml = '<div class="ls-status-bar"><span class="ls-status-dot"></span><span><strong>CLASS IS LIVE NOW</strong> – Join immediately!</span></div>';
-    } else if (cfg.status === 'scheduled') {
-      statusHtml = '<div class="ls-status-bar" style="border-left-color:#f39c12;background:rgba(243,156,18,.07);">' +
-        '<span style="width:8px;height:8px;border-radius:50%;background:#f39c12;flex-shrink:0;display:inline-block;"></span>' +
-        '<span><strong>Upcoming:</strong> ' + (schedule || 'Class scheduled soon') + '</span></div>';
-    }
-
-    var topicHtml = '<div style="font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:2px;">' + topic + '</div>';
-
-    var watchCard = '<a href="livestream.html" target="_blank" class="ls-link-card ls-student-card">' +
-      '<div class="ls-link-icon">🎬</div>' +
-      '<div class="ls-link-info">' +
-        '<div class="ls-link-title">Watch Live Class</div>' +
-        '<div class="ls-link-desc">Opens the class stream page</div>' +
-      '</div>' +
-      '<div class="ls-link-arrow">→</div></a>';
-
-    var ytCard = '<a href="' + watchUrl + '" target="_blank" class="ls-link-card" style="background:#fff8f8;border-color:#ffcdd2;">' +
-      '<div class="ls-link-icon">▶️</div>' +
-      '<div class="ls-link-info">' +
-        '<div class="ls-link-title">Open on YouTube</div>' +
-        '<div class="ls-link-desc">Watch directly on YouTube app</div>' +
-      '</div>' +
-      '<div class="ls-link-arrow">→</div></a>';
-
-    var howHtml = '<div class="ls-how">' +
-      '<div class="ls-how-step"><span class="ls-step-num">1</span> Open "Watch Live Class" or YouTube link</div>' +
-      '<div class="ls-how-step"><span class="ls-step-num">2</span> Watch the class live with audio &amp; video</div>' +
-      '<div class="ls-how-step"><span class="ls-step-num">3</span> Use YouTube chat to ask questions</div>' +
+    container.innerHTML =
+      '<div style="padding:16px;">' +
+        '<div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">' +
+          '<span style="width:9px;height:9px;border-radius:50%;background:#ff4757;display:inline-block;animation:livePulse 1.2s infinite;flex-shrink:0;"></span>' +
+          '<span style="font-size:12px;font-weight:700;color:#ff4757;letter-spacing:.5px;">CLASS IS LIVE NOW</span>' +
+        '</div>' +
+        thumb +
+        '<a href="livestream.html" target="_blank" style="display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:10px;text-decoration:none;background:linear-gradient(135deg,#fff5f5,#ffe8e8);border:1.5px solid #ffcdd2;margin-bottom:8px;">' +
+          '<div style="font-size:26px;">🎬</div>' +
+          '<div style="flex:1;">' +
+            '<div style="font-size:14px;font-weight:700;color:#1a1a2e;">Watch Live Class</div>' +
+            '<div style="font-size:12px;color:#666;">Tap to open the live stream</div>' +
+          '</div>' +
+          '<div style="font-size:18px;color:#ff4757;font-weight:700;">→</div>' +
+        '</a>' +
+        '<a href="' + data.url + '" target="_blank" style="display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:10px;text-decoration:none;background:#f8f8f8;border:1.5px solid #eee;">' +
+          '<div style="font-size:22px;">▶️</div>' +
+          '<div style="flex:1;">' +
+            '<div style="font-size:13px;font-weight:700;color:#1a1a2e;">Open on YouTube</div>' +
+            '<div style="font-size:12px;color:#666;">Watch in YouTube app</div>' +
+          '</div>' +
+          '<div style="font-size:16px;color:#999;">→</div>' +
+        '</a>' +
       '</div>';
-
-    container.innerHTML = statusHtml + topicHtml +
-      '<p style="font-size:12px;color:#999;margin-bottom:12px;">' + (schedule || '') + '</p>' +
-      '<div class="ls-link-cards">' + watchCard + ytCard + '</div>' +
-      howHtml;
   }
 
-  // Run on load
+  function init() {
+    if (typeof SCRIPT_URL === 'undefined') { setTimeout(init, 300); return; }
+    fetch(SCRIPT_URL + '?action=getStream')
+      .then(function(r){ return r.json(); })
+      .then(function(res){ renderCard(res); })
+      .catch(function(){ renderCard(null); });
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', renderLSCard);
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    renderLSCard();
+    init();
   }
-
-  // Re-render if storage changes (admin updates from another tab)
-  window.addEventListener('storage', function (e) {
-    if (e.key === 'ls_config') renderLSCard();
-  });
 })();
