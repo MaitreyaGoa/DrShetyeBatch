@@ -6,33 +6,357 @@
   <title>Admin Panel – Dr Shetye Academic Program</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="styles.css"/>
+  <style>
+    /* ── LIVE STREAM SECTION ── */
+    .ls-section {
+      background: #fff;
+      border-radius: 14px;
+      border: 1.5px solid #e5e9ef;
+      overflow: hidden;
+      margin-bottom: 28px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.05);
+    }
+    .ls-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      cursor: pointer;
+      user-select: none;
+    }
+    .ls-section-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .ls-header-icon {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, #ff4757, #c0392b);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .ls-header-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .ls-header-sub {
+      font-size: 12px;
+      color: rgba(255,255,255,.6);
+      margin-top: 2px;
+    }
+    .ls-toggle-btn {
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.2);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background .15s;
+      white-space: nowrap;
+    }
+    .ls-toggle-btn:hover { background: rgba(255,255,255,.25); }
+
+    .ls-body { padding: 22px; display: none; }
+    .ls-body.open { display: block; }
+
+    /* STATUS SELECTOR */
+    .ls-status-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .ls-status-opt { display: none; }
+    .ls-status-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 14px 8px;
+      border: 2px solid #e5e9ef;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      color: #888;
+      transition: all .15s;
+      text-align: center;
+    }
+    .ls-status-label .sl-icon { font-size: 24px; }
+    #ls-opt-live:checked + .ls-status-label   { border-color: #ff4757; background: #fff5f5; color: #ff4757; }
+    #ls-opt-sched:checked + .ls-status-label  { border-color: #f39c12; background: #fffbf0; color: #b8860b; }
+    #ls-opt-off:checked + .ls-status-label    { border-color: #95a5a6; background: #f8f9fa; color: #555; }
+
+    /* FORM */
+    .ls-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    @media (max-width: 600px) { .ls-form-grid { grid-template-columns: 1fr; } }
+    .ls-form-grid .full { grid-column: 1 / -1; }
+
+    .ls-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 5px;
+    }
+    .ls-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid #e5e9ef;
+      border-radius: 8px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 13px;
+      color: #1a1a2e;
+      background: #fdfdfd;
+      transition: border-color .15s;
+      outline: none;
+    }
+    .ls-input:focus { border-color: #ff4757; }
+    .ls-textarea { resize: vertical; min-height: 65px; }
+    .ls-hint { font-size: 11px; color: #aaa; margin-top: 4px; }
+
+    /* SCHEDULE ROWS */
+    .ls-sched-row {
+      display: flex; gap: 8px; align-items: center; margin-bottom: 8px;
+    }
+    .ls-sched-row .ls-input { flex: 1; }
+    .ls-remove {
+      background: none; border: 1.5px solid #e5e9ef; border-radius: 6px;
+      width: 32px; height: 32px; cursor: pointer; font-size: 16px; color: #aaa;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      transition: border-color .12s, color .12s;
+    }
+    .ls-remove:hover { border-color: #ff4757; color: #ff4757; }
+    .ls-add-row {
+      width: 100%; background: #fff; border: 1.5px dashed #ccc; color: #888;
+      font-size: 13px; font-weight: 600; padding: 9px; border-radius: 8px;
+      cursor: pointer; transition: all .12s; margin-top: 4px;
+    }
+    .ls-add-row:hover { border-color: #ff4757; color: #ff4757; }
+
+    /* ACTION ROW */
+    .ls-actions {
+      display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;
+    }
+    .ls-btn {
+      padding: 11px 20px; border-radius: 10px; border: none; cursor: pointer;
+      font-family: 'Source Sans 3', sans-serif; font-size: 14px; font-weight: 700;
+      transition: transform .12s, box-shadow .12s;
+    }
+    .ls-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.12); }
+    .ls-btn:active { transform: scale(.98); }
+    .ls-btn-save { background: #ff4757; color: #fff; flex: 1; }
+    .ls-btn-clear { background: #f0f0f0; color: #555; }
+    .ls-btn-preview { background: #1a1a2e; color: #fff; }
+
+    /* CURRENT STATUS PILL */
+    .ls-current-status {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 16px; border-radius: 10px; margin-bottom: 20px;
+      font-size: 13px; font-weight: 600;
+    }
+    .ls-current-status.status-live    { background: #fff0f0; border: 1px solid #ffcdd2; color: #c0392b; }
+    .ls-current-status.status-sched   { background: #fffbf0; border: 1px solid #ffe082; color: #b8860b; }
+    .ls-current-status.status-offline { background: #f8f9fa; border: 1px solid #dee2e6; color: #555; }
+    .ls-live-dot {
+      width: 9px; height: 9px; border-radius: 50%; background: currentColor;
+      animation: lspulse 1.2s infinite;
+    }
+    @keyframes lspulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+
+    /* PREVIEW THUMB */
+    .ls-preview-wrap {
+      background: #f8f9fa; border-radius: 10px; border: 1px dashed #ddd;
+      padding: 14px; margin-top: 18px;
+    }
+    .ls-preview-title { font-size: 12px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 10px; }
+    .ls-preview-thumb { width: 100%; border-radius: 8px; margin-bottom: 8px; display: none; }
+    .ls-preview-badge {
+      display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px;
+      border-radius: 20px; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px;
+    }
+    .pb-live     { background: #ff4757; color: #fff; }
+    .pb-sched    { background: #fff3cd; color: #856404; }
+    .pb-offline  { background: #e9ecef; color: #555; }
+
+    /* LINKS */
+    .ls-links-row { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+    .ls-link-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 7px 14px; border-radius: 20px; font-size: 12px; font-weight: 600;
+      text-decoration: none; border: 1.5px solid #e5e9ef; color: #333;
+      transition: background .12s;
+    }
+    .ls-link-pill:hover { background: #f4f6f9; }
+
+    /* TOAST */
+    .ls-toast {
+      position: fixed; bottom: 24px; left: 50%;
+      transform: translateX(-50%) translateY(60px);
+      background: #1a1a2e; color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 13px; font-weight: 600; z-index: 9999;
+      opacity: 0; transition: transform .3s, opacity .3s; white-space: nowrap;
+    }
+    .ls-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    /* DIVIDER */
+    .section-divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 24px 0 20px; color: #9ca3af; font-size: 13px; font-weight: 600;
+    }
+    .section-divider::before, .section-divider::after {
+      content: ''; flex: 1; height: 1px; background: #e5e9ef;
+    }
+  </style>
 </head>
 <body>
-
   <header class="site-header">
     <div class="header-inner">
       <div class="header-logo">🎓</div>
       <div class="header-text">
         <h1 class="header-title">Dr Shetye Academic Program</h1>
-        <p class="header-sub">Admin Panel – Merit Lists</p>
+        <p class="header-sub">Admin Panel – Merit Lists &amp; Live Stream</p>
       </div>
     </div>
   </header>
 
   <main style="max-width:1100px;margin:0 auto;padding:28px 16px 60px;">
 
+    <!-- TOP BAR -->
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:24px;">
       <div>
-        <h2 style="font-family:'Playfair Display',serif;color:#0d2b55;font-size:1.6rem;">Central Merit Lists</h2>
-        <p style="color:#6b7280;font-size:.88rem;">All student results stored centrally per test</p>
+        <h2 style="font-family:'Playfair Display',serif;color:#0d2b55;font-size:1.6rem;">Admin Control Panel</h2>
+        <p style="color:#6b7280;font-size:.88rem;">Manage merit lists, test results &amp; live stream</p>
       </div>
       <a href="index.html" class="btn btn-outline" style="text-decoration:none;">← Back to Home</a>
     </div>
 
-    <!-- Tab buttons for each test -->
+    <!-- ══════════════════════════════════════════
+         LIVE STREAM MANAGEMENT SECTION
+    ══════════════════════════════════════════ -->
+    <div class="ls-section">
+      <!-- Header (click to expand/collapse) -->
+      <div class="ls-section-header" onclick="toggleLSPanel()">
+        <div class="ls-section-header-left">
+          <div class="ls-header-icon">📡</div>
+          <div>
+            <div class="ls-header-title">Live Online Class Manager</div>
+            <div class="ls-header-sub">Control the YouTube stream shown to students</div>
+          </div>
+        </div>
+        <button class="ls-toggle-btn" id="lsToggleBtn">▼ Expand</button>
+      </div>
+
+      <!-- Body -->
+      <div class="ls-body" id="lsBody">
+
+        <!-- Current status indicator -->
+        <div id="lsCurrentStatus"></div>
+
+        <!-- STATUS SELECTOR -->
+        <div style="margin-bottom:18px;">
+          <label class="ls-label" style="margin-bottom:10px;">Set Stream Status</label>
+          <div class="ls-status-grid">
+            <div>
+              <input type="radio" name="lsStatus" id="ls-opt-live" value="live" class="ls-status-opt"/>
+              <label for="ls-opt-live" class="ls-status-label">
+                <span class="sl-icon">🔴</span> LIVE NOW
+              </label>
+            </div>
+            <div>
+              <input type="radio" name="lsStatus" id="ls-opt-sched" value="scheduled" class="ls-status-opt" checked/>
+              <label for="ls-opt-sched" class="ls-status-label">
+                <span class="sl-icon">⏰</span> SCHEDULED
+              </label>
+            </div>
+            <div>
+              <input type="radio" name="lsStatus" id="ls-opt-off" value="offline" class="ls-status-opt"/>
+              <label for="ls-opt-off" class="ls-status-label">
+                <span class="sl-icon">⭕</span> OFFLINE
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- STREAM LINK + DETAILS -->
+        <div class="ls-form-grid">
+          <div class="full">
+            <label class="ls-label">YouTube Stream URL</label>
+            <input type="url" id="lsUrl" class="ls-input" placeholder="https://www.youtube.com/watch?v=XXXXXXXXXXX  or  youtu.be/XXXXX"/>
+            <p class="ls-hint">Paste full YouTube link, youtu.be short link, or just the 11-character video ID.</p>
+          </div>
+          <div class="full">
+            <label class="ls-label">Class Topic / Subject</label>
+            <input type="text" id="lsTopic" class="ls-input" placeholder="e.g. English Grammar – Tenses · Batch 3"/>
+          </div>
+          <div>
+            <label class="ls-label">Date &amp; Time</label>
+            <input type="text" id="lsScheduleTime" class="ls-input" placeholder="e.g. Today, 5:00 PM – 7:00 PM"/>
+          </div>
+          <div>
+            <label class="ls-label">Note for Students</label>
+            <input type="text" id="lsNotes" class="ls-input" placeholder="e.g. Keep notebook ready"/>
+          </div>
+        </div>
+
+        <!-- WEEKLY SCHEDULE -->
+        <div style="margin-bottom:6px;">
+          <label class="ls-label" style="margin-bottom:8px;">Weekly Class Schedule (shown to students)</label>
+          <div id="lsSchedRows"></div>
+          <button class="ls-add-row" onclick="lsAddRow()">+ Add Schedule Row</button>
+        </div>
+
+        <!-- PREVIEW -->
+        <div class="ls-preview-wrap" id="lsPreviewWrap" style="display:none;">
+          <div class="ls-preview-title">📺 Preview (what students see)</div>
+          <img id="lsThumb" class="ls-preview-thumb" alt="Stream thumbnail"/>
+          <div id="lsPreviewContent"></div>
+          <div class="ls-links-row">
+            <a href="livestream.html" target="_blank" class="ls-link-pill">🎬 Student Stream Page →</a>
+            <a href="index.html" target="_blank" class="ls-link-pill">🏠 Home Card →</a>
+          </div>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="ls-actions">
+          <button class="ls-btn ls-btn-save" onclick="lsSave()">💾 Save &amp; Publish to Students</button>
+          <button class="ls-btn ls-btn-clear" onclick="lsClear()">🗑 Clear / Go Offline</button>
+        </div>
+
+        <!-- HOW TO USE -->
+        <div style="margin-top:20px;padding:14px;background:#f8f9fa;border-radius:10px;font-size:12px;color:#6b7280;line-height:1.8;">
+          <strong style="color:#374151;">📖 Quick Guide:</strong><br/>
+          1. Go to <a href="https://studio.youtube.com" target="_blank" style="color:#ff4757;">YouTube Studio</a> → click <strong>Go Live</strong> → copy the stream URL<br/>
+          2. Paste URL above → set status to <strong>LIVE NOW</strong> → click <strong>Save &amp; Publish</strong><br/>
+          3. Students open the homepage → tap <em>Live Online Class</em> → watch directly<br/>
+          4. After class → set status to <strong>OFFLINE</strong> and save
+        </div>
+
+      </div><!-- /ls-body -->
+    </div><!-- /ls-section -->
+
+    <!-- DIVIDER -->
+    <div class="section-divider">📋 Merit Lists &amp; Test Results</div>
+
+    <!-- ORIGINAL TAB BUTTONS -->
     <div class="admin-tabs" id="adminTabs"></div>
 
-    <!-- Results panel -->
+    <!-- ORIGINAL RESULTS PANEL -->
     <div class="admin-results-panel" id="adminResultsPanel">
       <p style="color:#6b7280;text-align:center;padding:40px;">Select a test above to view results.</p>
     </div>
@@ -49,7 +373,148 @@
     </div>
   </footer>
 
+  <div class="ls-toast" id="lsToast"></div>
+
   <script src="config.js"></script>
   <script src="admin.js"></script>
+
+  <script>
+  // ══════════════════════════════════════════
+  // LIVE STREAM ADMIN LOGIC
+  // ══════════════════════════════════════════
+
+  var lsSchedData = [];
+  var lsPanelOpen = false;
+
+  function toggleLSPanel() {
+    lsPanelOpen = !lsPanelOpen;
+    document.getElementById('lsBody').classList.toggle('open', lsPanelOpen);
+    document.getElementById('lsToggleBtn').textContent = lsPanelOpen ? '▲ Collapse' : '▼ Expand';
+    if (lsPanelOpen) lsRenderCurrentStatus();
+  }
+
+  function lsGetConfig() {
+    try { return JSON.parse(localStorage.getItem('ls_config') || 'null'); } catch(e) { return null; }
+  }
+
+  function lsExtractId(url) {
+    if (!url) return null;
+    var pp = [/youtu\.be\/([A-Za-z0-9_\-]{11})/, /[?&]v=([A-Za-z0-9_\-]{11})/, /live\/([A-Za-z0-9_\-]{11})/, /embed\/([A-Za-z0-9_\-]{11})/];
+    for (var i = 0; i < pp.length; i++) { var m = url.match(pp[i]); if (m) return m[1]; }
+    if (/^[A-Za-z0-9_\-]{11}$/.test(url.trim())) return url.trim();
+    return null;
+  }
+
+  function lsEsc(s) {
+    return (s || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function lsAddRow(time, subject) {
+    var idx = lsSchedData.length;
+    lsSchedData.push({ time: time || '', subject: subject || '' });
+    var wrap = document.getElementById('lsSchedRows');
+    var d = document.createElement('div');
+    d.className = 'ls-sched-row';
+    d.dataset.idx = idx;
+    d.innerHTML =
+      '<input type="text" class="ls-input" placeholder="Time (e.g. Mon–Fri, 5 PM)" value="' + lsEsc(time||'') + '" oninput="lsSchedData[' + idx + '].time=this.value"/>' +
+      '<input type="text" class="ls-input" placeholder="Subject / Class" value="' + lsEsc(subject||'') + '" oninput="lsSchedData[' + idx + '].subject=this.value"/>' +
+      '<button class="ls-remove" onclick="this.parentElement.remove();lsSchedData[' + idx + ']=null;">×</button>';
+    wrap.appendChild(d);
+  }
+
+  function lsRenderCurrentStatus() {
+    var cfg = lsGetConfig();
+    var el = document.getElementById('lsCurrentStatus');
+    if (!cfg || !cfg.url) {
+      el.innerHTML = '<div class="ls-current-status status-offline">⭕ &nbsp;Stream is currently <strong>OFFLINE</strong> — students see "No class" message</div>';
+      return;
+    }
+    if (cfg.status === 'live') {
+      el.innerHTML = '<div class="ls-current-status status-live"><span class="ls-live-dot"></span>&nbsp;Stream is <strong>LIVE NOW</strong> — ' + lsEsc(cfg.topic || '') + '</div>';
+    } else if (cfg.status === 'scheduled') {
+      el.innerHTML = '<div class="ls-current-status status-sched">⏰ &nbsp;Stream is <strong>SCHEDULED</strong> — ' + lsEsc(cfg.topic || '') + ' · ' + lsEsc(cfg.schedule || '') + '</div>';
+    } else {
+      el.innerHTML = '<div class="ls-current-status status-offline">⭕ &nbsp;Stream is <strong>OFFLINE</strong></div>';
+    }
+  }
+
+  function lsRenderPreview(cfg) {
+    var wrap = document.getElementById('lsPreviewWrap');
+    var content = document.getElementById('lsPreviewContent');
+    var thumb = document.getElementById('lsThumb');
+    if (!cfg || !cfg.url) { wrap.style.display = 'none'; return; }
+    wrap.style.display = 'block';
+    var ytId = lsExtractId(cfg.url);
+    if (ytId) {
+      thumb.src = 'https://img.youtube.com/vi/' + ytId + '/mqdefault.jpg';
+      thumb.style.display = 'block';
+    } else {
+      thumb.style.display = 'none';
+    }
+    var bClass = cfg.status === 'live' ? 'pb-live' : cfg.status === 'scheduled' ? 'pb-sched' : 'pb-offline';
+    var bText = cfg.status === 'live' ? '🔴 LIVE NOW' : cfg.status === 'scheduled' ? '⏰ SCHEDULED' : '⭕ OFFLINE';
+    content.innerHTML =
+      '<span class="ls-preview-badge ' + bClass + '">' + bText + '</span>' +
+      '<div style="font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:2px;">' + lsEsc(cfg.topic || 'Untitled Class') + '</div>' +
+      '<div style="font-size:12px;color:#999;">' + lsEsc(cfg.schedule || '') + '</div>' +
+      (cfg.notes ? '<div style="font-size:12px;color:#666;margin-top:3px;">' + lsEsc(cfg.notes) + '</div>' : '') +
+      '<div style="font-size:11px;color:#bbb;margin-top:4px;word-break:break-all;">' + lsEsc(cfg.url) + '</div>';
+  }
+
+  function lsSave() {
+    var url = (document.getElementById('lsUrl').value || '').trim();
+    var status = document.querySelector('input[name="lsStatus"]:checked').value;
+    var topic = (document.getElementById('lsTopic').value || '').trim();
+    var schedTime = (document.getElementById('lsScheduleTime').value || '').trim();
+    var notes = (document.getElementById('lsNotes').value || '').trim();
+    var cleanSched = lsSchedData.filter(function(s){ return s && (s.time || s.subject); });
+    var cfg = { url: url, status: status, topic: topic, schedule: schedTime, notes: notes, classSchedule: cleanSched, updatedAt: new Date().toISOString() };
+    localStorage.setItem('ls_config', JSON.stringify(cfg));
+    lsRenderCurrentStatus();
+    lsRenderPreview(cfg);
+    lsToast('✅ Published! Students will see the update immediately.');
+  }
+
+  function lsClear() {
+    if (!confirm('Clear the live stream? Students will see "No Live Class" on the homepage.')) return;
+    localStorage.removeItem('ls_config');
+    document.getElementById('lsUrl').value = '';
+    document.getElementById('lsTopic').value = '';
+    document.getElementById('lsScheduleTime').value = '';
+    document.getElementById('lsNotes').value = '';
+    document.getElementById('ls-opt-off').checked = true;
+    lsSchedData = [];
+    document.getElementById('lsSchedRows').innerHTML = '';
+    lsRenderCurrentStatus();
+    lsRenderPreview(null);
+    lsToast('🗑 Cleared. Stream is now offline.');
+  }
+
+  function lsToast(msg) {
+    var t = document.getElementById('lsToast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); }, 3500);
+  }
+
+  // ── Load saved config on page open ──
+  (function lsInit() {
+    var cfg = lsGetConfig();
+    if (!cfg) return;
+    if (cfg.url) document.getElementById('lsUrl').value = cfg.url;
+    if (cfg.status) {
+      var map = { live: 'ls-opt-live', scheduled: 'ls-opt-sched', offline: 'ls-opt-off' };
+      var el = document.getElementById(map[cfg.status]);
+      if (el) el.checked = true;
+    }
+    if (cfg.topic)    document.getElementById('lsTopic').value = cfg.topic;
+    if (cfg.schedule) document.getElementById('lsScheduleTime').value = cfg.schedule;
+    if (cfg.notes)    document.getElementById('lsNotes').value = cfg.notes;
+    if (cfg.classSchedule && cfg.classSchedule.length) {
+      cfg.classSchedule.forEach(function(s){ lsAddRow(s.time, s.subject); });
+    }
+  })();
+  </script>
 </body>
 </html>
