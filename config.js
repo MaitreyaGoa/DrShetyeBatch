@@ -71,7 +71,7 @@ var PYQ_TESTS = [
     totalMarks:  50,
     sections:    { English: 30, Maths: 10, Reasoning: 10 },
     questionsFile: "questions/pyq_gssc2.js",
-    live:        true
+    live:        false
   },
   {
     id:          "pyq_gssc3",
