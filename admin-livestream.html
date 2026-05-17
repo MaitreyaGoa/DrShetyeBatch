@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Live Stream Admin – Dr Shetye</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red: #ff4757;
+      --green: #2ed573;
+      --bg: #f4f6f9;
+      --card: #fff;
+      --text: #1a1a2e;
+      --text2: #555;
+      --text3: #999;
+      --border: #e5e9ef;
+      --radius: 12px;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* TOP BAR */
+    .topbar {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+    }
+    .topbar-title { font-size: 15px; font-weight: 700; }
+    .topbar-sub { font-size: 11px; color: rgba(255,255,255,.6); }
+    .back-btn { color: rgba(255,255,255,.8); text-decoration: none; font-size: 13px; }
+    .back-btn:hover { color: #fff; }
+
+    /* WRAP */
+    .wrap { max-width: 600px; margin: 0 auto; padding: 20px 14px 40px; }
+
+    /* CARD */
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* FORM ELEMENTS */
+    .form-group { margin-bottom: 14px; }
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text2);
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+    }
+    input[type="text"], input[type="url"], textarea, select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--text);
+      background: #fdfdfd;
+      transition: border-color .15s;
+      outline: none;
+    }
+    input:focus, textarea:focus, select:focus { border-color: var(--red); }
+    textarea { resize: vertical; min-height: 70px; }
+    .hint { font-size: 11px; color: var(--text3); margin-top: 4px; }
+
+    /* STATUS TOGGLE */
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .status-opt {
+      display: none;
+    }
+    .status-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 12px 8px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: center;
+      transition: border-color .15s, background .15s;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text2);
+    }
+    .status-label .sl-icon { font-size: 22px; }
+    .status-opt:checked + .status-label {
+      border-color: var(--red);
+      background: #fff5f5;
+      color: var(--red);
+    }
+    #opt-live:checked + .status-label { border-color: #ff4757; background: #fff0f0; color: #ff4757; }
+    #opt-scheduled:checked + .status-label { border-color: #f39c12; background: #fffbf0; color: #b8860b; }
+    #opt-offline:checked + .status-label { border-color: #95a5a6; background: #f8f9fa; color: #555; }
+
+    /* SCHEDULE ROWS */
+    .schedule-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .schedule-row input { flex: 1; }
+    .remove-btn {
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      width: 32px; height: 32px;
+      cursor: pointer;
+      font-size: 16px;
+      color: var(--text3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: border-color .12s, color .12s;
+    }
+    .remove-btn:hover { border-color: var(--red); color: var(--red); }
+
+    /* BUTTONS */
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn {
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: transform .12s, box-shadow .12s;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+    .btn:active { transform: scale(.98); }
+    .btn-primary { background: var(--red); color: #fff; flex: 1; }
+    .btn-secondary { background: #f0f0f0; color: var(--text); }
+    .btn-clear { background: #fff; border: 1.5px solid var(--border); color: var(--text2); }
+    .btn-add { background: #fff; border: 1.5px dashed #ccc; color: var(--text2); width: 100%; font-size: 13px; padding: 9px; border-radius: 8px; margin-top: 4px; cursor: pointer; transition: border-color .12s, color .12s; }
+    .btn-add:hover { border-color: var(--red); color: var(--red); }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(60px);
+      background: #1a1a2e;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      z-index: 9999;
+      opacity: 0;
+      transition: transform .3s, opacity .3s;
+      white-space: nowrap;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    /* PREVIEW CARD */
+    .preview-wrap {
+      background: #f8f8f8;
+      border-radius: 10px;
+      border: 1px dashed #ddd;
+      padding: 14px;
+      font-size: 13px;
+    }
+    .preview-url { word-break: break-all; color: var(--text3); font-size: 11px; margin-top: 4px; }
+    .preview-status-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 6px;
+    }
+    .badge-live { background: #ff4757; color: #fff; }
+    .badge-scheduled { background: #fff3cd; color: #856404; }
+    .badge-offline { background: #e9ecef; color: #555; }
+
+    /* LINK PREVIEW */
+    .link-preview { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+    .link-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      color: var(--text);
+      transition: background .12s;
+    }
+    .link-pill:hover { background: var(--bg); }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div>
+      <div class="topbar-title">📡 Live Stream Admin</div>
+      <div class="topbar-sub">Dr Shetye Academic Programme</div>
+    </div>
+    <a href="index.html" class="back-btn">← Back to Home</a>
+  </div>
+
+  <div class="wrap">
+
+    <!-- STREAM LINK -->
+    <div class="card">
+      <div class="card-title">🔗 YouTube Stream Link</div>
+      <div class="form-group">
+        <label>YouTube URL or Video ID</label>
+        <input type="url" id="streamUrl" placeholder="https://www.youtube.com/watch?v=XXXXXXXXXXX"/>
+        <p class="hint">Paste the YouTube live stream link. Supports full URLs, short links (youtu.be), or just the 11-character video ID.</p>
+      </div>
+    </div>
+
+    <!-- STATUS -->
+    <div class="card">
+      <div class="card-title">🔴 Stream Status</div>
+      <div class="status-grid">
+        <div>
+          <input type="radio" name="streamStatus" id="opt-live" value="live" class="status-opt"/>
+          <label for="opt-live" class="status-label">
+            <span class="sl-icon">🔴</span> LIVE NOW
+          </label>
+        </div>
+        <div>
+          <input type="radio" name="streamStatus" id="opt-scheduled" value="scheduled" class="status-opt" checked/>
+          <label for="opt-scheduled" class="status-label">
+            <span class="sl-icon">⏰</span> SCHEDULED
+          </label>
+        </div>
+        <div>
+          <input type="radio" name="streamStatus" id="opt-offline" value="offline" class="status-opt"/>
+          <label for="opt-offline" class="status-label">
+            <span class="sl-icon">⭕</span> OFFLINE
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLASS DETAILS -->
+    <div class="card">
+      <div class="card-title">📋 Class Details</div>
+      <div class="form-group">
+        <label>Class Topic / Subject</label>
+        <input type="text" id="classTopic" placeholder="e.g. English Grammar – Tenses · Batch 3"/>
+      </div>
+      <div class="form-group">
+        <label>Date &amp; Time</label>
+        <input type="text" id="classSchedule" placeholder="e.g. Today, 5:00 PM – 7:00 PM"/>
+      </div>
+      <div class="form-group">
+        <label>Note for Students (optional)</label>
+        <textarea id="classNotes" placeholder="e.g. Please keep notebook ready. Recording will be uploaded after class."></textarea>
+      </div>
+    </div>
+
+    <!-- WEEKLY SCHEDULE -->
+    <div class="card">
+      <div class="card-title">📅 Weekly Class Schedule (shown to students)</div>
+      <div id="scheduleRows"></div>
+      <button class="btn-add" onclick="addScheduleRow()">+ Add Schedule Row</button>
+    </div>
+
+    <!-- ACTION BUTTONS -->
+    <div class="btn-row" style="margin-bottom:16px;">
+      <button class="btn btn-primary" onclick="saveConfig()">💾 Save &amp; Publish</button>
+      <button class="btn btn-clear" onclick="clearConfig()">🗑 Clear / Go Offline</button>
+    </div>
+
+    <!-- PREVIEW -->
+    <div class="card">
+      <div class="card-title">👁 Current Preview</div>
+      <div class="preview-wrap" id="previewWrap">
+        <p style="color:#999;font-size:12px;">Save settings to see preview.</p>
+      </div>
+      <div class="link-preview">
+        <a href="livestream.html" target="_blank" class="link-pill">🎬 Student Stream Page →</a>
+        <a href="index.html" target="_blank" class="link-pill">🏠 Home Page →</a>
+      </div>
+    </div>
+
+    <!-- INSTRUCTIONS -->
+    <div class="card" style="background:#f9fafb;">
+      <div class="card-title">📖 How to Start a Live Class</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.7;">
+        <p style="margin-bottom:8px;"><strong>Step 1 –</strong> Go to <a href="https://studio.youtube.com" target="_blank" style="color:var(--red);">YouTube Studio</a> → <strong>Go Live</strong></p>
+        <p style="margin-bottom:8px;"><strong>Step 2 –</strong> Copy the YouTube stream link once it's created</p>
+        <p style="margin-bottom:8px;"><strong>Step 3 –</strong> Paste the link above, set status to <strong>LIVE NOW</strong> or <strong>SCHEDULED</strong>, and click Save</p>
+        <p style="margin-bottom:8px;"><strong>Step 4 –</strong> Students visit the <strong>Student Stream Page</strong> – they'll see the live video player automatically</p>
+        <p><strong>After class –</strong> Set status to <strong>OFFLINE</strong> and clear the link, or leave it so students can rewatch the recording</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    var scheduleData = [];
+
+    function getLSConfig() {
+      try { return JSON.parse(localStorage.getItem('ls_config') || 'null'); } catch(e) { return null; }
+    }
+
+    function extractYTId(url) {
+      if (!url) return null;
+      var patterns = [
+        /youtu\.be\/([A-Za-z0-9_\-]{11})/,
+        /[?&]v=([A-Za-z0-9_\-]{11})/,
+        /live\/([A-Za-z0-9_\-]{11})/,
+        /embed\/([A-Za-z0-9_\-]{11})/
+      ];
+      for (var i = 0; i < patterns.length; i++) {
+        var m = url.match(patterns[i]);
+        if (m) return m[1];
+      }
+      if (/^[A-Za-z0-9_\-]{11}$/.test(url.trim())) return url.trim();
+      return null;
+    }
+
+    function addScheduleRow(time, subject) {
+      var idx = scheduleData.length;
+      scheduleData.push({ time: time || '', subject: subject || '' });
+      var rowsEl = document.getElementById('scheduleRows');
+      var div = document.createElement('div');
+      div.className = 'schedule-row';
+      div.dataset.idx = idx;
+      div.innerHTML =
+        '<input type="text" placeholder="Time (e.g. Mon–Fri, 5 PM)" value="' + escHtml(time || '') + '" oninput="updateSchedule(' + idx + ', \'time\', this.value)"/>' +
+        '<input type="text" placeholder="Subject / Class" value="' + escHtml(subject || '') + '" oninput="updateSchedule(' + idx + ', \'subject\', this.value)"/>' +
+        '<button class="remove-btn" onclick="removeScheduleRow(this, ' + idx + ')">×</button>';
+      rowsEl.appendChild(div);
+    }
+
+    function updateSchedule(idx, field, val) {
+      if (scheduleData[idx]) scheduleData[idx][field] = val;
+    }
+
+    function removeScheduleRow(btn, idx) {
+      btn.parentElement.remove();
+      scheduleData[idx] = null;
+    }
+
+    function escHtml(s) {
+      return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    function saveConfig() {
+      var url = document.getElementById('streamUrl').value.trim();
+      var status = document.querySelector('input[name="streamStatus"]:checked').value;
+      var topic = document.getElementById('classTopic').value.trim();
+      var schedule = document.getElementById('classSchedule').value.trim();
+      var notes = document.getElementById('classNotes').value.trim();
+      var cleanSchedule = scheduleData.filter(function(s) { return s && (s.time || s.subject); });
+
+      var cfg = { url: url, status: status, topic: topic, schedule: schedule, notes: notes, classSchedule: cleanSchedule, updatedAt: new Date().toISOString() };
+      localStorage.setItem('ls_config', JSON.stringify(cfg));
+      showToast('✅ Saved! Students will see the update instantly.');
+      renderPreview(cfg);
+    }
+
+    function clearConfig() {
+      if (!confirm('Clear live stream? Students will see "No class" message.')) return;
+      localStorage.removeItem('ls_config');
+      document.getElementById('streamUrl').value = '';
+      document.querySelector('#opt-offline').checked = true;
+      document.getElementById('classTopic').value = '';
+      document.getElementById('classSchedule').value = '';
+      document.getElementById('classNotes').value = '';
+      scheduleData = [];
+      document.getElementById('scheduleRows').innerHTML = '';
+      renderPreview(null);
+      showToast('🗑 Cleared. Stream is now offline.');
+    }
+
+    function renderPreview(cfg) {
+      var el = document.getElementById('previewWrap');
+      if (!cfg || !cfg.url) {
+        el.innerHTML = '<p style="color:#999;font-size:12px;">No live stream configured. Students see "offline" state.</p>';
+        return;
+      }
+      var ytId = extractYTId(cfg.url);
+      var badgeClass = cfg.status === 'live' ? 'badge-live' : cfg.status === 'scheduled' ? 'badge-scheduled' : 'badge-offline';
+      var badgeText = cfg.status === 'live' ? '🔴 LIVE NOW' : cfg.status === 'scheduled' ? '⏰ SCHEDULED' : '⭕ OFFLINE';
+      var thumb = ytId ? '<img src="https://img.youtube.com/vi/' + ytId + '/mqdefault.jpg" style="width:100%;border-radius:8px;margin-bottom:8px;" onerror="this.style.display=\'none\'">' : '';
+      el.innerHTML = thumb +
+        '<span class="preview-status-badge ' + badgeClass + '">' + badgeText + '</span>' +
+        '<div style="font-size:14px;font-weight:700;margin-bottom:2px;">' + escHtml(cfg.topic || 'Untitled Class') + '</div>' +
+        '<div style="font-size:12px;color:var(--text3);">' + escHtml(cfg.schedule || '') + '</div>' +
+        (cfg.notes ? '<div style="font-size:12px;color:var(--text2);margin-top:4px;">' + escHtml(cfg.notes) + '</div>' : '') +
+        '<div class="preview-url">' + escHtml(cfg.url) + '</div>';
+    }
+
+    function showToast(msg) {
+      var t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(function() { t.classList.remove('show'); }, 3000);
+    }
+
+    // Load saved config on open
+    (function init() {
+      var cfg = getLSConfig();
+      if (!cfg) return;
+      if (cfg.url) document.getElementById('streamUrl').value = cfg.url;
+      if (cfg.status) {
+        var el = document.getElementById('opt-' + cfg.status);
+        if (el) el.checked = true;
+      }
+      if (cfg.topic) document.getElementById('classTopic').value = cfg.topic;
+      if (cfg.schedule) document.getElementById('classSchedule').value = cfg.schedule;
+      if (cfg.notes) document.getElementById('classNotes').value = cfg.notes;
+      if (cfg.classSchedule && cfg.classSchedule.length) {
+        cfg.classSchedule.forEach(function(s) { addScheduleRow(s.time, s.subject); });
+      }
+      renderPreview(cfg);
+    })();
+  </script>
+</body>
+</html>
