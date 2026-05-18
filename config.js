@@ -121,6 +121,13 @@ var PART_TESTS = [
     sections: { Maths: 10 },
     questionsFile: "questions/math_part2.js", live: true
   },
+  {
+    id: "math_part3", subject: "maths",
+    title: "Maths Part Test 3", description: "GSSC Police Constable · 10 Q",
+    password: "mat003", duration: 600, totalMarks: 10,
+    sections: { Maths: 10 },
+    questionsFile: "questions/math_part3.js", live: true
+  },
   // REASONING
   {
     id: "reason_part1", subject: "reasoning",
