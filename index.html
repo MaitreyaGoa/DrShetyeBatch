@@ -287,31 +287,13 @@
         </div>
       </div>
 
-      <!-- 4. CLASS NOTES -->
-      <div class="menu-card" id="card-notes">
-        <div class="menu-card-header" onclick="toggleSection('notes')">
-          <div class="menu-card-left">
-            <div class="menu-icon-wrap mi-3">📒</div>
-            <div>
-              <h3 class="menu-title">Class Notes</h3>
-              <p class="menu-desc">Upload &amp; share PDF notes with students</p>
-            </div>
-          </div>
-          <span class="chevron" id="chev-notes">▼</span>
-        </div>
-        <div class="menu-dropdown hidden" id="drop-notes">
-          <div id="notes-list" class="pdf-list"></div>
-          <div id="notes-empty" class="empty-msg">No notes uploaded yet.</div>
-        </div>
-      </div>
-
-      <!-- 5. REFERENCE BOOKS -->
+      <!-- 4. CLASS NOTES (renamed from Reference Books) -->
       <div class="menu-card" id="card-books">
         <div class="menu-card-header" onclick="toggleSection('books')">
           <div class="menu-card-left">
-            <div class="menu-icon-wrap mi-4">📚</div>
+            <div class="menu-icon-wrap mi-4">📒</div>
             <div>
-              <h3 class="menu-title">Reference Books</h3>
+              <h3 class="menu-title">Class Notes</h3>
               <p class="menu-desc">Recommended books &amp; PDFs for exam prep</p>
             </div>
           </div>
@@ -323,25 +305,7 @@
         </div>
       </div>
 
-      <!-- 6. STUDY MATERIAL -->
-      <div class="menu-card" id="card-material">
-        <div class="menu-card-header" onclick="toggleSection('material')">
-          <div class="menu-card-left">
-            <div class="menu-icon-wrap mi-5">🗂</div>
-            <div>
-              <h3 class="menu-title">Study Material</h3>
-              <p class="menu-desc">Handouts, summaries &amp; practice sheets</p>
-            </div>
-          </div>
-          <span class="chevron" id="chev-material">▼</span>
-        </div>
-        <div class="menu-dropdown hidden" id="drop-material">
-          <div id="material-list" class="pdf-list"></div>
-          <div id="material-empty" class="empty-msg">No material uploaded yet.</div>
-        </div>
-      </div>
-
-      <!-- 7. QUESTION BANK -->
+      <!-- 5. QUESTION BANK -->
       <div class="menu-card" id="card-qbank">
         <div class="menu-card-header" onclick="toggleSection('qbank')">
           <div class="menu-card-left">
@@ -362,7 +326,7 @@
         </div>
       </div>
 
-      <!-- 8. LIVE BLACKBOARD -->
+      <!-- 6. LIVE BLACKBOARD -->
       <div class="menu-card" id="card-blackboard">
         <div class="menu-card-header" onclick="toggleSection('blackboard')">
           <div class="menu-card-left">
@@ -406,7 +370,7 @@
         </div>
       </div>
 
-      <!-- 9. LIVE STREAM -->
+      <!-- 7. LIVE STREAM -->
       <div class="menu-card" id="card-livestream">
         <div class="menu-card-header" onclick="toggleSection('livestream')">
           <div class="menu-card-left">
@@ -434,7 +398,7 @@
         </div>
       </div>
 
-      <!-- 10. CAREER COUNSELLING ── NEW CARD ── -->
+      <!-- 8. CAREER COUNSELLING ── NEW CARD ── -->
       <div class="menu-card counsel-card" id="card-counselling" onclick="window.open('https://maitreyagoa.github.io/MHCvitals/', '_blank')">
         <div class="menu-card-header">
           <div class="menu-card-left">
@@ -474,6 +438,14 @@
       <a href="https://www.instagram.com/thebodhi.academy/" target="_blank" class="insta-bar" style="display:inline-flex;background:linear-gradient(90deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;border-radius:20px;padding:5px 14px;font-size:13px;font-weight:600;text-decoration:none;align-items:center;gap:6px;">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
         Follow Bodhi Academy
+      </a>
+      <a href="https://www.youtube.com/@thebodhiacademy3401" target="_blank" style="display:inline-flex;background:#ff0000;color:#fff;border-radius:20px;padding:5px 14px;font-size:13px;font-weight:600;text-decoration:none;align-items:center;gap:6px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        Bodhi Academy YouTube
+      </a>
+      <a href="https://www.youtube.com/@hindeclassses" target="_blank" style="display:inline-flex;background:#ff0000;color:#fff;border-radius:20px;padding:5px 14px;font-size:13px;font-weight:600;text-decoration:none;align-items:center;gap:6px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        Hinde Classes YouTube
       </a>
     </div>
     <div class="footer-websites">
