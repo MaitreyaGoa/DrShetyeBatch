@@ -163,8 +163,8 @@ var PART_TESTS = [
 // ──────────────────────────────────────────────────────────
 var PDF_RESOURCES = [
   {
-    category: "books",
-    title:    "GOA SSC Police Constable Reference Book",
+    category: "material",
+    title:    "GOA SSC English Refference Book",
     subject:  "General",
     date:     "2025-05-14",
     url:      "https://drive.google.com/file/d/1CL9lbCk5z8_kydKrgNv8fmFr4qI2SJdo/view"
