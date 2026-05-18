@@ -3,495 +3,53 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dr Shetye Academic Programme</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <title>Admin Panel – Dr Shetye Academic Program</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="styles.css"/>
-  <style>
-    /* ── LIVE STREAM CARD STYLES ── */
-    .mi-live {
-      background: linear-gradient(135deg, #ff4757 0%, #c0392b 100%);
-      color: #fff;
-    }
-    .live-pulse-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #ff4757;
-      color: #fff;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .5px;
-      padding: 3px 10px;
-      border-radius: 20px;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-    }
-    .live-pulse-dot {
-      width: 7px;
-      height: 7px;
-      background: #fff;
-      border-radius: 50%;
-      animation: livePulse 1.2s ease-in-out infinite;
-      flex-shrink: 0;
-    }
-    @keyframes livePulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.75); }
-    }
-    .ls-links-wrap {
-      padding: 16px;
-    }
-    .ls-status-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--text2, #666);
-      margin-bottom: 14px;
-      padding: 8px 12px;
-      background: rgba(255,71,87,0.07);
-      border-radius: 8px;
-      border-left: 3px solid #ff4757;
-    }
-    .ls-status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #ff4757;
-      animation: livePulse 1.2s infinite;
-      flex-shrink: 0;
-    }
-    .ls-link-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-    .ls-link-card {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 16px;
-      border-radius: 10px;
-      text-decoration: none;
-      border: 1.5px solid transparent;
-      transition: transform .15s, box-shadow .15s;
-      cursor: pointer;
-    }
-    .ls-link-card:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(0,0,0,.10);
-    }
-    .ls-student-card {
-      background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
-      border-color: #ffcdd2;
-    }
-    .ls-admin-card {
-      background: #f8f9fa;
-      border-color: #dee2e6;
-    }
-    .ls-link-icon {
-      font-size: 26px;
-      flex-shrink: 0;
-    }
-    .ls-link-info {
-      flex: 1;
-    }
-    .ls-link-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: #1a1a2e;
-      margin-bottom: 2px;
-    }
-    .ls-link-desc {
-      font-size: 12px;
-      color: #666;
-    }
-    .ls-link-arrow {
-      font-size: 18px;
-      color: #ff4757;
-      font-weight: 700;
-    }
-    .ls-how {
-      border-top: 1px solid rgba(0,0,0,.06);
-      padding-top: 12px;
-    }
-    .ls-how-step {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 12px;
-      color: #555;
-      margin-bottom: 7px;
-    }
-    .ls-step-num {
-      background: #ff4757;
-      color: #fff;
-      border-radius: 50%;
-      width: 18px;
-      height: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-    .ls-no-stream {
-      text-align: center;
-      padding: 20px 16px;
-      color: #999;
-      font-size: 13px;
-    }
-    .ls-no-stream .ls-offline-icon {
-      font-size: 32px;
-      margin-bottom: 8px;
-    }
-
-    /* ── CAREER COUNSELLING CARD STYLES ── */
-    .mi-counsel {
-      background: linear-gradient(135deg, #7c3aed, #a78bfa);
-      color: #fff;
-    }
-    .counsel-card {
-      border: 2px solid #a78bfa !important;
-      background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%) !important;
-      cursor: pointer;
-      transition: transform .15s, box-shadow .15s;
-    }
-    .counsel-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(124,58,237,0.18);
-    }
-    .counsel-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: #7c3aed;
-      color: #fff;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .6px;
-      padding: 2px 9px;
-      border-radius: 20px;
-      text-transform: uppercase;
-      margin-left: 8px;
-      vertical-align: middle;
-    }
-  </style>
 </head>
 <body>
 
-  <!-- WHATSAPP BAR -->
-  <a href="https://whatsapp.com/channel/0029VbCxs1P9RZAT256BYG1P" target="_blank" class="wa-bar">
-    <span class="wa-icon">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.132.558 4.13 1.532 5.862L.054 23.5l5.82-1.527A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.9a9.878 9.878 0 01-5.031-1.378l-.361-.214-3.741.981.998-3.648-.235-.374A9.86 9.86 0 012.1 12c0-5.463 4.437-9.9 9.9-9.9 5.463 0 9.9 4.437 9.9 9.9 0 5.463-4.437 9.9-9.9 9.9z"/>
-      </svg>
-    </span>
-    <span class="wa-text">Join our WhatsApp Channel for Daily Questions &amp; Updates</span>
-    <span class="wa-cta">Join Now →</span>
-  </a>
-
-  <!-- INSTAGRAM BAR -->
-  <a href="https://www.instagram.com/drshetye_academicprogramme" target="_blank" class="insta-bar">
-    <span class="insta-icon">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-      </svg>
-    </span>
-    <span class="wa-text">Follow us on Instagram for Daily News &amp; Updates &nbsp;@drshetye_academicprogramme</span>
-    <span class="wa-cta">Follow →</span>
-  </a>
-
   <header class="site-header">
     <div class="header-inner">
-      <div class="header-brand">
-        <div class="brand-icon">🎓</div>
-        <div>
-          <h1 class="brand-title">Dr Shetye Academic Programme</h1>
-          <p class="brand-sub">Preparation for GSSC · GPSC · and other Govt Exams</p>
-        </div>
+      <div class="header-logo">🎓</div>
+      <div class="header-text">
+        <h1 class="header-title">Dr Shetye Academic Program</h1>
+        <p class="header-sub">Admin Panel – Merit Lists</p>
       </div>
-      <span class="admin-link" onclick="openAdminModal()">⚙ Admin</span>
     </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-badge">GSSC · GPSC · Govt Exam Preparation</div>
-    <h2 class="hero-title">Your Complete<br>Study Platform</h2>
-    <p class="hero-sub">Tests &middot; Notes &middot; Books &middot; Study Material &middot; Question Bank</p>
-  </section>
+  <main style="max-width:1100px;margin:0 auto;padding:28px 16px 60px;">
 
-  <main class="main-content">
-    <div class="menu-grid">
-
-      <!-- 1. FULL TEST -->
-      <div class="menu-card" id="card-fulltest">
-        <div class="menu-card-header" onclick="toggleSection('fulltest')">
-          <div class="menu-card-left">
-            <div class="menu-icon-wrap mi-1">📋</div>
-            <div>
-              <h3 class="menu-title">Full Test</h3>
-              <p class="menu-desc">Complete mock tests – all sections</p>
-            </div>
-          </div>
-          <span class="chevron" id="chev-fulltest">▼</span>
-        </div>
-        <div class="menu-dropdown hidden" id="drop-fulltest">
-          <div id="fulltest-list" class="test-list"></div>
-        </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:24px;">
+      <div>
+        <h2 style="font-family:'Playfair Display',serif;color:#0d2b55;font-size:1.6rem;">Central Merit Lists</h2>
+        <p style="color:#6b7280;font-size:.88rem;">All student results stored centrally per test</p>
       </div>
-
-      <!-- 2. PREVIOUS YEAR QUESTIONS -->
-      <div class="menu-card" id="card-pyq">
-        <div class="menu-card-header" onclick="toggleSection('pyq')">
-          <div class="menu-card-left">
-            <div class="menu-icon-wrap mi-pyq">📜</div>
-            <div>
-              <h3 class="menu-title">Previous Year Tests</h3>
-              <p class="menu-desc">Official GSSC PC exam papers – PYQ practice</p>
-            </div>
-          </div>
-          <span class="chevron" id="chev-pyq">▼</span>
-        </div>
-        <div class="menu-dropdown hidden" id="drop-pyq">
-          <div id="pyq-list" class="test-list"></div>
-        </div>
-      </div>
-
-      <!-- 3. PART TEST -->
-      <div class="menu-card" id="card-parttest">
-        <div class="menu-card-header" onclick="toggleSection('parttest')">
-          <div class="menu-card-left">
-            <div class="menu-icon-wrap mi-2">📝</div>
-            <div>
-              <h3 class="menu-title">Part Test</h3>
-              <p class="menu-desc">Section-wise – English, Maths, Reasoning, Konkani</p>
-            </div>
-          </div>
-          <span class="chevron" id="chev-parttest">▼</span>
-        </div>
-        <div class="menu-dropdown hidden" id="drop-parttest">
-          <div class="subject-tabs">
-            <button class="sub-tab active" onclick="showSubject('english', this)">📘 English</button>
-            <button class="sub-tab" onclick="showSubject('maths', this)">📐 Maths</button>
-            <button class="sub-tab" onclick="showSubject('reasoning', this)">🧠 Reasoning</button>
-            <button class="sub-tab" onclick="showSubject('konkani', this)">📖 Konkani</button>
-          </div>
-          <div id="part-english" class="subject-panel"><div id="part-english-list" class="test-list"></div></div>
-          <div id="part-maths" class="subject-panel hidden"><div id="part-maths-list" class="test-list"></div></div>
-          <div id="part-reasoning" class="subject-panel hidden"><div id="part-reasoning-list" class="test-list"></div></div>
-          <div id="part-konkani" class="subject-panel hidden"><div id="part-konkani-list" class="test-list"></div></div>
-        </div>
-      </div>
-
-      <!-- 4. CLASS NOTES (renamed from Reference Books) -->
-      <div class="menu-card" id="card-books">
-        <div class="menu-card-header" onclick="toggleSection('books')">
-          <div class="menu-card-left">
-            <div class="menu-icon-wrap mi-4">📒</div>
-            <div>
-              <h3 class="menu-title">Class Notes</h3>
-              <p class="menu-desc">Recommended books &amp; PDFs for exam prep</p>
-            </div>
-          </div>
-          <span class="chevron" id="chev-books">▼</span>
-        </div>
-        <div class="menu-dropdown hidden" id="drop-books">
-          <div id="books-list" class="pdf-list"></div>
-          <div id="books-empty" class="empty-msg">No books uploaded yet.</div>
-        </div>
-      </div>
-
-      <!-- 5. QUESTION BANK -->
-      <div class="menu-card" id="card-qbank">
-        <div class="menu-card-header" onclick="toggleSection('qbank')">
-          <div class="menu-card-left">
-            <div class="menu-icon-wrap mi-6">❓</div>
-            <div>
-              <h3 class="menu-title">Question Bank</h3>
-              <p class="menu-desc">Daily questions – tap to reveal answers &amp; explanations</p>
-            </div>
-          </div>
-          <span class="chevron" id="chev-qbank">▼</span>
-        </div>
-        <div class="menu-dropdown hidden" id="drop-qbank">
-          <div class="qbank-toolbar">
-            <div class="qbank-date-tabs" id="qbankDateTabs"></div>
-          </div>
-          <div id="qbank-questions" class="qbank-list"></div>
-          <div id="qbank-empty" class="empty-msg">No questions uploaded yet.</div>
-        </div>
-      </div>
-
-      <!-- 6. LIVE BLACKBOARD -->
-      <div class="menu-card" id="card-blackboard">
-        <div class="menu-card-header" onclick="toggleSection('blackboard')">
-          <div class="menu-card-left">
-            <div class="menu-icon-wrap mi-bb">🖊</div>
-            <div>
-              <h3 class="menu-title">Live Blackboard</h3>
-              <p class="menu-desc">Teacher writes live – students see it in real time</p>
-            </div>
-          </div>
-          <span class="chevron" id="chev-blackboard">▼</span>
-        </div>
-        <div class="menu-dropdown hidden" id="drop-blackboard">
-          <div class="bb-links-wrap">
-            <div class="bb-live-badge">
-              <span class="bb-live-dot"></span> Real-time · Updates instantly
-            </div>
-            <div class="bb-link-cards">
-              <a href="blackboard/student.html" target="_blank" class="bb-link-card bb-student-card">
-                <div class="bb-link-icon">👨‍🎓</div>
-                <div class="bb-link-info">
-                  <div class="bb-link-title">Student View</div>
-                  <div class="bb-link-desc">Watch the live blackboard</div>
-                </div>
-                <div class="bb-link-arrow">→</div>
-              </a>
-              <a href="blackboard/teacher.html" target="_blank" class="bb-link-card bb-teacher-card">
-                <div class="bb-link-icon">👨‍🏫</div>
-                <div class="bb-link-info">
-                  <div class="bb-link-title">Teacher View</div>
-                  <div class="bb-link-desc">Draw &amp; publish to students</div>
-                </div>
-                <div class="bb-link-arrow">→</div>
-              </a>
-            </div>
-            <div class="bb-how">
-              <div class="bb-how-step"><span class="bb-step-num">1</span> Teacher opens Teacher View → draws on board</div>
-              <div class="bb-how-step"><span class="bb-step-num">2</span> Clicks "Publish" → all students see it instantly</div>
-              <div class="bb-how-step"><span class="bb-step-num">3</span> Students open Student View → updates automatically</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 7. LIVE STREAM -->
-      <div class="menu-card" id="card-livestream">
-        <div class="menu-card-header" onclick="toggleSection('livestream')">
-          <div class="menu-card-left">
-            <div class="menu-icon-wrap mi-live">📡</div>
-            <div>
-              <h3 class="menu-title">
-                Live Online Class
-                <span class="live-pulse-badge" id="lsBadgeHeader" style="display:none;">
-                  <span class="live-pulse-dot"></span> LIVE
-                </span>
-              </h3>
-              <p class="menu-desc">YouTube live classes – watch &amp; attend online</p>
-            </div>
-          </div>
-          <span class="chevron" id="chev-livestream">▼</span>
-        </div>
-        <div class="menu-dropdown hidden" id="drop-livestream">
-          <div class="ls-links-wrap" id="ls-content">
-            <div class="ls-no-stream">
-              <div class="ls-offline-icon">📡</div>
-              <p>No live class scheduled right now.</p>
-              <p style="font-size:11px;color:#bbb;margin-top:4px;">Check back at class time or join our WhatsApp channel for announcements.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 8. CAREER COUNSELLING ── NEW CARD ── -->
-      <div class="menu-card counsel-card" id="card-counselling" onclick="window.open('https://maitreyagoa.github.io/MHCvitals/', '_blank')">
-        <div class="menu-card-header">
-          <div class="menu-card-left">
-            <div class="menu-icon-wrap mi-counsel">🧠</div>
-            <div>
-              <h3 class="menu-title" style="color:#5b21b6;">
-                Book Career Counselling
-                <span class="counsel-tag">Book Now</span>
-              </h3>
-              <p class="menu-desc">Appointment with Dr. Namrata – MHC Vitals</p>
-            </div>
-          </div>
-          <span class="chevron" style="color:#7c3aed; font-size:20px; font-weight:700;">↗</span>
-        </div>
-      </div>
-
+      <a href="index.html" class="btn btn-outline" style="text-decoration:none;">← Back to Home</a>
     </div>
+
+    <!-- Tab buttons for each test -->
+    <div class="admin-tabs" id="adminTabs"></div>
+
+    <!-- Results panel -->
+    <div class="admin-results-panel" id="adminResultsPanel">
+      <p style="color:#6b7280;text-align:center;padding:40px;">Select a test above to view results.</p>
+    </div>
+
   </main>
 
   <footer class="site-footer">
     <div class="footer-inner">
       <span class="footer-name">Maitreya Hinde</span>
       <span class="footer-sep">|</span>
-      <span>📞 7358425108</span>
+      <span class="footer-phone">📞 7358425108</span>
       <span class="footer-sep">|</span>
-      <span>Academic Coordinator</span>
-    </div>
-    <div class="footer-social">
-      <a href="https://www.facebook.com/HindeClasses" target="_blank" class="footer-fb-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        Follow Hinde Classes
-      </a>
-      <a href="https://wa.me/917358425108" target="_blank" class="footer-wa-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Chat on WhatsApp
-      </a>
-      <a href="https://www.instagram.com/thebodhi.academy/" target="_blank" style="display:inline-flex;background:linear-gradient(90deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;border-radius:20px;padding:5px 12px;font-size:13px;font-weight:600;text-decoration:none;align-items:center;gap:6px;">
-        <img src="bodhi-logo.png" alt="The Bodhi Academy" style="width:20px;height:20px;border-radius:50%;object-fit:cover;background:#fff;"/>
-        Follow The Bodhi Academy
-      </a>
-      <a href="https://www.youtube.com/@thebodhiacademy3401" target="_blank" style="display:inline-flex;background:#ff0000;color:#fff;border-radius:20px;padding:5px 12px;font-size:13px;font-weight:600;text-decoration:none;align-items:center;gap:6px;">
-        <img src="bodhi-logo.png" alt="The Bodhi Academy" style="width:20px;height:20px;border-radius:50%;object-fit:cover;background:#fff;"/>
-        The Bodhi Academy YouTube
-      </a>
-      <a href="https://www.youtube.com/@hindeclassses" target="_blank" style="display:inline-flex;background:#ff0000;color:#fff;border-radius:20px;padding:5px 12px;font-size:13px;font-weight:600;text-decoration:none;align-items:center;gap:6px;">
-        <img src="hinde-logo.jpg" alt="Hinde Classes" style="width:20px;height:20px;border-radius:50%;object-fit:cover;background:#fff;"/>
-        Hinde Classes YouTube
-      </a>
-    </div>
-    <div class="footer-websites">
-      <a href="https://www.thebodhiacademy.co.in/" target="_blank" class="footer-site-link">
-        <span class="footer-site-icon"><img src="bodhi-logo.png" alt="The Bodhi Academy" style="width:32px;height:32px;border-radius:50%;object-fit:cover;"/></span>
-        <span class="footer-site-text">
-          <span class="footer-site-name">The Bodhi Academy</span>
-          <span class="footer-site-desc">Learn · Grow · Flourish</span>
-        </span>
-        <span class="footer-site-arrow">↗</span>
-      </a>
-      <a href="https://maitreyagoa.github.io/hindeclasses/" target="_blank" class="footer-site-link">
-        <span class="footer-site-icon"><img src="hinde-logo.jpg" alt="Hinde Classes" style="width:32px;height:32px;border-radius:50%;object-fit:cover;"/></span>
-        <span class="footer-site-text">
-          <span class="footer-site-name">Hinde Classes</span>
-          <span class="footer-site-desc">Official Website</span>
-        </span>
-        <span class="footer-site-arrow">↗</span>
-      </a>
-      <a href="mhc-website.html" target="_blank" class="footer-site-link">
-        <span class="footer-site-icon">💼</span>
-        <span class="footer-site-text">
-          <span class="footer-site-name">MHC</span>
-          <span class="footer-site-desc">Strategy · Education · Growth</span>
-        </span>
-        <span class="footer-site-arrow">↗</span>
-      </a>
+      <span class="footer-role">Academic Coordinator</span>
     </div>
   </footer>
 
-  <!-- ADMIN MODAL -->
-  <div id="adminModal" class="modal-overlay" style="display:none;">
-    <div class="modal-box">
-      <h3 class="modal-title">Admin Login</h3>
-      <p style="font-size:12px;color:var(--text3);margin-bottom:4px;">View all test results &amp; merit lists</p>
-      <input type="password" id="adminPass" class="modal-input" placeholder="Enter admin password"/>
-      <div class="modal-btns">
-        <button class="btn btn-primary" onclick="adminLogin()">Login</button>
-        <button class="btn btn-outline" onclick="closeModal('adminModal')">Cancel</button>
-      </div>
-      <p id="adminError" class="error-msg" style="display:none;">❌ Wrong password</p>
-    </div>
-  </div>
-
   <script src="config.js"></script>
-  <script src="home.js"></script>
-  <script src="livestream-home.js"></script>
+  <script src="admin.js"></script>
 </body>
 </html>
