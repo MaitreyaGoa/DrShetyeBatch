@@ -32,7 +32,7 @@ var FULL_TESTS = [
     totalMarks:  50,
     sections:    { English: 30, Maths: 10, Reasoning: 10 },
     questionsFile: "questions/fulltest2.js",
-    live:        false
+    live:        true
   },
   {
     id:          "fulltest3",
