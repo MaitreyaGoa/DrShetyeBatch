@@ -101,7 +101,14 @@ var PART_TESTS = [
   },
   {
     id: "eng_part2", subject: "english",
-    title: "English Part Test 2", description: "Reading & Error Detection · 30 Q",
+    title: "English Part Test 2", description: "GSSC Police Constable · 30 Q",
+    password: "eng002", duration: 1800, totalMarks: 30,
+    sections: { English: 30 },
+    questionsFile: "questions/eng_part2.js", live: true
+  },
+    {
+    id: "eng_part3", subject: "english",
+    title: "English Part Test 3", description: "GSSC Police Constable · 30 Q",
     password: "eng002", duration: 1800, totalMarks: 30,
     sections: { English: 30 },
     questionsFile: "questions/eng_part2.js", live: false
@@ -128,17 +135,24 @@ var PART_TESTS = [
     sections: { Maths: 10 },
     questionsFile: "questions/math_part3.js", live: true
   },
+   {
+    id: "math_part4", subject: "maths",
+    title: "Maths Part Test 4", description: "GSSC Police Constable · 10 Q",
+    password: "mat003", duration: 600, totalMarks: 10,
+    sections: { Maths: 10 },
+    questionsFile: "questions/math_part4.js", live: false
+  },
   // REASONING
   {
     id: "reason_part1", subject: "reasoning",
-    title: "Reasoning Part Test 1", description: "Series & Coding · 20 Q",
-    password: "rea001", duration: 1800, totalMarks: 20,
-    sections: { Reasoning: 20 },
-    questionsFile: "questions/reason_part1.js", live: false
+    title: "Reasoning Part Test 1", description: "GSSC Police Constable · 10 Q",
+    password: "rea001", duration: 600, totalMarks: 10,
+    sections: { Reasoning: 10 },
+    questionsFile: "questions/reason_part1.js", live: true
   },
   {
     id: "reason_part2", subject: "reasoning",
-    title: "Reasoning Part Test 2", description: "Blood Relations & Directions · 20 Q",
+    title: "Reasoning Part Test 2", description: "GSSC Part Test · 20 Q",
     password: "rea002", duration: 1800, totalMarks: 20,
     sections: { Reasoning: 20 },
     questionsFile: "questions/reason_part2.js", live: false
