@@ -2,7 +2,7 @@
 // Dr Shetye Academic Program
 // Full Mock Test 1 – 50 Questions / 50 Marks
 // English: 30Q / 30M | Maths: 10Q / 10M | Reasoning: 10Q / 10M
-// SSC CGL Level – All answers verified
+// SSC CGL Level – All answers verified.
 // ============================================================
 var questions = [
 
