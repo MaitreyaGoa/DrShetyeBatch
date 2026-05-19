@@ -167,14 +167,12 @@ function fetchTop5(testId, testTitle, totalMarks, panel) {
 
   panel.innerHTML = '<p class="top5-loading">⏳ Loading...</p>';
 
-  // Use no-cors fetch — Apps Script supports this
   fetch(SCRIPT_URL + "?action=read&testId=" + testId)
   .then(function(r) { return r.json(); })
   .then(function(res) {
     renderTop5Data(res, testTitle, totalMarks, panel);
   })
   .catch(function(err) {
-    // CORS blocked — try alternative via iframe trick
     console.log("Fetch blocked, trying alternative...", err);
     loadViaScript(testId, testTitle, totalMarks, panel);
   });
@@ -184,7 +182,6 @@ function fetchTop5(testId, testTitle, totalMarks, panel) {
 function loadViaScript(testId, testTitle, totalMarks, panel) {
   var cbName = "top5cb_" + testId.replace(/[^a-z0-9]/gi, "_");
 
-  // Define callback
   window[cbName] = function(res) {
     renderTop5Data(res, testTitle, totalMarks, panel);
     delete window[cbName];
@@ -192,7 +189,6 @@ function loadViaScript(testId, testTitle, totalMarks, panel) {
     if (old) old.remove();
   };
 
-  // Load via script tag
   var s = document.createElement("script");
   s.id  = cbName;
   s.src = SCRIPT_URL + "?action=read&testId=" + testId + "&callback=" + cbName;
@@ -245,16 +241,28 @@ function renderTop5Data(res, testTitle, totalMarks, panel) {
 }
 
 // ══════════════════════════════════════════════════════════
-// 3/4/5. PDF SECTIONS
+// PDF SECTIONS — Fixed: null-check guard prevents crash
+// when a category's list/empty element doesn't exist in HTML
 // ══════════════════════════════════════════════════════════
 function renderPDFs() {
   ["notes", "books", "material"].forEach(function (cat) {
-    var items = PDF_RESOURCES.filter(function (r) { return r.category === cat; });
     var list  = document.getElementById(cat + "-list");
     var empty = document.getElementById(cat + "-empty");
+
+    // Guard: skip if this category's HTML elements don't exist
+    if (!list || !empty) return;
+
     list.innerHTML = "";
-    if (items.length === 0) { empty.style.display = "block"; list.style.display = "none"; return; }
-    empty.style.display = "none"; list.style.display = "block";
+    var items = PDF_RESOURCES.filter(function (r) { return r.category === cat; });
+
+    if (items.length === 0) {
+      empty.style.display = "block";
+      list.style.display  = "none";
+      return;
+    }
+
+    empty.style.display = "none";
+    list.style.display  = "block";
     items.forEach(function (item) { list.appendChild(buildPDFRow(item)); });
   });
 }
