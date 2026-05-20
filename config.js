@@ -137,10 +137,24 @@ var PART_TESTS = [
   },
    {
     id: "math_part4", subject: "maths",
-    title: "Maths Part Test 4", description: "GSSC Police Constable · 10 Q",
-    password: "mat003", duration: 600, totalMarks: 10,
+    title: "Maths Part Test 4", description: "GSSC Police Constable Difficult · 10 Q",
+    password: "mat004", duration: 600, totalMarks: 10,
     sections: { Maths: 10 },
-    questionsFile: "questions/math_part4.js", live: false
+    questionsFile: "questions/math_part4.js", live: true
+  },
+   {
+    id: "math_part5", subject: "maths",
+    title: "Maths Part Test 5", description: "GSSC Police Constable Moderate · 10 Q",
+    password: "mat005", duration: 600, totalMarks: 10,
+    sections: { Maths: 10 },
+    questionsFile: "questions/math_part5.js", live: true
+  },
+   {
+    id: "math_part6", subject: "maths",
+    title: "Maths Part Test 6", description: "GSSC Police Constable · 10 Q",
+    password: "mat006", duration: 600, totalMarks: 10,
+    sections: { Maths: 10 },
+    questionsFile: "questions/math_part6.js", live: false
   },
   // REASONING
   {
@@ -152,10 +166,17 @@ var PART_TESTS = [
   },
   {
     id: "reason_part2", subject: "reasoning",
-    title: "Reasoning Part Test 2", description: "GSSC Part Test · 20 Q",
+    title: "Reasoning Part Test 2", description: "GSSC Part Test · 10 Q",
+    password: "rea002", duration: 600, totalMarks: 10,
+    sections: { Reasoning: 10 },
+    questionsFile: "questions/reason_part2.js", live: true
+  },
+   {
+    id: "reason_part3", subject: "reasoning",
+    title: "Reasoning Part Test 3", description: "GSSC Part Test · 20 Q",
     password: "rea002", duration: 1800, totalMarks: 20,
     sections: { Reasoning: 20 },
-    questionsFile: "questions/reason_part2.js", live: false
+    questionsFile: "questions/reason_part3.js", live: false
   },
   // KONKANI
   {
