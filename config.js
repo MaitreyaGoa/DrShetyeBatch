@@ -109,7 +109,14 @@ var PART_TESTS = [
     {
     id: "eng_part3", subject: "english",
     title: "English Part Test 3", description: "GSSC Police Constable · 30 Q",
-    password: "eng002", duration: 1800, totalMarks: 30,
+    password: "eng003", duration: 1800, totalMarks: 30,
+    sections: { English: 30 },
+    questionsFile: "questions/eng_part3.js", live: true
+  },
+      {
+    id: "eng_part4", subject: "english",
+    title: "English Part Test 4", description: "GSSC Police Constable · 30 Q",
+    password: "eng004", duration: 1800, totalMarks: 30,
     sections: { English: 30 },
     questionsFile: "questions/eng_part2.js", live: false
   },
