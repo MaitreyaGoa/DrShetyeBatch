@@ -254,6 +254,28 @@ body > * { position: relative; z-index: 1; }
   border: 0.5px solid rgba(255,69,58,0.4); color: #fff;
   box-shadow: 0 3px 12px rgba(255,69,58,0.3), inset 0 1px 0 rgba(255,255,255,0.15);
 }
+/* Games card — vibrant green */
+.mi-games {
+  background: linear-gradient(145deg, rgba(50,215,75,0.35), rgba(50,215,75,0.12));
+  border: 0.5px solid rgba(50,215,75,0.28);
+}
+.games-card {
+  border: 0.5px solid rgba(50,215,75,0.25);
+  background: rgba(50,215,75,0.05);
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+}
+.games-card:hover {
+  background: rgba(50,215,75,0.11);
+  border-color: rgba(50,215,75,0.45);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 24px rgba(50,215,75,0.15), var(--shadow-md);
+}
+.games-card .menu-title { color: #30d158; }
+.games-card .menu-desc  { color: rgba(48,209,88,0.5); }
+.games-card .chevron    { color: rgba(50,215,75,0.6); }
+
 .mi-counsel {
   background: linear-gradient(145deg, #bf5af2, #9b59b6);
   border: 0.5px solid rgba(191,90,242,0.4); color: #fff;
