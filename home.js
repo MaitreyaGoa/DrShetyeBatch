@@ -233,11 +233,9 @@ function renderResourcesSection() {
   if(!container) return;
 
   var sections = [
-    { id:"notes",    icon:"📒", title:"Class Notes",    desc:"Uploaded PDF notes for download" },
-    { id:"books",    icon:"📚", title:"Reference Books", desc:"Recommended books & PDFs" },
-    { id:"material", icon:"🗂", title:"Study Material",  desc:"Handouts, summaries & practice sheets" },
-    { id:"qbank",    icon:"❓", title:"Question Bank",   desc:"Daily questions with answers & explanations" },
-    { id:"blackboard",icon:"🖊",title:"Live Blackboard", desc:"Watch teacher's live board in real time" },
+    { id:"books",      icon:"📚", title:"Reference Books", desc:"Recommended books & PDFs" },
+    { id:"qbank",      icon:"❓", title:"Question Bank",   desc:"Daily questions with answers & explanations" },
+    { id:"blackboard", icon:"🖊", title:"Live Blackboard & Classes", desc:"Live board · Live YouTube classes · Daily 6–8:30 PM" },
   ];
 
   sections.forEach(function(sec) {
@@ -352,19 +350,65 @@ function renderBlackboard() {
   body.innerHTML=
     '<div style="padding:10px 4px;">'
     +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">'
-    +'<a href="blackboard/student.html" target="_blank" style="display:flex;align-items:center;gap:10px;background:rgba(16,185,129,0.08);border:0.5px solid rgba(16,185,129,0.2);border-radius:12px;padding:14px 16px;text-decoration:none;transition:all 0.18s;">'
+
+    // Live Blackboard tiles
+    +'<a href="blackboard/student.html" target="_blank" style="display:flex;align-items:center;gap:10px;background:rgba(16,185,129,0.08);border:0.5px solid rgba(16,185,129,0.2);border-radius:12px;padding:14px 16px;text-decoration:none;">'
     +'<span style="font-size:24px;">👨‍🎓</span>'
     +'<div><div style="font-size:13px;font-weight:700;color:#34d399;">Student View</div><div style="font-size:11px;color:rgba(255,255,255,0.4);">Watch live board</div></div>'
     +'<span style="margin-left:auto;color:rgba(255,255,255,0.3);">→</span>'
     +'</a>'
-    +'<a href="blackboard/teacher.html" target="_blank" style="display:flex;align-items:center;gap:10px;background:rgba(99,102,241,0.08);border:0.5px solid rgba(99,102,241,0.2);border-radius:12px;padding:14px 16px;text-decoration:none;transition:all 0.18s;">'
+    +'<a href="blackboard/teacher.html" target="_blank" style="display:flex;align-items:center;gap:10px;background:rgba(99,102,241,0.08);border:0.5px solid rgba(99,102,241,0.2);border-radius:12px;padding:14px 16px;text-decoration:none;">'
     +'<span style="font-size:24px;">👨‍🏫</span>'
     +'<div><div style="font-size:13px;font-weight:700;color:#a78bfa;">Teacher View</div><div style="font-size:11px;color:rgba(255,255,255,0.4);">Draw & publish</div></div>'
     +'<span style="margin-left:auto;color:rgba(255,255,255,0.3);">→</span>'
     +'</a>'
+
+    // Live Classes tile
+    +'<div style="grid-column:1/-1;display:flex;align-items:center;gap:14px;background:rgba(239,68,68,0.08);border:0.5px solid rgba(239,68,68,0.2);border-radius:12px;padding:16px;cursor:pointer;" onclick="alert(\'YouTube Live Classes coming soon! Stay tuned.\')">'
+    +'<span style="font-size:28px;">📺</span>'
+    +'<div style="flex:1;">'
+    +'<div style="font-size:14px;font-weight:700;color:#f87171;margin-bottom:2px;">Live Classes</div>'
+    +'<div style="font-size:11px;color:rgba(255,255,255,0.4);">Daily 6:00 PM – 8:30 PM · Maths · English · Reasoning · General Studies</div>'
+    +'</div>'
+    +'<div style="display:flex;align-items:center;gap:6px;background:rgba(239,68,68,0.15);border:0.5px solid rgba(239,68,68,0.3);border-radius:20px;padding:5px 12px;white-space:nowrap;">'
+    +'<span style="width:7px;height:7px;border-radius:50%;background:#f87171;display:inline-block;"></span>'
+    +'<span style="font-size:11px;font-weight:700;color:#f87171;">Coming Soon</span>'
+    +'</div>'
+    +'</div>'
+
     +'</div>'
     +'<div style="margin-top:10px;padding:10px;background:rgba(255,255,255,0.02);border-radius:8px;font-size:11px;color:rgba(255,255,255,0.3);text-align:center;">'
-    +'🔴 Real-time · Teacher draws → Students see instantly'
+    +'🔴 Blackboard is real-time · Teacher draws → Students see instantly'
+    +'</div></div>';
+}
+
+function renderLiveClasses() {
+  var body = document.getElementById("dbody-liveclasses");
+  if(!body) return;
+  body.innerHTML =
+    '<div style="padding:10px 4px;">'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">'
+    +'<div style="background:rgba(99,102,241,0.1);border:0.5px solid rgba(99,102,241,0.25);border-radius:12px;padding:16px;">'
+    +'<div style="font-size:11px;font-weight:700;color:#a78bfa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">🕕 Class Timings</div>'
+    +'<div style="font-size:18px;font-weight:700;color:#f1f5f9;letter-spacing:-0.3px;">6:00 PM – 8:30 PM</div>'
+    +'<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:4px;">Monday to Saturday</div>'
+    +'<div style="display:flex;align-items:center;gap:5px;margin-top:10px;">'
+    +'<span style="width:7px;height:7px;border-radius:50%;background:#34d399;display:inline-block;"></span>'
+    +'<span style="font-size:11px;color:#34d399;font-weight:600;">Daily Live Classes</span>'
+    +'</div></div>'
+    +'<div style="background:rgba(245,158,11,0.08);border:0.5px solid rgba(245,158,11,0.2);border-radius:12px;padding:16px;">'
+    +'<div style="font-size:11px;font-weight:700;color:#fbbf24;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;">📖 Subjects Covered</div>'
+    +'<div style="display:flex;flex-direction:column;gap:6px;">'
+    +'<div style="font-size:12px;color:rgba(255,255,255,0.7);">📐 Mathematics</div>'
+    +'<div style="font-size:12px;color:rgba(255,255,255,0.7);">📘 English</div>'
+    +'<div style="font-size:12px;color:rgba(255,255,255,0.7);">🧠 Reasoning</div>'
+    +'<div style="font-size:12px;color:rgba(255,255,255,0.7);">📜 General Studies</div>'
+    +'</div></div>'
+    +'</div>'
+    +'<div style="margin-top:10px;padding:12px 14px;background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.07);border-radius:10px;display:flex;align-items:center;gap:10px;">'
+    +'<span style="font-size:13px;">🏛</span>'
+    +'<span style="font-size:12px;color:rgba(255,255,255,0.5);">Preparation for <strong style="color:rgba(255,255,255,0.7);">GSSC</strong> · <strong style="color:rgba(255,255,255,0.7);">GPSC</strong> · and other Govt Exams</span>'
+    +'<a href="https://wa.me/917358425108" target="_blank" style="margin-left:auto;padding:6px 14px;background:rgba(16,185,129,0.15);border:0.5px solid rgba(16,185,129,0.3);border-radius:8px;font-size:11px;font-weight:700;color:#34d399;text-decoration:none;white-space:nowrap;">Enquire →</a>'
     +'</div></div>';
 }
 
