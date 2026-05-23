@@ -158,10 +158,17 @@ var PART_TESTS = [
   },
    {
     id: "math_part6", subject: "maths",
-    title: "Maths Part Test 6", description: "GSSC Police Constable · 10 Q",
-    password: "mat006", duration: 600, totalMarks: 10,
-    sections: { Maths: 10 },
-    questionsFile: "questions/math_part6.js", live: false
+    title: "Maths Part Test 6", description: "Maths Advance · 10 Q",
+    password: "mat006", duration: 1200, totalMarks: 20,
+    sections: { Maths: 20 },
+    questionsFile: "questions/math_part6.js", live: true
+  },
+    {
+    id: "math_part7", subject: "maths",
+    title: "Maths Part Test 7", description: "Maths Basic · 10 Q",
+    password: "mat007", duration: 600, totalMarks: 10,
+    sections: { Maths: 20 },
+    questionsFile: "questions/math_part7.js", live: false
   },
   // REASONING
   {
