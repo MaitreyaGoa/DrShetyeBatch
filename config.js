@@ -158,7 +158,7 @@ var PART_TESTS = [
   },
    {
     id: "math_part6", subject: "maths",
-    title: "Maths Part Test 6", description: "Maths Advance · 10 Q",
+    title: "Maths Part Test 6", description: "Maths Advance · 20 Q",
     password: "mat006", duration: 1200, totalMarks: 20,
     sections: { Maths: 20 },
     questionsFile: "questions/math_part6.js", live: true
