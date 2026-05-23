@@ -1,427 +1,395 @@
-// home.js – Home page logic for all 6 sections
+// home.js – Dr Shetye Academic Programme
+
+var top5Timers = {};
 
 document.addEventListener("DOMContentLoaded", function () {
-  renderFullTests();
-  renderPYQTests();
-  renderPartTests();
-  renderPDFs();
-  renderQuestionBank();
-  document.getElementById("adminPass").addEventListener("keydown", function (e) {
-    if (e.key === "Enter") adminLogin();
-  });
+  renderTestsGrid();
+  renderResourcesSection();
+  document.getElementById("adminPass").addEventListener("keydown", function(e){ if(e.key==="Enter") adminLogin(); });
 });
 
 // ══════════════════════════════════════════════════════════
-// TOGGLE DROPDOWN
+// TESTS GRID — Full + PYQ + Part all in one grid with labels
 // ══════════════════════════════════════════════════════════
-function toggleSection(id) {
-  var drop = document.getElementById("drop-" + id);
-  var chev = document.getElementById("chev-" + id);
-  var card = document.getElementById("card-" + id);
-  var isOpen = !drop.classList.contains("hidden");
-  drop.classList.toggle("hidden");
-  chev.textContent = isOpen ? "▼" : "▲";
-  card.classList.toggle("card-open", !isOpen);
+function renderTestsGrid() {
+  var grid = document.getElementById("testsGrid");
+  if(!grid) return;
+  grid.innerHTML = "";
+
+  // Full Tests
+  appendTestGroup(grid, "📋 Full Mock Tests", FULL_TESTS || [], "#6366f1");
+  // PYQ Tests
+  appendTestGroup(grid, "📜 Previous Year Papers", PYQ_TESTS || [], "#f59e0b");
+  // Part Tests — grouped by subject tabs handled inside dropdown
+  appendPartTestsCard(grid);
 }
 
-// ══════════════════════════════════════════════════════════
-// 1. FULL TESTS
-// ══════════════════════════════════════════════════════════
-function renderFullTests() {
-  var container = document.getElementById("fulltest-list");
-  container.innerHTML = "";
-  FULL_TESTS.forEach(function (test) {
-    container.appendChild(buildTestRow(test, "fulltest"));
+function appendTestGroup(grid, label, tests, color) {
+  if(!tests.length) return;
+  // Group label spanning full row
+  var lbl = document.createElement("div");
+  lbl.style.cssText = "grid-column:1/-1;display:flex;align-items:center;gap:10px;margin-top:8px;";
+  lbl.innerHTML = '<span style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.5);">'+label+'</span>'
+    +'<span style="flex:1;height:0.5px;background:rgba(255,255,255,0.08);"></span>';
+  grid.appendChild(lbl);
+
+  tests.forEach(function(test) {
+    grid.appendChild(buildTestCard(test));
   });
 }
 
-// ══════════════════════════════════════════════════════════
-// 1B. PREVIOUS YEAR TESTS
-// ══════════════════════════════════════════════════════════
-function renderPYQTests() {
-  var container = document.getElementById("pyq-list");
-  if (!container) return;
-  container.innerHTML = "";
-  var pyqTests = typeof PYQ_TESTS !== "undefined" ? PYQ_TESTS : [];
-  if (pyqTests.length === 0) {
-    container.innerHTML = '<p class="empty-msg">No PYQ tests added yet.</p>';
-    return;
-  }
-  pyqTests.forEach(function (test) {
-    container.appendChild(buildTestRow(test, "pyq"));
+function appendPartTestsCard(grid) {
+  // Label
+  var lbl = document.createElement("div");
+  lbl.style.cssText = "grid-column:1/-1;display:flex;align-items:center;gap:10px;margin-top:8px;";
+  lbl.innerHTML = '<span style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.5);">📝 Part Tests</span>'
+    +'<span style="flex:1;height:0.5px;background:rgba(255,255,255,0.08);"></span>';
+  grid.appendChild(lbl);
+
+  // Card spanning all columns
+  var card = document.createElement("div");
+  card.style.cssText = "grid-column:1/-1;background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;";
+
+  var subjectTabs = '<div class="subject-tabs" id="ptSubjTabs">'
+    + '<button class="sub-tab active" onclick="showPartSubject(\'english\',this)">📘 English</button>'
+    + '<button class="sub-tab" onclick="showPartSubject(\'maths\',this)">📐 Maths</button>'
+    + '<button class="sub-tab" onclick="showPartSubject(\'reasoning\',this)">🧠 Reasoning</button>'
+    + '<button class="sub-tab" onclick="showPartSubject(\'konkani\',this)">📖 Konkani</button>'
+    + '</div>';
+
+  var panels = "";
+  ["english","maths","reasoning","konkani"].forEach(function(subj, i) {
+    var tests = (PART_TESTS||[]).filter(function(t){ return t.subject===subj; });
+    var rows = tests.length === 0
+      ? '<p class="empty-msg" style="color:rgba(255,255,255,0.3);font-size:12px;padding:10px;font-style:italic;">No '+subj+' tests yet.</p>'
+      : tests.map(function(t){ return buildTestRowHTML(t); }).join('');
+    panels += '<div id="ptPanel-'+subj+'" class="subject-panel'+(i>0?' hidden':'')+'">'
+      +'<div class="test-list">'+rows+'</div></div>';
   });
+
+  card.innerHTML = subjectTabs + panels;
+  grid.appendChild(card);
 }
 
-// ══════════════════════════════════════════════════════════
-// 2. PART TESTS
-// ══════════════════════════════════════════════════════════
-function renderPartTests() {
-  ["english", "maths", "reasoning", "konkani"].forEach(function (subj) {
-    var container = document.getElementById("part-" + subj + "-list");
-    container.innerHTML = "";
-    var tests = PART_TESTS.filter(function (t) { return t.subject === subj; });
-    if (tests.length === 0) {
-      container.innerHTML = '<p class="empty-msg">No ' + subj + ' tests yet.</p>';
-      return;
-    }
-    tests.forEach(function (test) {
-      container.appendChild(buildTestRow(test, "parttest"));
-    });
-  });
-}
-
-function showSubject(subj, btn) {
-  document.querySelectorAll(".subject-panel").forEach(function (p) { p.classList.add("hidden"); });
-  document.querySelectorAll(".sub-tab").forEach(function (t) { t.classList.remove("active"); });
-  document.getElementById("part-" + subj).classList.remove("hidden");
+function showPartSubject(subj, btn) {
+  document.querySelectorAll(".subject-panel").forEach(function(p){ p.classList.add("hidden"); });
+  document.querySelectorAll("#ptSubjTabs .sub-tab").forEach(function(t){ t.classList.remove("active"); });
+  var panel = document.getElementById("ptPanel-"+subj);
+  if(panel) panel.classList.remove("hidden");
   btn.classList.add("active");
 }
 
 // ══════════════════════════════════════════════════════════
-// SHARED: BUILD TEST ROW (Full + Part)
+// BUILD TEST CARD (Full / PYQ)
 // ══════════════════════════════════════════════════════════
-function buildTestRow(test, type) {
-  var row = document.createElement("div");
-  row.className = "test-row";
+function buildTestCard(test) {
+  var glowColors = {"fulltest1":"#6366f1","fulltest2":"#6366f1","fulltest3":"#6366f1","pyq_gssc1":"#f59e0b","pyq_gssc2":"#f59e0b"};
+  var glow = glowColors[test.id] || "#6366f1";
 
-  var statusBadge = test.live
-    ? '<span class="badge badge-live">● Live</span>'
-    : '<span class="badge badge-soon">Coming Soon</span>';
+  var card = document.createElement("div");
+  card.className = "test-card";
+  card.style.setProperty("--glow", glow);
 
   var secTags = "";
-  if (test.sections) {
-    Object.keys(test.sections).forEach(function (sec) {
-      secTags += '<span class="sec-tag">' + sec + ': ' + test.sections[sec] + '</span>';
+  if(test.sections) {
+    Object.keys(test.sections).forEach(function(s){
+      var cls = s==="Maths"?"green":s==="Reasoning"?"amber":"";
+      secTags += '<span class="tag '+cls+'">'+s+': '+test.sections[s]+'</span>';
     });
   }
 
-  var mins = Math.round(test.duration / 60);
+  var badge = test.live
+    ? '<span class="test-badge-live">Live</span>'
+    : '<span class="test-badge-soon">Coming Soon</span>';
 
-  // Top-5 button (always visible for live tests)
-  var top5Btn = test.live
-    ? '<button class="btn btn-sm btn-ghost" onclick="showTop5(\'' + test.id + '\',\'' + test.title + '\',' + test.totalMarks + ',this)">🏅 Toppers</button>'
+  var top5Html = test.live
+    ? '<button class="top5-btn" onclick="toggleTop5(\''+test.id+'\',\''+test.title.replace(/'/g,'\\\'') +'\','+test.totalMarks+',this)">🏅 Toppers</button>'
     : '';
 
-  var startBtn = test.live
-    ? '<button class="btn btn-sm btn-primary" onclick="goToTest(\'' + test.id + '\')">Start Test →</button>'
-    : '<button class="btn btn-sm btn-disabled" disabled>Coming Soon</button>';
+  var actionBtn = test.live
+    ? '<button class="btn-start" onclick="goToTest(\''+test.id+'\')">Start →</button>'
+    : '<button class="btn-soon">Coming Soon</button>';
 
-  row.innerHTML =
-    '<div class="test-row-info">' +
-      '<div class="test-row-top">' +
-        '<span class="test-row-title">' + test.title + '</span>' +
-        statusBadge +
-      '</div>' +
-      '<div class="test-row-meta">' + test.description + ' · ⏱ ' + mins + ' min</div>' +
-      '<div class="test-row-tags">' + secTags + '</div>' +
-    '</div>' +
-    '<div class="test-row-actions">' + top5Btn + startBtn + '</div>';
+  card.innerHTML =
+    '<div class="test-card-header">'
+    +'<div class="test-icon-wrap">'+(test.id.includes('pyq')? '📜':'📋')+'</div>'
+    + badge
+    +'</div>'
+    +'<div class="test-card-title">'+test.title+'</div>'
+    +'<div class="test-card-desc">'+test.description+'</div>'
+    +'<div class="test-card-tags">'+secTags+'</div>'
+    +'<div class="test-card-footer">'
+    +'<span class="test-meta">⏱ '+Math.round(test.duration/60)+' min · '+test.totalMarks+' marks</span>'
+    +'<div style="display:flex;gap:6px;">'+top5Html+actionBtn+'</div>'
+    +'</div>';
 
-  // Top 5 panel (hidden by default, shown only on click)
-  var top5Panel = document.createElement("div");
-  top5Panel.className = "top5-panel";
-  top5Panel.id = "top5-" + test.id;
+  // Top 5 panel below
+  var top5 = document.createElement("div");
+  top5.className = "top5-panel";
+  top5.id = "top5-"+test.id;
 
-  var wrapper = document.createElement("div");
-  wrapper.appendChild(row);
-  wrapper.appendChild(top5Panel);
-  return wrapper;
+  var wrap = document.createElement("div");
+  wrap.appendChild(card);
+  wrap.appendChild(top5);
+  return wrap;
 }
 
 // ══════════════════════════════════════════════════════════
-// TOP 5 PERFORMANCE
+// BUILD TEST ROW (Part Tests)
 // ══════════════════════════════════════════════════════════
+function buildTestRowHTML(test) {
+  var badge = test.live
+    ? '<span class="badge badge-live">Live</span>'
+    : '<span class="badge badge-soon">Coming Soon</span>';
+  var secTags = Object.keys(test.sections||{}).map(function(s){
+    return '<span class="sec-tag">'+s+': '+test.sections[s]+'</span>';
+  }).join('');
+  var top5Btn = test.live
+    ? '<button class="btn-sm gold" onclick="toggleTop5(\''+test.id+'\',\''+test.title.replace(/'/g,'\\\'') +'\','+test.totalMarks+',this)">🏅</button>'
+    : '';
+  var actionBtn = test.live
+    ? '<button class="btn-sm primary" onclick="goToTest(\''+test.id+'\')">Start →</button>'
+    : '<button class="btn-sm disabled">Soon</button>';
 
-// Store refresh timers so we can clear them
-var top5Timers = {};
+  return '<div class="test-row">'
+    +'<div class="test-row-info">'
+    +'<div class="test-row-top"><span class="test-row-title">'+test.title+'</span>'+badge+'</div>'
+    +'<div class="test-row-meta">'+test.description+' · ⏱ '+Math.round(test.duration/60)+' min</div>'
+    +'<div class="test-row-tags">'+secTags+'</div>'
+    +'</div>'
+    +'<div class="test-row-actions">'+top5Btn+actionBtn+'</div>'
+    +'</div>'
+    +'<div class="top5-panel" id="top5-'+test.id+'"></div>';
+}
 
-function showTop5(testId, testTitle, totalMarks, btn) {
-  var panel = document.getElementById("top5-" + testId);
-
-  // Toggle close
-  if (panel.classList.contains("open")) {
+// ══════════════════════════════════════════════════════════
+// TOPPERS
+// ══════════════════════════════════════════════════════════
+function toggleTop5(testId, testTitle, totalMarks, btn) {
+  var panel = document.getElementById("top5-"+testId);
+  if(!panel) return;
+  if(panel.classList.contains("open")) {
     panel.classList.remove("open");
-    btn.innerHTML = '🏅 Toppers';
-    if (top5Timers[testId]) { clearInterval(top5Timers[testId]); delete top5Timers[testId]; }
+    btn.innerHTML = btn.innerHTML.includes("🏅") ? "🏅 Toppers" : "🏅";
+    if(top5Timers[testId]){ clearInterval(top5Timers[testId]); delete top5Timers[testId]; }
     return;
   }
-
-  // Open panel
   panel.classList.add("open");
-  btn.innerHTML = '✕ Hide';
-
-  // Load immediately then every 30 seconds
-  fetchTop5(testId, testTitle, totalMarks, panel);
-  top5Timers[testId] = setInterval(function () {
-    fetchTop5(testId, testTitle, totalMarks, panel);
-  }, 30000);
+  btn.innerHTML = btn.innerHTML.length > 2 ? "✕ Hide" : "✕";
+  fetchTop5Data(testId, testTitle, totalMarks, panel);
+  top5Timers[testId] = setInterval(function(){ fetchTop5Data(testId, testTitle, totalMarks, panel); }, 30000);
 }
 
-function fetchTop5(testId, testTitle, totalMarks, panel) {
-  if (!SCRIPT_URL || SCRIPT_URL === "PASTE_YOUR_APPS_SCRIPT_URL_HERE") {
-    panel.innerHTML =
-      '<div class="top5-header">🏆 Toppers – ' + testTitle + '</div>' +
-      '<p class="top5-empty" style="color:rgba(245,158,11,0.7);">Configure SCRIPT_URL in config.js.</p>';
+function fetchTop5Data(testId, testTitle, totalMarks, panel) {
+  if(!SCRIPT_URL || SCRIPT_URL==="PASTE_YOUR_APPS_SCRIPT_URL_HERE") {
+    panel.innerHTML = '<div class="top5-hdr">🏆 '+testTitle+'</div><p class="top5-empty">Configure SCRIPT_URL in config.js</p>';
     return;
   }
+  panel.innerHTML = '<p class="top5-empty">⏳ Loading...</p>';
 
-  panel.innerHTML = '<p class="top5-loading">⏳ Loading...</p>';
-
-  fetch(SCRIPT_URL + "?action=read&testId=" + testId)
-  .then(function(r) { return r.json(); })
-  .then(function(res) {
-    renderTop5Data(res, testTitle, totalMarks, panel);
-  })
-  .catch(function(err) {
-    console.log("Fetch blocked, trying alternative...", err);
-    loadViaScript(testId, testTitle, totalMarks, panel);
-  });
-}
-
-// Alternative loader that bypasses CORS
-function loadViaScript(testId, testTitle, totalMarks, panel) {
-  var cbName = "top5cb_" + testId.replace(/[^a-z0-9]/gi, "_");
-
+  var cbName = "top5cb_"+testId.replace(/[^a-z0-9]/gi,"_");
   window[cbName] = function(res) {
-    renderTop5Data(res, testTitle, totalMarks, panel);
+    renderTop5(res, testTitle, totalMarks, panel);
     delete window[cbName];
-    var old = document.getElementById(cbName);
-    if (old) old.remove();
+    var s=document.getElementById(cbName); if(s) s.remove();
   };
-
-  var s = document.createElement("script");
-  s.id  = cbName;
-  s.src = SCRIPT_URL + "?action=read&testId=" + testId + "&callback=" + cbName;
-  s.onerror = function() {
-    panel.innerHTML =
-      '<div class="top5-header">🏆 Toppers – ' + testTitle + '</div>' +
-      '<p class="top5-empty">⚠️ Could not load. Re-deploy Apps Script with Anyone access.</p>';
+  var s=document.createElement("script");
+  s.id=cbName;
+  s.src=SCRIPT_URL+"?action=read&testId="+testId+"&callback="+cbName;
+  s.onerror=function(){
+    panel.innerHTML='<div class="top5-hdr">🏆 '+testTitle+'</div><p class="top5-empty">Could not load results.</p>';
     delete window[cbName];
   };
   document.head.appendChild(s);
 }
 
-function renderTop5Data(res, testTitle, totalMarks, panel) {
-  if (!res.success || !res.data || res.data.length === 0) {
-    panel.innerHTML =
-      '<div class="top5-header">🏆 Toppers – ' + testTitle + '</div>' +
-      '<p class="top5-empty">No submissions yet. Be the first to attempt!</p>';
+function renderTop5(res, testTitle, totalMarks, panel) {
+  if(!res.success||!res.data||res.data.length===0){
+    panel.innerHTML='<div class="top5-hdr">🏆 '+testTitle+' <span style="font-size:10px;color:rgba(255,255,255,0.3);">0 attempted</span></div>'
+      +'<p class="top5-empty">No submissions yet — be first!</p>';
     return;
   }
-
-  var top    = res.data.slice(0, 10);
-  var total  = res.data.length;
-  var outOf  = totalMarks || 10;
-  var medals = ["🥇", "🥈", "🥉"];
-
-  var html = '<div class="top5-header">'
-    + '🏆 Top Performers – ' + testTitle
-    + '<span class="top5-count">' + total + ' attempted</span>'
-    + '</div>'
-    + '<ol class="top5-list">';
-
-  top.forEach(function(r, i) {
-    var pct  = Math.round((r.total / outOf) * 100);
-    var rank = i < 3
-      ? medals[i]
-      : '<span class="top5-num">' + (i + 1) + '</span>';
-
-    html += '<li class="top5-item">'
-      + '<span class="top5-rank">' + rank + '</span>'
-      + '<div class="top5-info">'
-      +   '<span class="top5-name">' + r.name + '</span>'
-      +   '<div class="top5-bar-wrap"><div class="top5-bar" style="width:' + Math.max(4, pct) + '%"></div></div>'
-      + '</div>'
-      + '<span class="top5-score">' + r.total + '<span class="top5-outof">/' + outOf + '</span></span>'
-      + '</li>';
+  var top=res.data.slice(0,10), medals=["🥇","🥈","🥉"], outOf=totalMarks||50;
+  var html='<div class="top5-hdr">🏆 '+testTitle+' <span style="font-size:10px;color:rgba(255,255,255,0.3);">'+res.data.length+' attempted</span></div><ol class="top5-list">';
+  top.forEach(function(r,i){
+    var pct=Math.round((r.total/outOf)*100);
+    var rank=i<3?medals[i]:'<span style="width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.08);display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:rgba(255,255,255,0.4);">'+(i+1)+'</span>';
+    html+='<li class="top5-item">'
+      +'<span class="top5-rank">'+rank+'</span>'
+      +'<div class="top5-info"><span class="top5-name">'+r.name+'</span>'
+      +'<div class="top5-bar-wrap"><div class="top5-bar" style="width:'+Math.max(4,pct)+'%"></div></div></div>'
+      +'<span class="top5-score">'+r.total+'<span class="top5-outof">/'+outOf+'</span></span>'
+      +'</li>';
   });
-
-  html += '</ol><div class="top5-footer">🔄 Auto-refreshes every 30s</div>';
-  panel.innerHTML = html;
+  html+='</ol><div class="top5-footer">🔄 Auto-refreshes · '+res.data.length+' total</div>';
+  panel.innerHTML=html;
 }
 
 // ══════════════════════════════════════════════════════════
-// PDF SECTIONS — Fixed: null-check guard prevents crash
-// when a category's list/empty element doesn't exist in HTML
+// RESOURCES SECTION
 // ══════════════════════════════════════════════════════════
+function renderResourcesSection() {
+  var container = document.getElementById("resourcesContainer");
+  if(!container) return;
+
+  var sections = [
+    { id:"notes",    icon:"📒", title:"Class Notes",    desc:"Uploaded PDF notes for download" },
+    { id:"books",    icon:"📚", title:"Reference Books", desc:"Recommended books & PDFs" },
+    { id:"material", icon:"🗂", title:"Study Material",  desc:"Handouts, summaries & practice sheets" },
+    { id:"qbank",    icon:"❓", title:"Question Bank",   desc:"Daily questions with answers & explanations" },
+    { id:"blackboard",icon:"🖊",title:"Live Blackboard", desc:"Watch teacher's live board in real time" },
+  ];
+
+  sections.forEach(function(sec) {
+    var card = document.createElement("div");
+    card.className = "dropdown-card";
+    card.id = "dcard-"+sec.id;
+
+    card.innerHTML =
+      '<div class="dropdown-header" onclick="toggleDropdown(\''+sec.id+'\')">'
+      +'<div class="dropdown-left">'
+      +'<div class="dropdown-icon">'+sec.icon+'</div>'
+      +'<div><div class="dropdown-title">'+sec.title+'</div><div class="dropdown-desc">'+sec.desc+'</div></div>'
+      +'</div>'
+      +'<span class="dropdown-chev" id="dchev-'+sec.id+'">▼</span>'
+      +'</div>'
+      +'<div class="dropdown-body" id="dbody-'+sec.id+'"></div>';
+
+    container.appendChild(card);
+  });
+
+  renderPDFs();
+  renderQBank();
+  renderBlackboard();
+}
+
+function toggleDropdown(id) {
+  var card=document.getElementById("dcard-"+id);
+  var body=document.getElementById("dbody-"+id);
+  var chev=document.getElementById("dchev-"+id);
+  var isOpen=card.classList.contains("open");
+  card.classList.toggle("open",!isOpen);
+  body.style.display=isOpen?"none":"block";
+  chev.style.transform=isOpen?"":"rotate(180deg)";
+}
+
 function renderPDFs() {
-  ["notes", "books", "material"].forEach(function (cat) {
-    var list  = document.getElementById(cat + "-list");
-    var empty = document.getElementById(cat + "-empty");
-
-    // Guard: skip if this category's HTML elements don't exist
-    if (!list || !empty) return;
-
-    list.innerHTML = "";
-    var items = PDF_RESOURCES.filter(function (r) { return r.category === cat; });
-
-    if (items.length === 0) {
-      empty.style.display = "block";
-      list.style.display  = "none";
-      return;
-    }
-
-    empty.style.display = "none";
-    list.style.display  = "block";
-    items.forEach(function (item) { list.appendChild(buildPDFRow(item)); });
+  ["notes","books","material"].forEach(function(cat) {
+    var body=document.getElementById("dbody-"+cat);
+    if(!body) return;
+    var items=(PDF_RESOURCES||[]).filter(function(r){return r.category===cat;});
+    if(items.length===0){body.innerHTML='<p class="empty-msg">No '+cat+' uploaded yet.</p>';return;}
+    body.innerHTML=items.map(function(item){
+      var icons={English:"📘",Maths:"📐",Reasoning:"🧠",Konkani:"📖",General:"📄"};
+      var icon=icons[item.subject]||"📄";
+      var fileId=""; var m=item.url.match(/\/d\/([a-zA-Z0-9_-]+)/); if(m) fileId=m[1];
+      var viewUrl="https://drive.google.com/file/d/"+fileId+"/preview";
+      var dlUrl="https://drive.google.com/uc?export=download&id="+fileId;
+      return '<div class="pdf-row">'
+        +'<div class="pdf-info"><div class="pdf-icon-wrap">'+icon+'</div>'
+        +'<div><div class="pdf-title">'+item.title+'</div><div class="pdf-meta">'+item.subject+' · '+formatDate(item.date)+'</div></div>'
+        +'</div><div class="pdf-actions">'
+        +'<a href="'+viewUrl+'" target="_blank" class="btn-view">👁 View</a>'
+        +'<a href="'+dlUrl+'" target="_blank" class="btn-dl">⬇ Download</a>'
+        +'</div></div>';
+    }).join('');
   });
 }
 
-function buildPDFRow(item) {
-  var row = document.createElement("div");
-  row.className = "pdf-row";
-  var subjectIcon = { English:"📘", Maths:"📐", Reasoning:"🧠", Konkani:"📖", General:"📄" };
-  var icon = subjectIcon[item.subject] || "📄";
+function renderQBank() {
+  var body=document.getElementById("dbody-qbank");
+  if(!body) return;
+  if(!QUESTION_BANK||QUESTION_BANK.length===0){body.innerHTML='<p class="empty-msg">No questions uploaded yet.</p>';return;}
 
-  // Extract file ID from Google Drive URL for direct download
-  var fileId = "";
-  var match = item.url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-  if (match) fileId = match[1];
-  var viewUrl     = "https://drive.google.com/file/d/" + fileId + "/preview";
-  var downloadUrl = "https://drive.google.com/uc?export=download&id=" + fileId;
-
-  row.innerHTML =
-    '<div class="pdf-row-info">' +
-      '<span class="pdf-icon">' + icon + '</span>' +
-      '<div>' +
-        '<div class="pdf-title">' + item.title + '</div>' +
-        '<div class="pdf-meta">' + item.subject + ' · ' + formatDate(item.date) + '</div>' +
-      '</div>' +
-    '</div>' +
-    '<div class="pdf-row-actions">' +
-      '<a href="' + viewUrl + '" target="_blank" class="btn btn-sm btn-outline">👁 View</a>' +
-      '<a href="' + downloadUrl + '" target="_blank" class="btn btn-sm btn-primary">⬇ Download</a>' +
-    '</div>';
-  return row;
-}
-
-// ══════════════════════════════════════════════════════════
-// 6. QUESTION BANK
-// ══════════════════════════════════════════════════════════
-function renderQuestionBank() {
-  var tabs  = document.getElementById("qbankDateTabs");
-  var qList = document.getElementById("qbank-questions");
-  var empty = document.getElementById("qbank-empty");
-  tabs.innerHTML = ""; qList.innerHTML = "";
-
-  if (!QUESTION_BANK || QUESTION_BANK.length === 0) {
-    empty.style.display = "block"; return;
-  }
-  empty.style.display = "none";
-
-  // Build date tabs
-  QUESTION_BANK.forEach(function (set, i) {
-    var btn = document.createElement("button");
-    btn.className = "date-tab" + (i === 0 ? " active" : "");
-    btn.textContent = set.label || set.date;
-    btn.onclick = (function (idx) { return function () { loadQBankSet(idx, btn); }; })(i);
-    tabs.appendChild(btn);
+  var tabs='<div class="qbank-date-tabs">';
+  QUESTION_BANK.forEach(function(set,i){
+    tabs+='<button class="date-tab'+(i===0?' active':'')+'" onclick="loadQBSet('+i+',this)">'+( set.label||set.date)+'</button>';
   });
-
-  loadQBankSet(0, tabs.firstChild);
+  tabs+='</div><div id="qbListWrap"></div>';
+  body.innerHTML=tabs;
+  loadQBSet(0, body.querySelector('.date-tab'));
 }
 
-function loadQBankSet(idx, btn) {
-  document.querySelectorAll(".date-tab").forEach(function (t) { t.classList.remove("active"); });
-  btn.classList.add("active");
-  var set   = QUESTION_BANK[idx];
-  var qList = document.getElementById("qbank-questions");
-  qList.innerHTML = "";
-  if (!set || !set.questions || set.questions.length === 0) {
-    qList.innerHTML = '<p class="empty-msg">No questions for this date.</p>'; return;
-  }
-
-  var header = document.createElement("div");
-  header.className = "qbank-day-header";
-  header.innerHTML = '<span>📅 ' + (set.label || set.date) + '</span>'
-    + '<span class="qbank-count">' + set.questions.length + ' Questions</span>';
-  qList.appendChild(header);
-
-  set.questions.forEach(function (q, i) {
-    qList.appendChild(buildQBankItem(q, i));
-  });
+function loadQBSet(idx, btn) {
+  document.querySelectorAll(".date-tab").forEach(function(t){t.classList.remove("active");});
+  if(btn) btn.classList.add("active");
+  var set=QUESTION_BANK[idx];
+  var wrap=document.getElementById("qbListWrap");
+  if(!wrap||!set) return;
+  var labels=["A","B","C","D"];
+  wrap.innerHTML='<div class="qbank-list">'+set.questions.map(function(q,i){
+    var opts=q.options.map(function(opt,j){
+      return '<li class="qb-option" data-qid="'+q.id+'" data-lbl="'+labels[j]+'" data-correct="'+q.answer+'" onclick="selectQBOpt(this)">'
+        +'<span class="qb-lbl">'+labels[j]+'.</span>'+opt+'</li>';
+    }).join('');
+    return '<div class="qbank-item" id="qbi-'+q.id+'">'
+      +'<div class="qb-num">Q'+(i+1)+'</div>'
+      +'<div class="qb-text">'+q.text+'</div>'
+      +'<ul class="qb-options">'+opts+'</ul>'
+      +'<div class="qb-explanation hidden" id="qbexp-'+q.id+'">💡 '+q.explanation+'</div>'
+      +'</div>';
+  }).join('')+'</div>';
 }
 
-function buildQBankItem(q, idx) {
-  var wrap = document.createElement("div");
-  wrap.className = "qbank-item";
-  wrap.id = "qb-" + q.id;
-
-  var labels = ["A","B","C","D"];
-  var optsHtml = "";
-  q.options.forEach(function (opt, i) {
-    optsHtml += '<li class="qb-option" data-lbl="' + labels[i] + '" data-qid="' + q.id + '" data-correct="' + q.answer + '" onclick="selectQBOption(this)">'
-      + '<span class="qb-lbl">' + labels[i] + '.</span> ' + opt + '</li>';
-  });
-
-  wrap.innerHTML =
-    '<div class="qb-qnum">Q' + (idx + 1) + '</div>' +
-    '<div class="qb-text">' + q.text + '</div>' +
-    '<ul class="qb-options">' + optsHtml + '</ul>' +
-    '<div class="qb-explanation hidden" id="exp-' + q.id + '">' +
-      '<strong>💡 Explanation:</strong> ' + (q.explanation || "No explanation provided.") +
-    '</div>';
-  return wrap;
-}
-
-function selectQBOption(el) {
-  var qid     = el.getAttribute("data-qid");
-  var chosen  = el.getAttribute("data-lbl");
-  var correct = el.getAttribute("data-correct");
-  var wrap    = document.getElementById("qb-" + qid);
-
-  // Prevent re-answering
-  if (wrap.classList.contains("answered")) return;
+function selectQBOpt(el){
+  var qid=el.getAttribute("data-qid");
+  var wrap=document.getElementById("qbi-"+qid);
+  if(wrap.classList.contains("answered")) return;
   wrap.classList.add("answered");
-
-  // Mark all options
-  wrap.querySelectorAll(".qb-option").forEach(function (opt) {
-    var lbl = opt.getAttribute("data-lbl");
-    if (lbl === correct) opt.classList.add("qb-correct");
-    else if (lbl === chosen) opt.classList.add("qb-wrong");
-    opt.style.pointerEvents = "none";
+  var correct=el.getAttribute("data-correct");
+  wrap.querySelectorAll(".qb-option").forEach(function(o){
+    if(o.getAttribute("data-lbl")===correct) o.classList.add("qb-correct");
+    else if(o===el) o.classList.add("qb-wrong");
+    o.style.pointerEvents="none";
   });
+  var exp=document.getElementById("qbexp-"+qid);
+  if(exp) exp.classList.remove("hidden");
+}
 
-  // Show explanation
-  document.getElementById("exp-" + qid).classList.remove("hidden");
+function renderBlackboard() {
+  var body=document.getElementById("dbody-blackboard");
+  if(!body) return;
+  body.innerHTML=
+    '<div style="padding:10px 4px;">'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">'
+    +'<a href="blackboard/student.html" target="_blank" style="display:flex;align-items:center;gap:10px;background:rgba(16,185,129,0.08);border:0.5px solid rgba(16,185,129,0.2);border-radius:12px;padding:14px 16px;text-decoration:none;transition:all 0.18s;">'
+    +'<span style="font-size:24px;">👨‍🎓</span>'
+    +'<div><div style="font-size:13px;font-weight:700;color:#34d399;">Student View</div><div style="font-size:11px;color:rgba(255,255,255,0.4);">Watch live board</div></div>'
+    +'<span style="margin-left:auto;color:rgba(255,255,255,0.3);">→</span>'
+    +'</a>'
+    +'<a href="blackboard/teacher.html" target="_blank" style="display:flex;align-items:center;gap:10px;background:rgba(99,102,241,0.08);border:0.5px solid rgba(99,102,241,0.2);border-radius:12px;padding:14px 16px;text-decoration:none;transition:all 0.18s;">'
+    +'<span style="font-size:24px;">👨‍🏫</span>'
+    +'<div><div style="font-size:13px;font-weight:700;color:#a78bfa;">Teacher View</div><div style="font-size:11px;color:rgba(255,255,255,0.4);">Draw & publish</div></div>'
+    +'<span style="margin-left:auto;color:rgba(255,255,255,0.3);">→</span>'
+    +'</a>'
+    +'</div>'
+    +'<div style="margin-top:10px;padding:10px;background:rgba(255,255,255,0.02);border-radius:8px;font-size:11px;color:rgba(255,255,255,0.3);text-align:center;">'
+    +'🔴 Real-time · Teacher draws → Students see instantly'
+    +'</div></div>';
 }
 
 // ══════════════════════════════════════════════════════════
-// NAVIGATION
+// NAVIGATION & ADMIN
 // ══════════════════════════════════════════════════════════
 function goToTest(testId) {
-  window.location.href = "test.html?id=" + testId;
+  window.location.href="test.html?id="+testId;
 }
 
-// ══════════════════════════════════════════════════════════
-// ADMIN
-// ══════════════════════════════════════════════════════════
 function openAdminModal() {
-  var modal = document.getElementById("adminModal");
-  modal.style.display = "flex";
-  document.getElementById("adminPass").value = "";
-  document.getElementById("adminError").style.display = "none";
-  setTimeout(function () { document.getElementById("adminPass").focus(); }, 100);
+  var m=document.getElementById("adminModal");
+  m.style.display="flex";m.style.alignItems="center";m.style.justifyContent="center";
+  document.getElementById("adminPass").value="";
+  document.getElementById("adminError").style.display="none";
+  setTimeout(function(){document.getElementById("adminPass").focus();},100);
 }
-
-function closeModal(id) {
-  document.getElementById(id).style.display = "none";
-}
-
+function closeModal() { document.getElementById("adminModal").style.display="none"; }
 function adminLogin() {
-  if (document.getElementById("adminPass").value === ADMIN_PASSWORD) {
-    closeModal("adminModal");
-    window.location.href = "admin.html";
-  } else {
-    document.getElementById("adminError").style.display = "block";
-  }
+  if(document.getElementById("adminPass").value===ADMIN_PASSWORD){
+    closeModal(); window.location.href="admin.html";
+  } else { document.getElementById("adminError").style.display="block"; }
 }
 
-// ══════════════════════════════════════════════════════════
-// HELPERS
-// ══════════════════════════════════════════════════════════
-function formatDate(dateStr) {
-  if (!dateStr) return "";
-  var d = new Date(dateStr);
-  return d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+function formatDate(d) {
+  if(!d) return "";
+  return new Date(d).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"});
 }
