@@ -41,7 +41,7 @@ var FULL_TESTS = [
     password:    "jso001",
     duration:    4500,
     totalMarks:  60,
-    sections:    { English: 20, Maths: 20, Reasoning: 20 },
+    sections:    { General Intelligence Reasoning & Numerical Aptitude : 50, English Comprehension : 10 },
     questionsFile: "questions/fulltest3.js",
     live:        true
   },
