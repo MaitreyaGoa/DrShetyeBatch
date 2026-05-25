@@ -8,6 +8,8 @@
 // Fix: Q57 answer corrected from A to B
 // ============================================================
 
+var PASSAGE_MT01 = `The structural transition of administrative governance from classical bureaucratic hierarchies to agile, digital-first frameworks is frequently lauded as an unalloyed democratic triumph. Optimists argue that algorithmic decision-making frameworks and automated citizen interfaces democratize access, institutionalize transparency, and neutralize the standard pathology of discretionary rent-seeking. However, this techno-positivist narrative deliberately obscures a structural drawback: the emergence of the 'algorithmic panopticon' and the systemic disenfranchisement of marginalized populations. When state agencies delegate administrative discretion to rigid algorithms, the citizen is no longer viewed as an agent possessing rights, but as a data-point to be optimized. Furthermore, the architectural opaqueness of these machine-learning frameworks introduces an unprecedented accountability deficit. In classical administrative law, an aggrieved citizen can contest an adverse executive decision by demanding the subjective rationale behind it. Conversely, algorithmic determinism offers no such legibility; its outputs are shielded by the proprietary armor of code or the inherent opacity of deep neural networks. Consequently, the constitutional right to administrative fairness is hollowed out, transforming the state into an automated entity that is structurally insulated from legal or public scrutiny.`;
+
 var questions = [
 
   // ─────────────────────────────────────────────────────────
@@ -445,7 +447,7 @@ var questions = [
 
   {
     id: 1051, section: "English Comprehension",
-    passage: "The structural transition of administrative governance from classical bureaucratic hierarchies to agile, digital-first frameworks is frequently lauded as an unalloyed democratic triumph. Optimists argue that algorithmic decision-making frameworks and automated citizen interfaces democratize access, institutionalize transparency, and neutralize the standard pathology of discretionary rent-seeking. However, this techno-positivist narrative deliberately obscures a structural drawback: the emergence of the 'algorithmic panopticon' and the systemic disenfranchisement of marginalized populations. When state agencies delegate administrative discretion to rigid algorithms, the citizen is no longer viewed as an agent possessing rights, but as a data-point to be optimized. Furthermore, the architectural opaqueness of these machine-learning frameworks introduces an unprecedented accountability deficit. In classical administrative law, an aggrieved citizen can contest an adverse executive decision by demanding the subjective rationale behind it. Conversely, algorithmic determinism offers no such legibility; its outputs are shielded by the proprietary armor of code or the inherent opacity of deep neural networks. Consequently, the constitutional right to administrative fairness is hollowed out, transforming the state into an automated entity that is structurally insulated from legal or public scrutiny.",
+    passage: PASSAGE_MT01,
     text: "Which statement best encapsulates the central thesis of the passage?",
     options: [
       "A) Digital governance has completely eradicated discretionary corruption from modern states.",
@@ -459,6 +461,7 @@ var questions = [
 
   {
     id: 1052, section: "English Comprehension",
+    passage: PASSAGE_MT01,
     text: "According to the passage, how does algorithmic determinism impact a citizen's constitutional right to administrative fairness?",
     options: [
       "A) It bolsters fairness by replacing human bias with objective mathematical standards.",
@@ -472,6 +475,7 @@ var questions = [
 
   {
     id: 1053, section: "English Comprehension",
+    passage: PASSAGE_MT01,
     text: "What does the author mean by the phrase 'techno-positivist narrative'?",
     options: [
       "A) A realistic and critical analysis of software engineering in state public works.",
@@ -485,6 +489,7 @@ var questions = [
 
   {
     id: 1054, section: "English Comprehension",
+    passage: PASSAGE_MT01,
     text: "Based on the passage, what structural drawback is obscured by celebrating digital-first administrative frameworks?",
     options: [
       "A) The higher financial cost of maintaining data servers over physical filing cabinets.",
@@ -498,6 +503,7 @@ var questions = [
 
   {
     id: 1055, section: "English Comprehension",
+    passage: PASSAGE_MT01,
     text: "In the context of the passage, which word is closest in meaning to 'opaqueness'?",
     options: ["A) Lucidity", "B) Transparency", "C) Incomprehensibility", "D) Adaptability"],
     answer: "C",
