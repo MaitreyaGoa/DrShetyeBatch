@@ -34,9 +34,20 @@ var FULL_TESTS = [
     questionsFile: "questions/fulltest2.js",
     live:        true
   },
+    {
+    id:          "fulltest3",
+    title:       "JSO pre-screening Test",
+    description: "All sections · 60 Questions",
+    password:    "jso001",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { English: 20, Maths: 20, Reasoning: 20 },
+    questionsFile: "questions/fulltest3.js",
+    live:        true
+  },
   {
     id:          "fulltest3",
-    title:       "Full Mock Test 3",
+    title:       "Full Mock Test 4",
     description: "All sections · 50 Questions",
     password:    "ssc003",
     duration:    3600,
