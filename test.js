@@ -1,20 +1,23 @@
-// test.js – Universal Test Engine (works for Full Tests & Part Tests)
+// test.js – Dr Shetye Academic Program — Test Engine v3.0
+// Features: Section tabs · HH:MM:SS timer · Mark for Review (purple)
+// Clear Response · Floating palette button · Slide-out palette drawer
+// 5-status legend · Shield shape for current/not-answered · Light UI
 
 var currentTest    = null;
 var currentStudent = "";
 var currentQ       = 0;
 var userAnswers    = {};
+var markedReview   = {};
+var visitedQ       = {};
 var timerInterval  = null;
 var timeLeft       = 3600;
 var questions      = [];
 
 // ── INIT ──────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", function () {
-  var params = new URLSearchParams(window.location.search);
-  var testId = params.get("id");
-
-  // Search in FULL_TESTS, PYQ_TESTS and PART_TESTS
-  var allTests = (FULL_TESTS || []).concat(PYQ_TESTS || []).concat(PART_TESTS || []);
+  var params  = new URLSearchParams(window.location.search);
+  var testId  = params.get("id");
+  var allTests = (window.FULL_TESTS || []).concat(window.PYQ_TESTS || []).concat(window.PART_TESTS || []);
   for (var i = 0; i < allTests.length; i++) {
     if (allTests[i].id === testId) { currentTest = allTests[i]; break; }
   }
@@ -29,11 +32,12 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   document.getElementById("loginTestBadge").textContent = currentTest.title;
-  document.getElementById("loginSubtitle").textContent  = currentTest.description + " · " + Math.round(currentTest.duration/60) + " min";
+  document.getElementById("loginSubtitle").textContent  =
+    currentTest.description + " · " + Math.round(currentTest.duration / 60) + " min";
   document.title = currentTest.title + " – Dr Shetye Academic Program";
 
-  document.getElementById("studentPassword").addEventListener("keydown", function (e) { if (e.key==="Enter") login(); });
-  document.getElementById("studentName").addEventListener("keydown", function (e) { if (e.key==="Enter") login(); });
+  document.getElementById("studentPassword").addEventListener("keydown", function (e) { if (e.key === "Enter") login(); });
+  document.getElementById("studentName").addEventListener("keydown",     function (e) { if (e.key === "Enter") login(); });
 
   loadQuestions(currentTest.questionsFile);
 });
@@ -53,7 +57,7 @@ function loadQuestions(filename) {
 
 // ── PAGE ROUTING ──────────────────────────────────────────
 function showPage(id) {
-  ["loginPage","testPage","resultPage","answerPage"].forEach(function (p) {
+  ["loginPage", "testPage", "resultPage", "answerPage"].forEach(function (p) {
     document.getElementById(p).style.display = "none";
   });
   document.getElementById(id).style.display = "block";
@@ -68,152 +72,308 @@ function login() {
   if (!name) { err.textContent = "Please enter your full name."; err.style.display = "block"; return; }
   if (pass !== currentTest.password) { err.textContent = "Incorrect password. Please check with your coordinator."; err.style.display = "block"; return; }
   if (!questions || questions.length === 0) { err.textContent = "Questions not loaded yet. Please refresh."; err.style.display = "block"; return; }
-  err.style.display = "none";
-  currentStudent = name;
-  userAnswers = {};
-  currentQ = 0;
-  timeLeft = currentTest.duration;
+  err.style.display  = "none";
+  currentStudent     = name;
+  userAnswers        = {};
+  markedReview       = {};
+  visitedQ           = {};
+  currentQ           = 0;
+  timeLeft           = currentTest.duration;
   startTest();
+}
+
+// ── SECTIONS ─────────────────────────────────────────────
+var SECTION_ORDER = [
+  "General Intelligence & Reasoning",
+  "English Comprehension",
+  "English", "Maths", "Reasoning", "Konkani"
+];
+
+function getSections() {
+  var secs = [];
+  SECTION_ORDER.forEach(function (sec) {
+    var start = -1, count = 0;
+    questions.forEach(function (q, i) {
+      if (q.section === sec) { if (start === -1) start = i; count++; }
+    });
+    if (count > 0) secs.push({ name: sec, short: secShort(sec), start: start, end: start + count });
+  });
+  return secs;
+}
+
+function secShort(s) {
+  return { "General Intelligence & Reasoning": "Reasoning & Aptitude", "English Comprehension": "English" }[s] || s;
 }
 
 // ── START TEST ────────────────────────────────────────────
 function startTest() {
-  document.getElementById("topStudentName").textContent = "👤 " + currentStudent;
-  document.getElementById("topTestName").textContent    = currentTest.title;
-
-  // Section jump buttons
-  var secLinks = document.getElementById("sectionLinks");
-  secLinks.innerHTML = "";
-  var secs = getSections();
-  secs.forEach(function (s) {
-    var btn = document.createElement("button");
-    btn.className = "section-btn";
-    btn.textContent = s.name + " (" + (s.start+1) + "–" + s.end + ")";
-    btn.onclick = (function (start) { return function () { renderQuestion(start); }; })(s.start);
-    secLinks.appendChild(btn);
-  });
-
+  document.getElementById("paletteStudentName").textContent = currentStudent;
+  document.getElementById("topTestName").textContent = currentTest.title;
+  buildSectionTabs();
   showPage("testPage");
   buildPalette();
   renderQuestion(0);
   startTimer();
 }
 
-function getSections() {
-  var secs = [], idx = 0;
-  var order = ["English","Maths","Reasoning","Konkani"];
-  order.forEach(function (sec) {
-    var count = 0;
-    questions.forEach(function (q) { if (q.section === sec) count++; });
-    if (count > 0) { secs.push({ name: sec, start: idx, end: idx + count }); idx += count; }
+function buildSectionTabs() {
+  var bar = document.getElementById("sectionTabBar");
+  bar.innerHTML = "";
+  var secs = getSections();
+  secs.forEach(function (s, i) {
+    var btn = document.createElement("button");
+    btn.className = "sec-tab" + (i === 0 ? " active" : "");
+    btn.textContent = s.short;
+    btn.id = "sectab-" + i;
+    btn.onclick = (function (start, idx) {
+      return function () {
+        renderQuestion(start);
+        document.querySelectorAll(".sec-tab").forEach(function (t) { t.classList.remove("active"); });
+        document.getElementById("sectab-" + idx).classList.add("active");
+      };
+    })(s.start, i);
+    bar.appendChild(btn);
   });
-  return secs;
 }
 
 // ── RENDER QUESTION ───────────────────────────────────────
 function renderQuestion(idx) {
   currentQ = idx;
+  visitedQ[idx] = true;
+
   var q   = questions[idx];
   var box = document.getElementById("questionBox");
 
-  var secLabels = { English:"Section – English", Maths:"Section – Mathematics", Reasoning:"Section – Reasoning", Konkani:"Section – Konkani" };
-  document.getElementById("sectionBadge").textContent = secLabels[q.section] || q.section;
+  // Sync active section tab
+  var secs = getSections();
+  secs.forEach(function (s, i) {
+    var t = document.getElementById("sectab-" + i);
+    if (t) { t.classList.remove("active"); if (idx >= s.start && idx < s.end) t.classList.add("active"); }
+  });
 
-  var html = '<div class="question-num">Question '+(idx+1)+' of '+questions.length+'</div>';
-  if (q.passage && idx < 5) html += '<div class="passage-box">'+q.passage+'</div>';
-  if (q.clozeContext) html += '<div class="passage-box" style="font-style:italic;">'+q.clozeContext+'</div>';
-  // Show embedded image if present
-  if (q.image) {
-    html += '<div class="question-image-wrap"><img src="'+q.image+'" class="question-image" alt="Question image"/></div>';
+  // Q number
+  document.getElementById("qNumLabel").textContent = "No. " + (idx + 1);
+
+  var html = "";
+
+  // Passage
+  if (q.passage) {
+    html += '<div class="passage-box">'
+          + '<div class="passage-label">📄 Read the following passage carefully</div>'
+          + q.passage + '</div>';
   }
-  html += '<div class="question-text">'+(idx+1)+'. '+q.text+'</div>';
+  if (q.clozeContext) {
+    html += '<div class="passage-box" style="font-style:italic;">' + q.clozeContext + '</div>';
+  }
+  if (q.image) {
+    html += '<div class="question-image-wrap"><img src="' + q.image + '" class="question-image" alt="Question image"/></div>';
+  }
+
+  html += '<div class="question-text">' + q.text + '</div>';
   html += '<ul class="options-list">';
-  var labels = ["A","B","C","D"];
+  var labels = ["A", "B", "C", "D"];
   for (var i = 0; i < q.options.length; i++) {
     var lbl = labels[i];
-    var sel = userAnswers[q.id] === lbl ? "selected" : "";
-    html += '<li class="option-item '+sel+'" data-qid="'+q.id+'" data-lbl="'+lbl+'" onclick="selectAnswer(this)">'
-          + '<span class="opt-label">'+lbl+'.</span><span>'+q.options[i]+'</span></li>';
+    var isSel = userAnswers[q.id] === lbl;
+    html += '<li class="option-item' + (isSel ? " selected" : "") + '" '
+          + 'data-qid="' + q.id + '" data-lbl="' + lbl + '" onclick="selectAnswer(this)">'
+          // Left cell: radio + letter label (light blue column)
+          + '<span class="opt-label-cell">'
+          + '<span class="radio-circle' + (isSel ? " checked" : "") + '"></span>'
+          + '<span class="opt-letter">' + lbl + '</span>'
+          + '</span>'
+          // Right cell: option text (white column)
+          + '<span class="opt-text-cell">' + q.options[i] + '</span>'
+          + '</li>';
   }
   html += '</ul>';
   box.innerHTML = html;
+
+  // Mark for review button state
+  var mrBtn = document.getElementById("markReviewBtn");
+  if (markedReview[idx]) {
+    mrBtn.classList.add("marked");
+    mrBtn.textContent = "🟣 Marked for Review";
+  } else {
+    mrBtn.classList.remove("marked");
+    mrBtn.textContent = "Mark & Save";
+  }
+
   document.getElementById("prevBtn").disabled = (idx === 0);
-  document.getElementById("nextBtn").textContent = (idx === questions.length-1) ? "Review All" : "Next ▶";
+  document.getElementById("nextBtn").disabled = (idx === questions.length - 1);
   updatePalette();
 }
 
 function selectAnswer(el) {
-  userAnswers[parseInt(el.getAttribute("data-qid"))] = el.getAttribute("data-lbl");
-  document.querySelectorAll(".option-item").forEach(function (li) { li.classList.remove("selected"); });
+  var qid = parseInt(el.getAttribute("data-qid"));
+  userAnswers[qid] = el.getAttribute("data-lbl");
+  document.querySelectorAll(".option-item").forEach(function (li) {
+    li.classList.remove("selected");
+    li.querySelector(".radio-circle").classList.remove("checked");
+  });
   el.classList.add("selected");
+  el.querySelector(".radio-circle").classList.add("checked");
   updatePalette();
 }
 
+function clearResponse() {
+  delete userAnswers[questions[currentQ].id];
+  document.querySelectorAll(".option-item").forEach(function (li) {
+    li.classList.remove("selected");
+    li.querySelector(".radio-circle").classList.remove("checked");
+  });
+  updatePalette();
+}
+
+function markForReview() {
+  markedReview[currentQ] = !markedReview[currentQ];
+  var mrBtn = document.getElementById("markReviewBtn");
+  if (markedReview[currentQ]) {
+    mrBtn.classList.add("marked");
+    mrBtn.textContent = "🟣 Marked for Review";
+  } else {
+    mrBtn.classList.remove("marked");
+    mrBtn.textContent = "Mark & Save";
+  }
+  updatePalette();
+  // Advance to next question
+  if (currentQ < questions.length - 1) renderQuestion(currentQ + 1);
+}
+
+function saveAndNext() {
+  if (currentQ < questions.length - 1) renderQuestion(currentQ + 1);
+}
+
 function prevQuestion() { if (currentQ > 0) renderQuestion(currentQ - 1); }
-function nextQuestion() { if (currentQ < questions.length-1) renderQuestion(currentQ + 1); }
+function nextQuestion() { if (currentQ < questions.length - 1) renderQuestion(currentQ + 1); }
 
 // ── PALETTE ──────────────────────────────────────────────
+function openPalette() {
+  document.getElementById("paletteDrawer").classList.add("open");
+  document.getElementById("paletteOverlay").style.display = "block";
+}
+function closePalette() {
+  document.getElementById("paletteDrawer").classList.remove("open");
+  document.getElementById("paletteOverlay").style.display = "none";
+}
+
 function buildPalette() {
   var grid = document.getElementById("palette");
   grid.innerHTML = "";
-  for (var i = 0; i < questions.length; i++) {
-    (function (idx) {
-      var btn = document.createElement("button");
-      btn.className = "palette-btn"; btn.textContent = idx+1; btn.id = "pal-"+idx;
-      btn.onclick = function () { renderQuestion(idx); };
-      grid.appendChild(btn);
-    })(i);
-  }
+  getSections().forEach(function (s) {
+    var secDiv = document.createElement("div");
+    secDiv.className = "pal-sec-group";
+
+    var label = document.createElement("div");
+    label.className = "pal-sec-label";
+    label.innerHTML = "<b>Section:</b> " + s.short;
+    secDiv.appendChild(label);
+
+    var btnRow = document.createElement("div");
+    btnRow.className = "pal-btn-row";
+    for (var i = s.start; i < s.end; i++) {
+      (function (idx) {
+        var btn = document.createElement("button");
+        btn.id = "pal-" + idx;
+        btn.className = "pal-btn";
+        btn.textContent = idx + 1;
+        btn.onclick = function () { renderQuestion(idx); closePalette(); };
+        btnRow.appendChild(btn);
+      })(i);
+    }
+    secDiv.appendChild(btnRow);
+    grid.appendChild(secDiv);
+  });
+  updatePalette();
 }
 
 function updatePalette() {
+  var counts = { answered: 0, marked: 0, notVisited: 0, markedAns: 0, notAnswered: 0 };
+
   for (var i = 0; i < questions.length; i++) {
-    var btn = document.getElementById("pal-"+i);
+    var btn       = document.getElementById("pal-" + i);
     if (!btn) continue;
-    btn.className = "palette-btn";
-    if (i === currentQ) btn.classList.add("current");
-    else if (userAnswers[questions[i].id]) btn.classList.add("answered");
+    var isAns     = !!userAnswers[questions[i].id];
+    var isMark    = !!markedReview[i];
+    var isVisited = !!visitedQ[i];
+    var isCurrent = i === currentQ;
+
+    btn.className = "pal-btn";
+
+    if (isCurrent) {
+      btn.classList.add("pal-current");
+    } else if (isMark && isAns) {
+      btn.classList.add("pal-marked-ans"); counts.markedAns++;
+    } else if (isMark) {
+      btn.classList.add("pal-marked");     counts.marked++;
+    } else if (isAns) {
+      btn.classList.add("pal-answered");   counts.answered++;
+    } else if (isVisited) {
+      btn.classList.add("pal-not-ans");    counts.notAnswered++;
+    } else {
+      btn.classList.add("pal-not-visited"); counts.notVisited++;
+    }
   }
+
+  function set(id, val) { var e = document.getElementById(id); if (e) e.textContent = val; }
+  set("cnt-answered",    counts.answered);
+  set("cnt-marked",      counts.marked);
+  set("cnt-not-visited", counts.notVisited);
+  set("cnt-marked-ans",  counts.markedAns);
+  set("cnt-not-ans",     counts.notAnswered);
 }
 
 // ── TIMER ─────────────────────────────────────────────────
 function startTimer() {
   clearInterval(timerInterval);
+  renderTimer();
   timerInterval = setInterval(function () {
     timeLeft--;
-    var el = document.getElementById("timer");
-    if (!el) { clearInterval(timerInterval); return; }
-    var m = Math.floor(timeLeft/60).toString().padStart(2,"0");
-    var s = (timeLeft%60).toString().padStart(2,"0");
-    el.textContent = m+":"+s;
-    if (timeLeft <= 300) el.classList.add("urgent");
-    if (timeLeft <= 0)   { clearInterval(timerInterval); submitTest(); }
+    renderTimer();
+    if (timeLeft <= 0) { clearInterval(timerInterval); submitTest(); }
   }, 1000);
 }
+
+function renderTimer() {
+  var h  = Math.floor(timeLeft / 3600);
+  var m  = Math.floor((timeLeft % 3600) / 60);
+  var s  = timeLeft % 60;
+  var el = document.getElementById("timerDisplay");
+  if (!el) return;
+  el.innerHTML =
+    '<div class="t-unit"><span class="t-digits">' + pad(h) + '</span><span class="t-label">HOURS</span></div>' +
+    '<span class="t-sep">:</span>' +
+    '<div class="t-unit"><span class="t-digits">' + pad(m) + '</span><span class="t-label">MINUTES</span></div>' +
+    '<span class="t-sep">:</span>' +
+    '<div class="t-unit"><span class="t-digits">' + pad(s) + '</span><span class="t-label">SECONDS</span></div>';
+  if (timeLeft <= 300) el.classList.add("urgent");
+}
+
+function pad(n) { return String(n).padStart(2, "0"); }
 
 // ── SUBMIT ────────────────────────────────────────────────
 function confirmSubmit() {
   var skipped = questions.length - Object.keys(userAnswers).length;
-  if (confirm((skipped > 0 ? "You have "+skipped+" unanswered question(s). " : "") + "Submit the test now?")) submitTest();
+  var msg = (skipped > 0 ? "You have " + skipped + " unanswered question(s).\n\n" : "") + "Submit the test now?";
+  if (confirm(msg)) submitTest();
 }
 
 function submitTest() {
   clearInterval(timerInterval);
-  var result = calculateScore();
-  saveResultCentral(result);
+  saveResultCentral(calculateScore());
 }
 
 function calculateScore() {
   var scores = {};
   questions.forEach(function (q) {
     if (!scores[q.section]) scores[q.section] = 0;
-    if (userAnswers[q.id] && userAnswers[q.id] === q.answer) scores[q.section]++;
+    if (userAnswers[q.id] === q.answer) scores[q.section]++;
   });
   var total = 0;
   Object.keys(scores).forEach(function (k) { total += scores[k]; });
-  return { testId:currentTest.id, testTitle:currentTest.title, name:currentStudent,
-           timestamp:new Date().toLocaleString("en-IN"), scores:scores,
-           total:total, outOf:currentTest.totalMarks };
+  return { testId: currentTest.id, testTitle: currentTest.title, name: currentStudent,
+           timestamp: new Date().toLocaleString("en-IN"), scores: scores,
+           total: total, outOf: currentTest.totalMarks };
 }
 
 // ── SAVE ──────────────────────────────────────────────────
@@ -221,101 +381,75 @@ function saveResultCentral(result) {
   showPage("resultPage");
   renderResult(result);
   var statusEl = document.getElementById("savingStatus");
-
-  if (!SCRIPT_URL || SCRIPT_URL === "PASTE_YOUR_APPS_SCRIPT_URL_HERE") {
-    statusEl.style.display = "none";
-    return;
-  }
-
+  if (!window.SCRIPT_URL || SCRIPT_URL === "PASTE_YOUR_APPS_SCRIPT_URL_HERE") { statusEl.style.display = "none"; return; }
   statusEl.style.display = "block";
-  statusEl.style.background = "rgba(99,102,241,0.1)";
-  statusEl.style.color = "rgba(255,255,255,0.5)";
-  statusEl.style.border = "0.5px solid rgba(99,102,241,0.2)";
-  statusEl.style.borderRadius = "9px";
-  statusEl.style.fontSize = "12px";
   statusEl.textContent = "⏳ Saving your result...";
-
-  // Send as GET params — Apps Script handles this without CORS issues
-  var secScores = result.scores || {};
-  var params = [
-    "action=save",
-    "testId="     + encodeURIComponent(result.testId),
-    "testTitle="  + encodeURIComponent(result.testTitle),
-    "name="       + encodeURIComponent(result.name),
-    "timestamp="  + encodeURIComponent(result.timestamp),
-    "english="    + encodeURIComponent(secScores["English"]   || 0),
-    "maths="      + encodeURIComponent(secScores["Maths"]     || 0),
-    "reasoning="  + encodeURIComponent(secScores["Reasoning"] || 0),
-    "konkani="    + encodeURIComponent(secScores["Konkani"]   || 0),
-    "total="      + encodeURIComponent(result.total),
-    "outOf="      + encodeURIComponent(result.outOf || 50)
+  var sc = result.scores || {};
+  var params = ["action=save",
+    "testId="    + encodeURIComponent(result.testId),
+    "testTitle=" + encodeURIComponent(result.testTitle),
+    "name="      + encodeURIComponent(result.name),
+    "timestamp=" + encodeURIComponent(result.timestamp),
+    "english="   + encodeURIComponent(sc["English Comprehension"] || sc["English"] || 0),
+    "maths="     + encodeURIComponent(sc["Maths"] || 0),
+    "reasoning=" + encodeURIComponent(sc["General Intelligence & Reasoning"] || sc["Reasoning"] || 0),
+    "konkani="   + encodeURIComponent(sc["Konkani"] || 0),
+    "total="     + encodeURIComponent(result.total),
+    "outOf="     + encodeURIComponent(result.outOf || 60)
   ].join("&");
-
-  var saveUrl = SCRIPT_URL + "?" + params;
-
-  fetch(saveUrl, { method: "GET", mode: "cors" })
-  .then(function(r) { return r.json(); })
-  .then(function(res) {
-    if (res.success) {
-      statusEl.textContent = "✅ Result saved!";
-      statusEl.style.background = "rgba(16,185,129,0.1)";
-      statusEl.style.color = "#34d399";
-      statusEl.style.borderColor = "rgba(16,185,129,0.25)";
-      setTimeout(function() { statusEl.style.display = "none"; }, 3000);
-    } else {
-      throw new Error(res.error || "Save failed");
-    }
-  })
-  .catch(function(err) {
-    console.error("Save error:", err);
-    statusEl.textContent = "⚠️ Could not save. Please inform coordinator.";
-    statusEl.style.background = "rgba(245,158,11,0.08)";
-    statusEl.style.color = "#fbbf24";
-    statusEl.style.borderColor = "rgba(245,158,11,0.2)";
-  });
+  fetch(SCRIPT_URL + "?" + params, { method: "GET", mode: "cors" })
+    .then(function (r) { return r.json(); })
+    .then(function (res) {
+      if (res.success) { statusEl.textContent = "✅ Result saved!"; setTimeout(function () { statusEl.style.display = "none"; }, 3000); }
+      else throw new Error(res.error || "Save failed");
+    })
+    .catch(function () { statusEl.textContent = "⚠️ Could not save. Please inform coordinator."; });
 }
 
 // ── RENDER RESULT ─────────────────────────────────────────
 function renderResult(result) {
-  document.getElementById("resultName").textContent       = "Well done, "+result.name+"!";
-  document.getElementById("resultTestLabel").textContent  = result.testTitle;
-  document.getElementById("totalScore").textContent       = result.total;
+  document.getElementById("resultName").textContent        = "Well done, " + result.name + "!";
+  document.getElementById("resultTestLabel").textContent   = result.testTitle;
+  document.getElementById("totalScore").textContent        = result.total;
   document.getElementById("totalMarksDisplay").textContent = result.outOf;
   var bk = document.getElementById("scoreBreakdown");
   bk.innerHTML = "";
   Object.keys(result.scores).forEach(function (sec) {
-    var max = currentTest.sections[sec] || "?";
+    var max = currentTest.sections ? (currentTest.sections[sec] || "?") : "?";
     var div = document.createElement("div");
     div.className = "breakdown-item";
-    div.innerHTML = '<span class="bd-label">'+sec+'</span><span class="bd-val">'+result.scores[sec]+'</span><span style="font-size:.75rem;color:#6b7280;">/'+max+'</span>';
+    div.innerHTML = '<span class="bd-label">' + sec + '</span><span class="bd-val">' + result.scores[sec] + ' / ' + max + '</span>';
     bk.appendChild(div);
   });
-  var pct = (result.total/result.outOf)*100;
+  var pct   = (result.total / result.outOf) * 100;
   var badge = document.getElementById("rankBadge");
-  if      (pct>=80) { badge.textContent="🥇 Excellent"; badge.className="rank-badge excellent"; }
-  else if (pct>=60) { badge.textContent="🥈 Good";      badge.className="rank-badge good"; }
-  else if (pct>=40) { badge.textContent="🥉 Average";   badge.className="rank-badge average"; }
-  else              { badge.textContent="📚 Keep Going"; badge.className="rank-badge below"; }
+  if      (pct >= 80) { badge.textContent = "🥇 Excellent"; badge.className = "rank-badge excellent"; }
+  else if (pct >= 60) { badge.textContent = "🥈 Good";      badge.className = "rank-badge good"; }
+  else if (pct >= 40) { badge.textContent = "🥉 Average";   badge.className = "rank-badge average"; }
+  else                { badge.textContent = "📚 Keep Going"; badge.className = "rank-badge below"; }
 }
 
 // ── ANSWER REVIEW ─────────────────────────────────────────
 function viewAnswers() {
-  var list = document.getElementById("answerList");
-  var labels = ["A","B","C","D"];
+  var list   = document.getElementById("answerList");
+  var labels = ["A", "B", "C", "D"];
   list.innerHTML = "";
   questions.forEach(function (q, i) {
-    var given=userAnswers[q.id], correct=q.answer;
+    var given   = userAnswers[q.id];
+    var correct = q.answer;
     var optText = function (lbl) { return lbl ? q.options[labels.indexOf(lbl)] : "—"; };
-    var status = given===correct ? "correct" : given ? "incorrect" : "skipped";
-    var div = document.createElement("div");
-    div.className = "answer-item "+status;
-    div.innerHTML = '<div class="answer-q">'+(i+1)+'. '+q.text+'</div>'
-      + '<div class="answer-detail">'
-      + (given===correct ? "✅ Correct" : given ? "❌ Incorrect" : "⬜ Skipped")
-      + ' &nbsp;|&nbsp; Your answer: <span class="'+(given===correct?'correct-ans':'wrong-ans')+'">'+(given?given+'. '+optText(given):'Not Attempted')+'</span>'
-      + ' &nbsp;|&nbsp; Correct: <span class="correct-ans">'+correct+'. '+optText(correct)+'</span>'
-      + (q.explanation ? '<br><em style="color:#6b7280;font-size:.8rem;">💡 '+q.explanation+'</em>' : '')
-      + '</div>';
+    var status  = given === correct ? "correct" : given ? "incorrect" : "skipped";
+    var div     = document.createElement("div");
+    div.className = "answer-item " + status;
+    div.innerHTML =
+      '<div class="answer-q"><span class="ans-num">Q' + (i + 1) + '</span> ' + q.text + '</div>' +
+      '<div class="answer-detail">' +
+      (given === correct ? "✅ Correct" : given ? "❌ Incorrect" : "⬜ Skipped") +
+      ' | Your answer: <span class="' + (given === correct ? "correct-ans" : "wrong-ans") + '">' +
+      (given ? given + ". " + optText(given) : "Not Attempted") + '</span>' +
+      ' | Correct: <span class="correct-ans">' + correct + ". " + optText(correct) + '</span>' +
+      (q.explanation ? '<div class="ans-explanation">💡 ' + q.explanation + '</div>' : '') +
+      '</div>';
     list.appendChild(div);
   });
   showPage("answerPage");
