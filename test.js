@@ -199,8 +199,14 @@ function renderQuestion(idx) {
     mrBtn.textContent = "Mark & Save";
   }
 
-  document.getElementById("prevBtn").disabled = (idx === 0);
-  document.getElementById("nextBtn").disabled = (idx === questions.length - 1);
+  // Prev / Next button states
+  var pb = document.getElementById("prevBtn");
+  var nb = document.getElementById("nextBtn");
+  if (pb) pb.disabled = (idx === 0);
+  if (nb) {
+    nb.disabled = (idx === questions.length - 1);
+    nb.textContent = (idx === questions.length - 1) ? "Last ▶" : "Next ▶";
+  }
   updatePalette();
 }
 
@@ -245,7 +251,21 @@ function saveAndNext() {
 }
 
 function prevQuestion() { if (currentQ > 0) renderQuestion(currentQ - 1); }
-function nextQuestion() { if (currentQ < questions.length - 1) renderQuestion(currentQ + 1); }
+function nextQuestion() {
+  if (currentQ >= questions.length - 1) return;
+  // Flash "Saved ✓" on Next button if an answer is selected
+  var nb = document.getElementById("nextBtn");
+  if (nb && userAnswers[questions[currentQ].id]) {
+    var orig = nb.textContent;
+    nb.textContent = "Saved ✓";
+    nb.style.background = "#15803d";
+    setTimeout(function () {
+      renderQuestion(currentQ + 1);
+    }, 350);
+  } else {
+    renderQuestion(currentQ + 1);
+  }
+}
 
 // ── PALETTE ──────────────────────────────────────────────
 function openPalette() {
@@ -327,26 +347,39 @@ function updatePalette() {
 function startTimer() {
   clearInterval(timerInterval);
   renderTimer();
+  // Use Date-based timer to avoid browser throttling on background tabs
+  var startAt   = Date.now();
+  var startLeft = timeLeft;
   timerInterval = setInterval(function () {
-    timeLeft--;
+    var elapsed = Math.floor((Date.now() - startAt) / 1000);
+    timeLeft = Math.max(0, startLeft - elapsed);
     renderTimer();
     if (timeLeft <= 0) { clearInterval(timerInterval); submitTest(); }
-  }, 1000);
+  }, 500); // poll every 500ms for accuracy
 }
 
 function renderTimer() {
   var h  = Math.floor(timeLeft / 3600);
   var m  = Math.floor((timeLeft % 3600) / 60);
   var s  = timeLeft % 60;
-  var el = document.getElementById("timerDisplay");
-  if (!el) return;
-  el.innerHTML =
-    '<div class="t-unit"><span class="t-digits">' + pad(h) + '</span><span class="t-label">HOURS</span></div>' +
-    '<span class="t-sep">:</span>' +
-    '<div class="t-unit"><span class="t-digits">' + pad(m) + '</span><span class="t-label">MINUTES</span></div>' +
-    '<span class="t-sep">:</span>' +
-    '<div class="t-unit"><span class="t-digits">' + pad(s) + '</span><span class="t-label">SECONDS</span></div>';
-  if (timeLeft <= 300) el.classList.add("urgent");
+
+  // Update individual spans by ID — NO innerHTML rebuild = no flicker
+  var elH = document.getElementById("t-h");
+  var elM = document.getElementById("t-m");
+  var elS = document.getElementById("t-s");
+  if (!elH || !elM || !elS) return;
+
+  elH.textContent = pad(h);
+  elM.textContent = pad(m);
+  elS.textContent = pad(s);
+
+  // Update timer bar colour class
+  var bar = document.querySelector(".timer-bar");
+  if (bar) {
+    bar.classList.remove("warning", "urgent");
+    if      (timeLeft <= 60)  bar.classList.add("urgent");
+    else if (timeLeft <= 300) bar.classList.add("warning");
+  }
 }
 
 function pad(n) { return String(n).padStart(2, "0"); }
