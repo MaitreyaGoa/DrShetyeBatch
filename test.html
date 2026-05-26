@@ -67,67 +67,86 @@
   }
 
   /* ── Timer Bar ── */
+  /* ── Timer Bar ── */
   .timer-bar {
-    background: #fff;
-    border-bottom: 1px solid #f3f4f6;
-    padding: 6px 14px;
+    background: linear-gradient(135deg, #0f2419 0%, #1a3a2a 100%);
+    padding: 10px 16px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    justify-content: space-between;
+    border-bottom: 2px solid #2d5a3d;
+    position: sticky;
+    top: 47px;
+    z-index: 99;
   }
   .timer-label-txt {
-    font-size: 0.65rem;
-    color: #9ca3af;
+    font-size: 0.72rem;
+    color: #4ade80;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 3px;
+    letter-spacing: 1.5px;
     font-family: 'Source Sans 3', sans-serif;
-    font-weight: 600;
+    font-weight: 700;
   }
   .timer-hms-row {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     gap: 4px;
   }
   .t-unit {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 2px;
   }
   .t-digits {
     display: inline-block;
-    background: #1f2937;
+    background: rgba(255,255,255,0.08);
     color: #fff;
     font-family: 'Source Sans 3', sans-serif;
-    font-size: 1.3rem;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 6px;
-    min-width: 44px;
-    text-align: center;
-    letter-spacing: 2px;
-  }
-  .t-label {
-    font-size: 0.5rem;
-    color: #9ca3af;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-top: 3px;
-    font-family: 'Source Sans 3', sans-serif;
-  }
-  .t-sep {
     font-size: 1.4rem;
     font-weight: 700;
-    color: #374151;
-    margin-bottom: 12px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    min-width: 46px;
+    text-align: center;
+    letter-spacing: 3px;
+    border: 1px solid rgba(74,222,128,0.25);
+    transition: background 0.3s;
+  }
+  .t-label {
+    font-size: 0.48rem;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+  }
+  .t-sep {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #4ade80;
     line-height: 1;
+    margin-bottom: 14px;
+    text-shadow: 0 0 8px rgba(74,222,128,0.5);
   }
-  #timerDisplay.urgent .t-digits {
-    background: #991b1b;
-    animation: urgentBlink 1s infinite;
+  /* Last 5 minutes - turns amber */
+  .timer-bar.warning .t-digits {
+    background: rgba(245,158,11,0.15);
+    border-color: rgba(245,158,11,0.4);
+    color: #fcd34d;
   }
-  @keyframes urgentBlink { 0%,100%{opacity:1} 50%{opacity:0.6} }
+  .timer-bar.warning .t-sep { color: #fcd34d; }
+  .timer-bar.warning .timer-label-txt { color: #fcd34d; }
+  /* Last 1 minute - turns red + blinks */
+  .timer-bar.urgent .t-digits {
+    background: rgba(220,38,38,0.2);
+    border-color: rgba(220,38,38,0.5);
+    color: #fca5a5;
+    animation: urgentBlink 0.8s infinite;
+  }
+  .timer-bar.urgent .t-sep { color: #f87171; }
+  .timer-bar.urgent .timer-label-txt { color: #f87171; }
+  @keyframes urgentBlink { 0%,100%{opacity:1} 50%{opacity:0.55} }
 
   /* ── Q number / Save / Report row ── */
   .q-meta-row {
@@ -357,7 +376,7 @@
 
   /* Mark & Save — blue text, white bg, border */
   .btn-mark-review {
-    flex: 1.2;
+    flex: 1.1;
     padding: 10px 6px;
     background: #fff;
     border: 1.5px solid #3b82f6;
@@ -382,7 +401,7 @@
 
   /* Clear Response — red text, white bg, border */
   .btn-clear {
-    flex: 1.1;
+    flex: 0.85;
     padding: 10px 6px;
     background: #fff;
     border: 1.5px solid #ef4444;
@@ -398,9 +417,28 @@
   }
   .btn-clear:hover { background: #fef2f2; }
 
-  /* Save — green filled */
-  .btn-save {
-    flex: 0.8;
+  /* ◀ Prev button — grey outline */
+  .btn-prev {
+    flex: 0.9;
+    padding: 10px 6px;
+    background: #fff;
+    border: 1.5px solid #9ca3af;
+    border-radius: 8px;
+    color: #374151;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .btn-prev:hover:not(:disabled) { background: #f3f4f6; border-color: #6b7280; }
+  .btn-prev:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  /* Next ▶ button — green filled */
+  .btn-next {
+    flex: 0.9;
     padding: 10px 6px;
     background: #166534;
     border: none;
@@ -412,8 +450,10 @@
     cursor: pointer;
     text-align: center;
     transition: background 0.15s;
+    white-space: nowrap;
   }
-  .btn-save:hover { background: #15803d; }
+  .btn-next:hover:not(:disabled) { background: #15803d; }
+  .btn-next:disabled { opacity: 0.35; cursor: not-allowed; }
 
   /* ── PALETTE DRAWER ── */
   .palette-overlay {
@@ -720,15 +760,24 @@
       <button class="sec-tab-arr">&#8250;</button>
     </div>
 
-    <!-- 2. Timer (HH:MM:SS) -->
+    <!-- 2. Timer (HH:MM:SS) - individual IDs for reliable JS updates -->
     <div class="timer-bar">
-      <div class="timer-label-txt">Time Left</div>
+      <div class="timer-label-txt">⏱ Time Left</div>
       <div class="timer-hms-row" id="timerDisplay">
-        <div class="t-unit"><span class="t-digits">01</span><span class="t-label">HOURS</span></div>
+        <div class="t-unit">
+          <span class="t-digits" id="t-h">01</span>
+          <span class="t-label">HRS</span>
+        </div>
         <span class="t-sep">:</span>
-        <div class="t-unit"><span class="t-digits">00</span><span class="t-label">MINUTES</span></div>
+        <div class="t-unit">
+          <span class="t-digits" id="t-m">00</span>
+          <span class="t-label">MIN</span>
+        </div>
         <span class="t-sep">:</span>
-        <div class="t-unit"><span class="t-digits">00</span><span class="t-label">SECONDS</span></div>
+        <div class="t-unit">
+          <span class="t-digits" id="t-s">00</span>
+          <span class="t-label">SEC</span>
+        </div>
       </div>
     </div>
 
@@ -750,9 +799,10 @@
 
     <!-- 6. Bottom Action Bar -->
     <div class="bottom-bar">
+      <button class="btn-prev" id="prevBtn" onclick="prevQuestion()">&#9664; Prev</button>
       <button class="btn-mark-review" id="markReviewBtn" onclick="markForReview()">Mark &amp; Save</button>
-      <button class="btn-clear" onclick="clearResponse()">Clear Response</button>
-      <button class="btn-save" onclick="saveAndNext()">Save</button>
+      <button class="btn-clear" onclick="clearResponse()">Clear</button>
+      <button class="btn-next" id="nextBtn" onclick="nextQuestion()">Next &#9654;</button>
     </div>
 
     <!-- Hidden test name ref -->
