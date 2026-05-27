@@ -1,11 +1,14 @@
-// home.js – Dr Shetye Academic Programme (Apple style)
+// home.js – Dr Shetye Academic Programme
+// Updated: Added Topic Tests section (4th tab group)
 
 var top5Timers = {};
 
 document.addEventListener("DOMContentLoaded", function () {
   renderTestsGrid();
   renderResourcesSection();
-  document.getElementById("adminPass").addEventListener("keydown", function(e){ if(e.key==="Enter") adminLogin(); });
+  document.getElementById("adminPass").addEventListener("keydown", function(e){
+    if(e.key==="Enter") adminLogin();
+  });
 });
 
 // ══ TESTS GRID ════════════════════════════════════════════
@@ -14,10 +17,10 @@ function renderTestsGrid() {
   if(!grid) return;
   grid.innerHTML = "";
 
-  // Group labels + cards
   appendGroup(grid, "Full Mock Tests", FULL_TESTS || []);
   appendGroup(grid, "Previous Year Papers", PYQ_TESTS || []);
   appendPartTests(grid);
+  appendTopicTests(grid);   // ← NEW: 4th section
 }
 
 function appendGroup(grid, label, tests) {
@@ -29,6 +32,7 @@ function appendGroup(grid, label, tests) {
   tests.forEach(function(t){ grid.appendChild(buildTestCard(t)); });
 }
 
+// ══ PART TESTS ════════════════════════════════════════════
 function appendPartTests(grid) {
   var lbl = document.createElement("div");
   lbl.className = "test-group-label";
@@ -38,7 +42,7 @@ function appendPartTests(grid) {
   var wrap = document.createElement("div");
   wrap.className = "part-wrap";
 
-  var tabs = '<div class="subject-tabs">'
+  var tabs = '<div class="subject-tabs" id="partTabs">'
     +'<button class="sub-tab active" onclick="showPart(\'english\',this)">📘 English</button>'
     +'<button class="sub-tab" onclick="showPart(\'maths\',this)">📐 Maths</button>'
     +'<button class="sub-tab" onclick="showPart(\'reasoning\',this)">🧠 Reasoning</button>'
@@ -60,14 +64,108 @@ function appendPartTests(grid) {
 }
 
 function showPart(subj, btn) {
-  document.querySelectorAll(".subject-panel").forEach(function(p){ p.classList.add("hidden"); });
-  document.querySelectorAll(".subject-tabs .sub-tab").forEach(function(t){ t.classList.remove("active"); });
+  ["english","maths","reasoning","konkani"].forEach(function(s){
+    var p = document.getElementById("ptPanel-"+s);
+    if(p) p.classList.add("hidden");
+  });
+  btn.closest(".subject-tabs").querySelectorAll(".sub-tab")
+    .forEach(function(t){ t.classList.remove("active"); });
   var panel = document.getElementById("ptPanel-"+subj);
   if(panel) panel.classList.remove("hidden");
   btn.classList.add("active");
 }
 
-// ══ TEST CARD ═════════════════════════════════════════════
+// ══ TOPIC TESTS (4th section) ════════════════════════════
+function appendTopicTests(grid) {
+  if(!window.TOPIC_TESTS || !TOPIC_TESTS.length) return;
+
+  var lbl = document.createElement("div");
+  lbl.className = "test-group-label";
+  lbl.textContent = "Topic Tests";
+  grid.appendChild(lbl);
+
+  var wrap = document.createElement("div");
+  wrap.className = "part-wrap";
+
+  var subjects  = ["maths","english","reasoning"];
+  var icons     = { maths:"📐", english:"📘", reasoning:"🧠" };
+  var subLabels = { maths:"Maths", english:"English", reasoning:"Reasoning" };
+
+  var tabs = '<div class="subject-tabs" id="topicTabs">';
+  subjects.forEach(function(subj,i){
+    tabs += '<button class="sub-tab'+(i===0?' active':'')+'" '
+          + 'onclick="showTopicTab(\''+subj+'\',this)">'
+          + icons[subj]+' '+subLabels[subj]+'</button>';
+  });
+  tabs += '</div>';
+
+  var panels = "";
+  subjects.forEach(function(subj,i){
+    var tests = (TOPIC_TESTS||[]).filter(function(t){ return t.subject===subj; });
+
+    var rows = "";
+    if(!tests.length){
+      rows = '<p class="empty-msg">No '+subj+' topic tests yet.</p>';
+    } else {
+      // Group by topic
+      var groups = {};
+      tests.forEach(function(t){
+        var key = t.topic || t.title;
+        if(!groups[key]) groups[key] = [];
+        groups[key].push(t);
+      });
+      Object.keys(groups).forEach(function(topicName){
+        rows += '<div class="topic-group">'
+              + '<div class="topic-group-label">📌 '+topicName+'</div>';
+        groups[topicName].forEach(function(t){
+          rows += buildTopicRowHTML(t);
+        });
+        rows += '</div>';
+      });
+    }
+
+    panels += '<div id="ttPanel-'+subj+'" class="subject-panel'+(i>0?' hidden':'')+'">'
+            + '<div class="test-list">'+rows+'</div></div>';
+  });
+
+  wrap.innerHTML = tabs + panels;
+  grid.appendChild(wrap);
+}
+
+function showTopicTab(subj, btn) {
+  ["maths","english","reasoning"].forEach(function(s){
+    var p = document.getElementById("ttPanel-"+s);
+    if(p) p.classList.add("hidden");
+  });
+  btn.closest(".subject-tabs").querySelectorAll(".sub-tab")
+    .forEach(function(t){ t.classList.remove("active"); });
+  var panel = document.getElementById("ttPanel-"+subj);
+  if(panel) panel.classList.remove("hidden");
+  btn.classList.add("active");
+}
+
+function buildTopicRowHTML(test) {
+  var badge = test.live
+    ? '<span class="badge-live">Live</span>'
+    : '<span class="badge-soon">Soon</span>';
+  var top5Btn = test.live
+    ? '<button class="btn-sm-gold" onclick="toggleTop5(\''+test.id+'\',\''+test.title.replace(/'/g,"\\'")+'\','+test.totalMarks+',this)">🏅</button>'
+    : '';
+  var actionBtn = test.live
+    ? '<button class="btn-sm-primary" onclick="goToTest(\''+test.id+'\')">Start →</button>'
+    : '<button class="btn-sm-disabled">Soon</button>';
+
+  return '<div class="test-row">'
+    +'<div class="test-row-info">'
+    +'<div class="test-row-top"><span class="test-row-title">'+test.title+'</span>'+badge+'</div>'
+    +'<div class="test-row-meta">'+test.description+' · ⏱ '+Math.round(test.duration/60)+' min · '+test.totalMarks+' marks</div>'
+    +'</div>'
+    +'<div class="test-row-actions">'+top5Btn+actionBtn+'</div>'
+    +'</div>'
+    +'<div class="top5-panel" id="top5-'+test.id+'"></div>';
+}
+
+// ══ TEST CARD (Full/PYQ tests) ════════════════════════════
 function buildTestCard(test) {
   var card = document.createElement("div");
   card.className = "test-card";
@@ -82,7 +180,7 @@ function buildTestCard(test) {
   }).join('');
 
   var top5Btn = test.live
-    ? '<button class="btn-top5" onclick="toggleTop5(\''+test.id+'\',\''+test.title.replace(/'/g,"\\'") +'\','+test.totalMarks+',this)">🏅 Toppers</button>'
+    ? '<button class="btn-top5" onclick="toggleTop5(\''+test.id+'\',\''+test.title.replace(/'/g,"\\'")+'\','+test.totalMarks+',this)">🏅 Toppers</button>'
     : '';
 
   var actionBtn = test.live
@@ -120,7 +218,7 @@ function buildTestRowHTML(test) {
     return '<span class="sec-tag">'+s+': '+test.sections[s]+'</span>';
   }).join('');
   var top5Btn = test.live
-    ? '<button class="btn-sm-gold" onclick="toggleTop5(\''+test.id+'\',\''+test.title.replace(/'/g,"\\'") +'\','+test.totalMarks+',this)">🏅</button>'
+    ? '<button class="btn-sm-gold" onclick="toggleTop5(\''+test.id+'\',\''+test.title.replace(/'/g,"\\'")+'\','+test.totalMarks+',this)">🏅</button>'
     : '';
   var actionBtn = test.live
     ? '<button class="btn-sm-primary" onclick="goToTest(\''+test.id+'\')">Start →</button>'
@@ -150,12 +248,15 @@ function toggleTop5(testId, testTitle, totalMarks, btn) {
   panel.classList.add("open");
   btn.textContent = "✕";
   fetchTop5(testId, testTitle, totalMarks, panel);
-  top5Timers[testId] = setInterval(function(){ fetchTop5(testId, testTitle, totalMarks, panel); }, 30000);
+  top5Timers[testId] = setInterval(function(){
+    fetchTop5(testId, testTitle, totalMarks, panel);
+  }, 30000);
 }
 
 function fetchTop5(testId, testTitle, totalMarks, panel) {
   if(!SCRIPT_URL || SCRIPT_URL==="PASTE_YOUR_APPS_SCRIPT_URL_HERE") {
-    panel.innerHTML = '<div class="top5-hdr">🏆 '+testTitle+'</div><p class="top5-empty">Configure SCRIPT_URL in config.js</p>';
+    panel.innerHTML = '<div class="top5-hdr">🏆 '+testTitle+'</div>'
+      +'<p class="top5-empty">Configure SCRIPT_URL in config.js</p>';
     return;
   }
   panel.innerHTML = '<p class="top5-empty">⏳ Loading...</p>';
@@ -169,7 +270,8 @@ function fetchTop5(testId, testTitle, totalMarks, panel) {
   s.id=cb;
   s.src=SCRIPT_URL+"?action=read&testId="+testId+"&callback="+cb;
   s.onerror=function(){
-    panel.innerHTML='<div class="top5-hdr">🏆 '+testTitle+'</div><p class="top5-empty">Could not load.</p>';
+    panel.innerHTML='<div class="top5-hdr">🏆 '+testTitle+'</div>'
+      +'<p class="top5-empty">Could not load.</p>';
     delete window[cb];
   };
   document.head.appendChild(s);
@@ -177,17 +279,25 @@ function fetchTop5(testId, testTitle, totalMarks, panel) {
 
 function renderTop5(res, testTitle, totalMarks, panel) {
   if(!res.success||!res.data||!res.data.length){
-    panel.innerHTML='<div class="top5-hdr">🏆 '+testTitle+' <span class="top5-count">0 attempted</span></div><p class="top5-empty">No submissions yet — be the first!</p>';
+    panel.innerHTML='<div class="top5-hdr">🏆 '+testTitle
+      +' <span class="top5-count">0 attempted</span></div>'
+      +'<p class="top5-empty">No submissions yet — be the first!</p>';
     return;
   }
   var top=res.data.slice(0,10), medals=["🥇","🥈","🥉"], outOf=totalMarks||50;
-  var html='<div class="top5-hdr">🏆 '+testTitle+' <span class="top5-count">'+res.data.length+' attempted</span></div><ol class="top5-list">';
+  var html='<div class="top5-hdr">🏆 '+testTitle
+    +' <span class="top5-count">'+res.data.length+' attempted</span></div>'
+    +'<ol class="top5-list">';
   top.forEach(function(r,i){
     var pct=Math.round((r.total/outOf)*100);
-    var rank=i<3?medals[i]:'<span style="width:20px;height:20px;border-radius:50%;background:#e5e5ea;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#6e6e73;">'+(i+1)+'</span>';
-    html+='<li class="top5-item"><span class="top5-rank">'+rank+'</span>'
-      +'<div class="top5-info"><span class="top5-name">'+r.name+'</span>'
-      +'<div class="top5-bar-wrap"><div class="top5-bar" style="width:'+Math.max(4,pct)+'%"></div></div></div>'
+    var rank=i<3?medals[i]
+      :'<span style="width:20px;height:20px;border-radius:50%;background:#e5e5ea;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#6e6e73;">'+(i+1)+'</span>';
+    html+='<li class="top5-item">'
+      +'<span class="top5-rank">'+rank+'</span>'
+      +'<div class="top5-info">'
+      +'<span class="top5-name">'+r.name+'</span>'
+      +'<div class="top5-bar-wrap"><div class="top5-bar" style="width:'+Math.max(4,pct)+'%"></div></div>'
+      +'</div>'
       +'<span class="top5-score">'+r.total+'<span class="top5-outof">/'+outOf+'</span></span></li>';
   });
   html+='</ol><div class="top5-footer">🔄 Auto-refreshes every 30s</div>';
@@ -200,8 +310,8 @@ function renderResourcesSection() {
   if(!container) return;
 
   var sections = [
-    { id:"books",      icon:"📚", title:"Reference Books",        desc:"Recommended books & PDFs" },
-    { id:"qbank",      icon:"❓", title:"Question Bank",          desc:"Daily questions with answers & explanations" },
+    { id:"books",      icon:"📚", title:"Reference Books",           desc:"Recommended books & PDFs" },
+    { id:"qbank",      icon:"❓", title:"Question Bank",             desc:"Daily questions with answers & explanations" },
     { id:"blackboard", icon:"🖊", title:"Live Blackboard & Classes", desc:"Live board · Live classes · Daily 6–8:30 PM" },
   ];
 
@@ -256,10 +366,13 @@ function renderBooks() {
 function renderQBank() {
   var body=document.getElementById("dbody-qbank");
   if(!body) return;
-  if(!QUESTION_BANK||!QUESTION_BANK.length){ body.innerHTML='<p class="empty-msg">No questions uploaded yet.</p>'; return; }
+  if(!QUESTION_BANK||!QUESTION_BANK.length){
+    body.innerHTML='<p class="empty-msg">No questions uploaded yet.</p>'; return;
+  }
   var tabs='<div class="qbank-date-tabs">';
   QUESTION_BANK.forEach(function(set,i){
-    tabs+='<button class="date-tab'+(i===0?' active':'')+'" onclick="loadQB('+i+',this)">'+(set.label||set.date)+'</button>';
+    tabs+='<button class="date-tab'+(i===0?' active':'')+'" onclick="loadQB('+i+',this)">'
+      +(set.label||set.date)+'</button>';
   });
   tabs+='</div><div id="qbWrap"></div>';
   body.innerHTML=tabs;
@@ -307,19 +420,16 @@ function renderBlackboard() {
   if(!body) return;
   body.innerHTML=
     '<div style="padding-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">'
-
     +'<a href="blackboard/student.html" target="_blank" style="display:flex;align-items:center;gap:10px;background:#f0fdf4;border:1px solid rgba(52,197,89,0.2);border-radius:14px;padding:14px 16px;text-decoration:none;">'
     +'<span style="font-size:22px;">👨‍🎓</span>'
     +'<div><div style="font-size:13px;font-weight:700;color:#1b5e20;">Student View</div><div style="font-size:11px;color:#6e6e73;">Watch live board</div></div>'
     +'<span style="margin-left:auto;color:#aeaeb2;font-size:12px;">↗</span>'
     +'</a>'
-
     +'<a href="blackboard/teacher.html" target="_blank" style="display:flex;align-items:center;gap:10px;background:#f0f0ff;border:1px solid rgba(99,102,241,0.2);border-radius:14px;padding:14px 16px;text-decoration:none;">'
     +'<span style="font-size:22px;">👨‍🏫</span>'
     +'<div><div style="font-size:13px;font-weight:700;color:#3730a3;">Teacher View</div><div style="font-size:11px;color:#6e6e73;">Draw & publish</div></div>'
     +'<span style="margin-left:auto;color:#aeaeb2;font-size:12px;">↗</span>'
     +'</a>'
-
     +'<div style="grid-column:1/-1;display:flex;align-items:center;gap:14px;background:#fff8f0;border:1px solid rgba(255,152,0,0.2);border-radius:14px;padding:16px;cursor:pointer;" onclick="alert(\'YouTube Live Classes coming soon!\')">'
     +'<span style="font-size:26px;">📺</span>'
     +'<div style="flex:1;">'
@@ -330,24 +440,39 @@ function renderBlackboard() {
     +'<span style="font-size:8px;color:#e65100;">●</span>'
     +'<span style="font-size:11px;font-weight:700;color:#e65100;">Coming Soon</span>'
     +'</div></div>'
-
     +'</div>'
     +'<div style="margin-top:10px;padding:10px;background:#f5f5f7;border-radius:8px;font-size:11px;color:#aeaeb2;text-align:center;">🔴 Blackboard is real-time · Teacher draws → Students see instantly</div>';
 }
+
+// ══ STYLES for Topic Group ═════════════════════════════════
+(function injectTopicStyles(){
+  var style = document.createElement("style");
+  style.textContent =
+    ".topic-group { margin-bottom: 8px; }"
+    +".topic-group-label { font-family:'Source Sans 3',sans-serif; font-size:0.78rem; font-weight:700;"
+    +"  color:#166534; background:#f0fdf4; border-left:3px solid #166534;"
+    +"  padding:6px 12px; margin:6px 0 4px; border-radius:0 6px 6px 0; }";
+  document.head.appendChild(style);
+})();
 
 // ══ NAV & ADMIN ═══════════════════════════════════════════
 function goToTest(testId){ window.location.href="test.html?id="+testId; }
 
 function openAdminModal(){
   var m=document.getElementById("adminModal");
-  m.style.display="flex";m.style.alignItems="center";m.style.justifyContent="center";
+  m.style.display="flex"; m.style.alignItems="center"; m.style.justifyContent="center";
   document.getElementById("adminPass").value="";
   document.getElementById("adminError").style.display="none";
-  setTimeout(function(){document.getElementById("adminPass").focus();},100);
+  setTimeout(function(){ document.getElementById("adminPass").focus(); },100);
 }
 function closeModal(){ document.getElementById("adminModal").style.display="none"; }
 function adminLogin(){
-  if(document.getElementById("adminPass").value===ADMIN_PASSWORD){ closeModal(); window.location.href="admin.html"; }
-  else{ document.getElementById("adminError").style.display="block"; }
+  if(document.getElementById("adminPass").value===ADMIN_PASSWORD){
+    closeModal(); window.location.href="admin.html";
+  } else {
+    document.getElementById("adminError").style.display="block";
+  }
 }
-function formatDate(d){ return d?new Date(d).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"}):""; }
+function formatDate(d){
+  return d ? new Date(d).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"}) : "";
+}
