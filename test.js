@@ -17,7 +17,7 @@ var questions      = [];
 document.addEventListener("DOMContentLoaded", function () {
   var params  = new URLSearchParams(window.location.search);
   var testId  = params.get("id");
-  var allTests = (window.FULL_TESTS || []).concat(window.PYQ_TESTS || []).concat(window.PART_TESTS || []);
+  var allTests = (window.FULL_TESTS || []).concat(window.PYQ_TESTS || []).concat(window.PART_TESTS || []).concat(window.TOPIC_TESTS || []);
   for (var i = 0; i < allTests.length; i++) {
     if (allTests[i].id === testId) { currentTest = allTests[i]; break; }
   }
