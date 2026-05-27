@@ -288,3 +288,167 @@ var QUESTION_BANK = [
     ]
   }
 ];
+
+// ──────────────────────────────────────────────────────────
+// 6. TOPIC TESTS  (topic-wise drill tests)
+//    subject: "maths" | "english" | "reasoning"
+//    topic:   used for grouping in UI
+// ──────────────────────────────────────────────────────────
+var TOPIC_TESTS = [
+
+  // ── MATHS TOPICS ──
+  {
+    id:"topic_pl", subject:"maths", topic:"Profit & Loss",
+    title:"Profit & Loss", description:"10 topic-focused questions",
+    password:"tpl001", duration:600, totalMarks:10,
+    sections:{"Maths":10}, questionsFile:"questions/topic_profit_loss.js", live:true
+  },
+  {
+    id:"topic_si", subject:"maths", topic:"Simple & Compound Interest",
+    title:"SI & CI", description:"10 topic-focused questions",
+    password:"tsi001", duration:600, totalMarks:10,
+    sections:{"Maths":10}, questionsFile:"questions/topic_si_ci.js", live:true
+  },
+  {
+    id:"topic_sdt", subject:"maths", topic:"Speed, Distance & Time",
+    title:"Speed, Distance & Time", description:"10 topic-focused questions",
+    password:"tsdt01", duration:600, totalMarks:10,
+    sections:{"Maths":10}, questionsFile:"questions/topic_speed_distance.js", live:true
+  },
+  {
+    id:"topic_tw", subject:"maths", topic:"Time, Work & Pipes",
+    title:"Time, Work & Pipes", description:"10 topic-focused questions",
+    password:"ttw001", duration:600, totalMarks:10,
+    sections:{"Maths":10}, questionsFile:"questions/topic_time_work.js", live:true
+  },
+  {
+    id:"topic_pct", subject:"maths", topic:"Percentages",
+    title:"Percentages", description:"10 topic-focused questions",
+    password:"tpct01", duration:600, totalMarks:10,
+    sections:{"Maths":10}, questionsFile:"questions/topic_percentages.js", live:true
+  },
+  {
+    id:"topic_avg", subject:"maths", topic:"Averages",
+    title:"Averages", description:"10 topic-focused questions",
+    password:"tavg01", duration:600, totalMarks:10,
+    sections:{"Maths":10}, questionsFile:"questions/topic_averages.js", live:true
+  },
+  {
+    id:"topic_rp", subject:"maths", topic:"Ratio & Proportion",
+    title:"Ratio & Proportion", description:"10 topic-focused questions",
+    password:"trp001", duration:600, totalMarks:10,
+    sections:{"Maths":10}, questionsFile:"questions/topic_ratio_proportion.js", live:true
+  },
+  {
+    id:"topic_ns", subject:"maths", topic:"Number System & LCM/HCF",
+    title:"Number System & LCM/HCF", description:"10 topic-focused questions",
+    password:"tns001", duration:600, totalMarks:10,
+    sections:{"Maths":10}, questionsFile:"questions/topic_number_system.js", live:true
+  },
+  {
+    id:"topic_men", subject:"maths", topic:"Mensuration",
+    title:"Mensuration", description:"10 topic-focused questions",
+    password:"tmen01", duration:600, totalMarks:10,
+    sections:{"Maths":10}, questionsFile:"questions/topic_mensuration.js", live:true
+  },
+
+  // ── ENGLISH TOPICS ──
+  {
+    id:"topic_ten", subject:"english", topic:"Tenses",
+    title:"Tenses", description:"15 topic-focused questions",
+    password:"tten01", duration:900, totalMarks:15,
+    sections:{"English":15}, questionsFile:"questions/topic_tenses.js", live:true
+  },
+  {
+    id:"topic_ap", subject:"english", topic:"Articles & Prepositions",
+    title:"Articles & Prepositions", description:"15 topic-focused questions",
+    password:"tap001", duration:900, totalMarks:15,
+    sections:{"English":15}, questionsFile:"questions/topic_articles_prepositions.js", live:true
+  },
+  {
+    id:"topic_sa", subject:"english", topic:"Synonyms & Antonyms",
+    title:"Synonyms & Antonyms", description:"15 topic-focused questions",
+    password:"tsa001", duration:900, totalMarks:15,
+    sections:{"English":15}, questionsFile:"questions/topic_synonyms_antonyms.js", live:true
+  },
+  {
+    id:"topic_ed", subject:"english", topic:"Error Detection",
+    title:"Error Detection", description:"15 topic-focused questions",
+    password:"ted001", duration:900, totalMarks:15,
+    sections:{"English":15}, questionsFile:"questions/topic_error_detection.js", live:true
+  },
+  {
+    id:"topic_fb", subject:"english", topic:"Fill in the Blanks",
+    title:"Fill in the Blanks", description:"15 topic-focused questions",
+    password:"tfb001", duration:900, totalMarks:15,
+    sections:{"English":15}, questionsFile:"questions/topic_fill_blanks.js", live:true
+  },
+  {
+    id:"topic_ip", subject:"english", topic:"Idioms & Phrases",
+    title:"Idioms & Phrases", description:"15 topic-focused questions",
+    password:"tip001", duration:900, totalMarks:15,
+    sections:{"English":15}, questionsFile:"questions/topic_idioms_phrases.js", live:true
+  },
+  {
+    id:"topic_ows", subject:"english", topic:"One Word Substitution",
+    title:"One Word Substitution", description:"15 topic-focused questions",
+    password:"tows01", duration:900, totalMarks:15,
+    sections:{"English":15}, questionsFile:"questions/topic_one_word_substitution.js", live:true
+  },
+  {
+    id:"topic_rc", subject:"english", topic:"Reading Comprehension",
+    title:"Reading Comprehension", description:"3 passages · 15 questions",
+    password:"trc001", duration:1200, totalMarks:15,
+    sections:{"English":15}, questionsFile:"questions/topic_reading_comprehension.js", live:true
+  },
+
+  // ── REASONING TOPICS ──
+  {
+    id:"topic_sp", subject:"reasoning", topic:"Series & Patterns",
+    title:"Series & Patterns", description:"10 topic-focused questions",
+    password:"tsp001", duration:600, totalMarks:10,
+    sections:{"Reasoning":10}, questionsFile:"questions/topic_series_patterns.js", live:true
+  },
+  {
+    id:"topic_br", subject:"reasoning", topic:"Blood Relations",
+    title:"Blood Relations", description:"10 topic-focused questions",
+    password:"tbr001", duration:600, totalMarks:10,
+    sections:{"Reasoning":10}, questionsFile:"questions/topic_blood_relations.js", live:true
+  },
+  {
+    id:"topic_ds", subject:"reasoning", topic:"Direction Sense",
+    title:"Direction Sense", description:"10 topic-focused questions",
+    password:"tds001", duration:600, totalMarks:10,
+    sections:{"Reasoning":10}, questionsFile:"questions/topic_direction_sense.js", live:true
+  },
+  {
+    id:"topic_cd", subject:"reasoning", topic:"Coding & Decoding",
+    title:"Coding & Decoding", description:"10 topic-focused questions",
+    password:"tcd001", duration:600, totalMarks:10,
+    sections:{"Reasoning":10}, questionsFile:"questions/topic_coding_decoding.js", live:true
+  },
+  {
+    id:"topic_an", subject:"reasoning", topic:"Analogy",
+    title:"Analogy", description:"10 topic-focused questions",
+    password:"tan001", duration:600, totalMarks:10,
+    sections:{"Reasoning":10}, questionsFile:"questions/topic_analogy.js", live:true
+  },
+  {
+    id:"topic_syl", subject:"reasoning", topic:"Syllogism",
+    title:"Syllogism", description:"10 topic-focused questions",
+    password:"tsyl01", duration:600, totalMarks:10,
+    sections:{"Reasoning":10}, questionsFile:"questions/topic_syllogism.js", live:true
+  },
+  {
+    id:"topic_ra", subject:"reasoning", topic:"Ranking & Arrangement",
+    title:"Ranking & Arrangement", description:"10 topic-focused questions",
+    password:"tra001", duration:600, totalMarks:10,
+    sections:{"Reasoning":10}, questionsFile:"questions/topic_ranking_arrangement.js", live:true
+  },
+  {
+    id:"topic_mo", subject:"reasoning", topic:"Mathematical Operations",
+    title:"Mathematical Operations", description:"10 topic-focused questions",
+    password:"tmo001", duration:600, totalMarks:10,
+    sections:{"Reasoning":10}, questionsFile:"questions/topic_mathematical_operations.js", live:true
+  }
+];
