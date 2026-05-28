@@ -17,7 +17,12 @@ var questions      = [];
 document.addEventListener("DOMContentLoaded", function () {
   var params  = new URLSearchParams(window.location.search);
   var testId  = params.get("id");
-  var allTests = (window.FULL_TESTS || []).concat(window.PYQ_TESTS || []).concat(window.PART_TESTS || []).concat(window.TOPIC_TESTS || []);
+  // SPECIAL_TESTS added so science10_cbse and future core tests are found
+  var allTests = (window.FULL_TESTS || [])
+    .concat(window.PYQ_TESTS    || [])
+    .concat(window.PART_TESTS   || [])
+    .concat(window.TOPIC_TESTS  || [])
+    .concat(window.SPECIAL_TESTS|| []);
   for (var i = 0; i < allTests.length; i++) {
     if (allTests[i].id === testId) { currentTest = allTests[i]; break; }
   }
@@ -86,7 +91,8 @@ function login() {
 var SECTION_ORDER = [
   "General Intelligence & Reasoning",
   "English Comprehension",
-  "English", "Maths", "Reasoning", "Konkani"
+  "English", "Maths", "Reasoning", "Konkani",
+  "Chemistry", "Biology", "Physics", "Environment"
 ];
 
 function getSections() {
@@ -144,19 +150,16 @@ function renderQuestion(idx) {
   var q   = questions[idx];
   var box = document.getElementById("questionBox");
 
-  // Sync active section tab
   var secs = getSections();
   secs.forEach(function (s, i) {
     var t = document.getElementById("sectab-" + i);
     if (t) { t.classList.remove("active"); if (idx >= s.start && idx < s.end) t.classList.add("active"); }
   });
 
-  // Q number
   document.getElementById("qNumLabel").textContent = "No. " + (idx + 1);
 
   var html = "";
 
-  // Passage
   if (q.passage) {
     html += '<div class="passage-box">'
           + '<div class="passage-label">📄 Read the following passage carefully</div>'
@@ -177,19 +180,16 @@ function renderQuestion(idx) {
     var isSel = userAnswers[q.id] === lbl;
     html += '<li class="option-item' + (isSel ? " selected" : "") + '" '
           + 'data-qid="' + q.id + '" data-lbl="' + lbl + '" onclick="selectAnswer(this)">'
-          // Left cell: radio + letter label (light blue column)
           + '<span class="opt-label-cell">'
           + '<span class="radio-circle' + (isSel ? " checked" : "") + '"></span>'
           + '<span class="opt-letter">' + lbl + '</span>'
           + '</span>'
-          // Right cell: option text (white column)
           + '<span class="opt-text-cell">' + q.options[i] + '</span>'
           + '</li>';
   }
   html += '</ul>';
   box.innerHTML = html;
 
-  // Mark for review button state
   var mrBtn = document.getElementById("markReviewBtn");
   if (markedReview[idx]) {
     mrBtn.classList.add("marked");
@@ -199,7 +199,6 @@ function renderQuestion(idx) {
     mrBtn.textContent = "Mark & Save";
   }
 
-  // Prev / Next button states
   var pb = document.getElementById("prevBtn");
   var nb = document.getElementById("nextBtn");
   if (pb) pb.disabled = (idx === 0);
@@ -242,7 +241,6 @@ function markForReview() {
     mrBtn.textContent = "Mark & Save";
   }
   updatePalette();
-  // Advance to next question
   if (currentQ < questions.length - 1) renderQuestion(currentQ + 1);
 }
 
@@ -253,7 +251,6 @@ function saveAndNext() {
 function prevQuestion() { if (currentQ > 0) renderQuestion(currentQ - 1); }
 function nextQuestion() {
   if (currentQ >= questions.length - 1) return;
-  // Flash "Saved ✓" on Next button if an answer is selected
   var nb = document.getElementById("nextBtn");
   if (nb && userAnswers[questions[currentQ].id]) {
     var orig = nb.textContent;
@@ -347,7 +344,6 @@ function updatePalette() {
 function startTimer() {
   clearInterval(timerInterval);
   renderTimer();
-  // Use Date-based timer to avoid browser throttling on background tabs
   var startAt   = Date.now();
   var startLeft = timeLeft;
   timerInterval = setInterval(function () {
@@ -355,7 +351,7 @@ function startTimer() {
     timeLeft = Math.max(0, startLeft - elapsed);
     renderTimer();
     if (timeLeft <= 0) { clearInterval(timerInterval); submitTest(); }
-  }, 500); // poll every 500ms for accuracy
+  }, 500);
 }
 
 function renderTimer() {
@@ -363,7 +359,6 @@ function renderTimer() {
   var m  = Math.floor((timeLeft % 3600) / 60);
   var s  = timeLeft % 60;
 
-  // Update individual spans by ID — NO innerHTML rebuild = no flicker
   var elH = document.getElementById("t-h");
   var elM = document.getElementById("t-m");
   var elS = document.getElementById("t-s");
@@ -373,7 +368,6 @@ function renderTimer() {
   elM.textContent = pad(m);
   elS.textContent = pad(s);
 
-  // Update timer bar colour class
   var bar = document.querySelector(".timer-bar");
   if (bar) {
     bar.classList.remove("warning", "urgent");
