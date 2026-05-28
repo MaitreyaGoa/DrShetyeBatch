@@ -1,5 +1,5 @@
 // home.js – Dr Shetye Academic Programme
-// Updated: Added Topic Tests section (4th tab group)
+// Updated: Added Core Subject Tests section (5th tab group)
 
 var top5Timers = {};
 
@@ -20,7 +20,8 @@ function renderTestsGrid() {
   appendGroup(grid, "Full Mock Tests", FULL_TESTS || []);
   appendGroup(grid, "Previous Year Papers", PYQ_TESTS || []);
   appendPartTests(grid);
-  appendTopicTests(grid);   // ← NEW: 4th section
+  appendTopicTests(grid);
+  appendSpecialTests(grid);   // ← Section 5: Core Subject Tests
 }
 
 function appendGroup(grid, label, tests) {
@@ -107,7 +108,6 @@ function appendTopicTests(grid) {
     if(!tests.length){
       rows = '<p class="empty-msg">No '+subj+' topic tests yet.</p>';
     } else {
-      // Group by topic
       var groups = {};
       tests.forEach(function(t){
         var key = t.topic || t.title;
@@ -144,33 +144,24 @@ function showTopicTab(subj, btn) {
   btn.classList.add("active");
 }
 
-function buildTopicRowHTML(test) {
-  var badge = test.live
-    ? '<span class="badge-live">Live</span>'
-    : '<span class="badge-soon">Soon</span>';
-  var top5Btn = test.live
-    ? '<button class="btn-sm-gold" onclick="toggleTop5(\''+test.id+'\',\''+test.title.replace(/'/g,"\\'")+'\','+test.totalMarks+',this)">🏅</button>'
-    : '';
-  var actionBtn = test.live
-    ? '<button class="btn-sm-primary" onclick="goToTest(\''+test.id+'\')">Start →</button>'
-    : '<button class="btn-sm-disabled">Soon</button>';
+// ══ CORE SUBJECT TESTS (5th section) ══════════════════════
+function appendSpecialTests(grid) {
+  if(!window.SPECIAL_TESTS || !SPECIAL_TESTS.length) return;
 
-  return '<div class="test-row">'
-    +'<div class="test-row-info">'
-    +'<div class="test-row-top"><span class="test-row-title">'+test.title+'</span>'+badge+'</div>'
-    +'<div class="test-row-meta">'+test.description+' · ⏱ '+Math.round(test.duration/60)+' min · '+test.totalMarks+' marks</div>'
-    +'</div>'
-    +'<div class="test-row-actions">'+top5Btn+actionBtn+'</div>'
-    +'</div>'
-    +'<div class="top5-panel" id="top5-'+test.id+'"></div>';
+  var lbl = document.createElement("div");
+  lbl.className = "test-group-label";
+  lbl.textContent = "Core Subject Tests";
+  grid.appendChild(lbl);
+
+  SPECIAL_TESTS.forEach(function(t){ grid.appendChild(buildTestCard(t)); });
 }
 
-// ══ TEST CARD (Full/PYQ tests) ════════════════════════════
+// ══ TEST CARD (Full/PYQ/Special tests) ════════════════════
 function buildTestCard(test) {
   var card = document.createElement("div");
   card.className = "test-card";
 
-  var icon = test.id.includes("pyq") ? "📜" : "📋";
+  var icon = test.id.includes("pyq") ? "📜" : test.id.includes("sci") ? "🔬" : "📋";
   var badge = test.live
     ? '<span class="tc-badge-live">Live</span>'
     : '<span class="tc-badge-soon">Coming Soon</span>';
@@ -229,6 +220,27 @@ function buildTestRowHTML(test) {
     +'<div class="test-row-top"><span class="test-row-title">'+test.title+'</span>'+badge+'</div>'
     +'<div class="test-row-meta">'+test.description+' · ⏱ '+Math.round(test.duration/60)+' min</div>'
     +'<div class="test-row-tags">'+secTags+'</div>'
+    +'</div>'
+    +'<div class="test-row-actions">'+top5Btn+actionBtn+'</div>'
+    +'</div>'
+    +'<div class="top5-panel" id="top5-'+test.id+'"></div>';
+}
+
+function buildTopicRowHTML(test) {
+  var badge = test.live
+    ? '<span class="badge-live">Live</span>'
+    : '<span class="badge-soon">Soon</span>';
+  var top5Btn = test.live
+    ? '<button class="btn-sm-gold" onclick="toggleTop5(\''+test.id+'\',\''+test.title.replace(/'/g,"\\'")+'\','+test.totalMarks+',this)">🏅</button>'
+    : '';
+  var actionBtn = test.live
+    ? '<button class="btn-sm-primary" onclick="goToTest(\''+test.id+'\')">Start →</button>'
+    : '<button class="btn-sm-disabled">Soon</button>';
+
+  return '<div class="test-row">'
+    +'<div class="test-row-info">'
+    +'<div class="test-row-top"><span class="test-row-title">'+test.title+'</span>'+badge+'</div>'
+    +'<div class="test-row-meta">'+test.description+' · ⏱ '+Math.round(test.duration/60)+' min · '+test.totalMarks+' marks</div>'
     +'</div>'
     +'<div class="test-row-actions">'+top5Btn+actionBtn+'</div>'
     +'</div>'
