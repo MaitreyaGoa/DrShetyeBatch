@@ -17,12 +17,13 @@ var questions      = [];
 document.addEventListener("DOMContentLoaded", function () {
   var params  = new URLSearchParams(window.location.search);
   var testId  = params.get("id");
-  // SPECIAL_TESTS added so science10_cbse and future core tests are found
-  var allTests = (window.FULL_TESTS || [])
-    .concat(window.PYQ_TESTS    || [])
-    .concat(window.PART_TESTS   || [])
-    .concat(window.TOPIC_TESTS  || [])
-    .concat(window.SPECIAL_TESTS|| []);
+  // MONTHLY_TESTS added so monthly test IDs are found
+  var allTests = (window.MONTHLY_TESTS || [])
+    .concat(window.FULL_TESTS    || [])
+    .concat(window.PYQ_TESTS     || [])
+    .concat(window.PART_TESTS    || [])
+    .concat(window.TOPIC_TESTS   || [])
+    .concat(window.SPECIAL_TESTS || []);
   for (var i = 0; i < allTests.length; i++) {
     if (allTests[i].id === testId) { currentTest = allTests[i]; break; }
   }
@@ -92,6 +93,7 @@ var SECTION_ORDER = [
   "General Intelligence & Reasoning",
   "English Comprehension",
   "English", "Maths", "Reasoning", "Konkani",
+  "General Knowledge",
   "Chemistry", "Biology", "Physics", "Environment"
 ];
 
