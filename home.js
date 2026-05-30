@@ -17,11 +17,12 @@ function renderTestsGrid() {
   if(!grid) return;
   grid.innerHTML = "";
 
+  appendMonthlyTests(grid);   // ← Section 1: Monthly Tests (FIRST)
   appendGroup(grid, "Full Mock Tests", FULL_TESTS || []);
   appendGroup(grid, "Previous Year Papers", PYQ_TESTS || []);
   appendPartTests(grid);
   appendTopicTests(grid);
-  appendSpecialTests(grid);   // ← Section 5: Core Subject Tests
+  appendSpecialTests(grid);   // ← Section 6: Core Subject Tests
 }
 
 function appendGroup(grid, label, tests) {
@@ -31,6 +32,80 @@ function appendGroup(grid, label, tests) {
   lbl.textContent = label;
   grid.appendChild(lbl);
   tests.forEach(function(t){ grid.appendChild(buildTestCard(t)); });
+}
+
+// ══ MONTHLY TESTS (1st section) ══════════════════════════
+function appendMonthlyTests(grid) {
+  if (!window.MONTHLY_TESTS || !MONTHLY_TESTS.length) return;
+
+  var lbl = document.createElement("div");
+  lbl.className = "test-group-label";
+  lbl.textContent = "Monthly Tests";
+  grid.appendChild(lbl);
+
+  var wrap = document.createElement("div");
+  wrap.className = "part-wrap";
+
+  // Build month tabs dynamically from data
+  var months = [];
+  var seen = {};
+  MONTHLY_TESTS.forEach(function(t) {
+    if (!seen[t.month]) { seen[t.month] = true; months.push(t.month); }
+  });
+
+  var tabs = '<div class="subject-tabs" id="monthlyTabs">';
+  months.forEach(function(m, i) {
+    tabs += '<button class="sub-tab' + (i === 0 ? ' active' : '') + '" '
+          + 'onclick="showMonthlyTab(\'' + m + '\',this)">'
+          + '📅 ' + m + '</button>';
+  });
+  tabs += '</div>';
+
+  var panels = "";
+  months.forEach(function(m, i) {
+    var tests = MONTHLY_TESTS.filter(function(t) { return t.month === m; });
+    var rows = tests.map(buildMonthlyRowHTML).join('');
+    panels += '<div id="mtPanel-' + m + '" class="subject-panel' + (i > 0 ? ' hidden' : '') + '">'
+            + '<div class="test-list">' + rows + '</div></div>';
+  });
+
+  wrap.innerHTML = tabs + panels;
+  grid.appendChild(wrap);
+}
+
+function showMonthlyTab(month, btn) {
+  var tabs = btn.closest(".subject-tabs").querySelectorAll(".sub-tab");
+  tabs.forEach(function(t) { t.classList.remove("active"); });
+  btn.classList.add("active");
+  // Hide all monthly panels
+  document.querySelectorAll("[id^='mtPanel-']").forEach(function(p) { p.classList.add("hidden"); });
+  var panel = document.getElementById("mtPanel-" + month);
+  if (panel) panel.classList.remove("hidden");
+}
+
+function buildMonthlyRowHTML(test) {
+  var badge = test.live
+    ? '<span class="badge-live">Live</span>'
+    : '<span class="badge-soon">Soon</span>';
+  var secTags = Object.keys(test.sections || {}).map(function(s) {
+    return '<span class="sec-tag">' + s + ': ' + test.sections[s] + '</span>';
+  }).join('');
+  var top5Btn = test.live
+    ? '<button class="btn-sm-gold" onclick="toggleTop5(\'' + test.id + '\',\'' + test.title.replace(/'/g, "\\'") + '\',' + test.totalMarks + ',this)">🏅</button>'
+    : '';
+  var actionBtn = test.live
+    ? '<button class="btn-sm-primary" onclick="goToTest(\'' + test.id + '\')">Start →</button>'
+    : '<button class="btn-sm-disabled">Soon</button>';
+
+  return '<div class="test-row">'
+    + '<div class="test-row-info">'
+    + '<div class="test-row-top"><span class="test-row-title">📅 ' + test.title + '</span>' + badge + '</div>'
+    + '<div class="test-row-meta">' + test.description + ' · ⏱ ' + Math.round(test.duration / 60) + ' min · ' + test.totalMarks + ' marks</div>'
+    + '<div class="test-row-tags">' + secTags + '</div>'
+    + '</div>'
+    + '<div class="test-row-actions">' + top5Btn + actionBtn + '</div>'
+    + '</div>'
+    + '<div class="top5-panel" id="top5-' + test.id + '"></div>';
 }
 
 // ══ PART TESTS ════════════════════════════════════════════
