@@ -7,6 +7,25 @@ var ADMIN_PASSWORD = "shetye@admin";
 var SCRIPT_URL     = "https://script.google.com/macros/s/AKfycbwc7NM-tgwtxCjZOOyLaFnLe41spGbr-0hzmYChly6cXjbzV4jrXSmelLxXN9IxPK2ZBA/exec";
 
 // ──────────────────────────────────────────────────────────
+// 0. MONTHLY TESTS  (Monthly Full Tests — English + Reasoning + Maths + GK)
+//    100 marks · 4 sections × 25 marks · 90 minutes
+// ──────────────────────────────────────────────────────────
+var MONTHLY_TESTS = [
+  {
+    id:          "monthly_may25",
+    month:       "May",
+    title:       "May 2025 Monthly Full Test",
+    description: "English 25Q · Reasoning 25Q · Maths 25Q · GK 25Q · 100 Questions",
+    password:    "may2025",
+    duration:    5400,
+    totalMarks:  100,
+    sections:    { "English": 25, "Reasoning": 25, "Maths": 25, "General Knowledge": 25 },
+    questionsFile: "questions/monthly_may25.js",
+    live:        true
+  }
+];
+
+// ──────────────────────────────────────────────────────────
 // 1. FULL TESTS
 // ──────────────────────────────────────────────────────────
 var FULL_TESTS = [
@@ -53,6 +72,28 @@ var FULL_TESTS = [
     sections:    { "English": 30, "Maths": 10, "Reasoning": 10 },
     questionsFile: "questions/fulltest4.js",
     live:        false
+  },
+  {
+    id:          "fulltest5",
+    title:       "JSO Pre-Screening Test 2",
+    description: "Reasoning & Aptitude 50Q · English 10Q · 60 Questions",
+    password:    "jso002",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "General Intelligence & Reasoning": 50, "English Comprehension": 10 },
+    questionsFile: "questions/fulltest5.js",
+    live:        true
+  },
+  {
+    id:          "fulltest6",
+    title:       "JSO Pre-Screening Test 3",
+    description: "Reasoning & Aptitude 50Q · English 10Q · 60 Questions",
+    password:    "jso003",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "General Intelligence & Reasoning": 50, "English Comprehension": 10 },
+    questionsFile: "questions/fulltest6.js",
+    live:        true
   }
 ];
 
