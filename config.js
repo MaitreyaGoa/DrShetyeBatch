@@ -94,6 +94,17 @@ var FULL_TESTS = [
     sections:    { "General Intelligence & Reasoning": 50, "English Comprehension": 10 },
     questionsFile: "questions/fulltest6.js",
     live:        true
+  },
+  {
+    id:          "fulltest7",
+    title:       "JSO Pre-Screening Test 4",
+    description: "Reasoning & Aptitude 50Q · English 10Q · 60 Questions",
+    password:    "jso004",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "General Intelligence & Reasoning": 50, "English Comprehension": 10 },
+    questionsFile: "questions/fulltest7.js",
+    live:        true
   }
 ];
 
@@ -443,7 +454,44 @@ var TOPIC_TESTS = [
 ];
 
 // ──────────────────────────────────────────────────────────
-// 7. SPECIAL TESTS  (Core Subject Tests — Std 10 Science etc.)
+// 8. SCHOLARSHIP & OLYMPIAD TESTS
+//    stdClass: "10" | "9" | "8" | "7" | "6"
+//    subject: used for grouping within class tab
+// ──────────────────────────────────────────────────────────
+var SCHOLARSHIP_TESTS = [
+  {
+    id: "scholar_cls10_apt1", stdClass: "10", subject: "Aptitude",
+    title: "Class 10 Aptitude Test 1",
+    description: "Number System · Algebra · Geometry · Statistics · Logic · 50 Questions",
+    password: "cls10apt1", duration: 3000, totalMarks: 50,
+    sections: { "Aptitude": 50 },
+    questionsFile: "questions/scholar_cls10_apt1.js", live: true
+  },
+  {
+    id: "scholar_cls9_apt1", stdClass: "9", subject: "Aptitude",
+    title: "Class 9 Aptitude Test 1",
+    description: "Number System · Polynomials · Geometry · Statistics · 50 Questions",
+    password: "cls9apt1", duration: 3000, totalMarks: 50,
+    sections: { "Aptitude": 50 },
+    questionsFile: "questions/scholar_cls9_apt1.js", live: true
+  },
+  {
+    id: "scholar_cls8_apt1", stdClass: "8", subject: "Aptitude",
+    title: "Class 8 Aptitude Test 1",
+    description: "Rational Numbers · Algebra · Mensuration · Proportion · 50 Questions",
+    password: "cls8apt1", duration: 3000, totalMarks: 50,
+    sections: { "Aptitude": 50 },
+    questionsFile: "questions/scholar_cls8_apt1.js", live: true
+  },
+  {
+    id: "scholar_cls7_apt1", stdClass: "7", subject: "Aptitude",
+    title: "Class 7 Aptitude Test 1",
+    description: "Integers · Fractions · Equations · Geometry · Percentage · 50 Questions",
+    password: "cls7apt1", duration: 3000, totalMarks: 50,
+    sections: { "Aptitude": 50 },
+    questionsFile: "questions/scholar_cls7_apt1.js", live: true
+  }
+];
 // ──────────────────────────────────────────────────────────
 var SPECIAL_TESTS = [
   {
