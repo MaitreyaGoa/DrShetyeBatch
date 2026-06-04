@@ -12,16 +12,28 @@ var SCRIPT_URL     = "https://script.google.com/macros/s/AKfycbwc7NM-tgwtxCjZOOy
 // ──────────────────────────────────────────────────────────
 var MONTHLY_TESTS = [
   {
-    id:          "monthly_may25",
+    id:          "monthly_may26",
     month:       "May",
-    title:       "May 2025 Monthly Full Test",
+    title:       "May 2026 Monthly Full Test",
     description: "English 25Q · Reasoning 25Q · Maths 25Q · GK 25Q · 100 Questions",
-    password:    "may2025",
+    password:    "may2026",
     duration:    5400,
     totalMarks:  100,
     sections:    { "English": 25, "Reasoning": 25, "Maths": 25, "General Knowledge": 25 },
     questionsFile: "questions/monthly_may25.js",
     live:        true
+  },
+  {
+    id:          "monthly_June26",
+    month:       "June",
+    title:       "June 2026 Monthly Full Test",
+    description: "English 25Q · Reasoning 25Q · Maths 25Q · GK 25Q · 100 Questions",
+    password:    "june2026",
+    duration:    5400,
+    totalMarks:  100,
+    sections:    { "English": 25, "Reasoning": 25, "Maths": 25, "General Knowledge": 25 },
+    questionsFile: "questions/monthly_june25.js",
+    live:        false
   }
 ];
 
