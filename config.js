@@ -7,33 +7,40 @@ var ADMIN_PASSWORD = "shetye@admin";
 var SCRIPT_URL     = "https://script.google.com/macros/s/AKfycbwc7NM-tgwtxCjZOOyLaFnLe41spGbr-0hzmYChly6cXjbzV4jrXSmelLxXN9IxPK2ZBA/exec";
 
 // ──────────────────────────────────────────────────────────
+// 00. DAILY TESTS  (one test per day, date-tabbed on homepage)
+//     date: "YYYY-MM-DD" format
+// ──────────────────────────────────────────────────────────
+var DAILY_TESTS = [
+  {
+    id:          "daily_20260606_maths",
+    date:        "2026-06-06",
+    title:       "Daily Maths Quiz — 6 June 2026",
+    description: "SSC CGL Level · 15 Questions · Mixed Topics",
+    password:    "d060626",
+    duration:    900,
+    totalMarks:  15,
+    sections:    { "Maths": 15 },
+    questionsFile: "questions/math_dq1.js",
+    live:        true
+  }
+];
+
+// ──────────────────────────────────────────────────────────
 // 0. MONTHLY TESTS  (Monthly Full Tests — English + Reasoning + Maths + GK)
 //    100 marks · 4 sections × 25 marks · 90 minutes
 // ──────────────────────────────────────────────────────────
 var MONTHLY_TESTS = [
   {
-    id:          "monthly_may26",
+    id:          "monthly_may25",
     month:       "May",
-    title:       "May 2026 Monthly Full Test",
+    title:       "May 2025 Monthly Full Test",
     description: "English 25Q · Reasoning 25Q · Maths 25Q · GK 25Q · 100 Questions",
-    password:    "may2026",
+    password:    "may2025",
     duration:    5400,
     totalMarks:  100,
     sections:    { "English": 25, "Reasoning": 25, "Maths": 25, "General Knowledge": 25 },
     questionsFile: "questions/monthly_may25.js",
     live:        true
-  },
-  {
-    id:          "monthly_June26",
-    month:       "June",
-    title:       "June 2026 Monthly Full Test",
-    description: "English 25Q · Reasoning 25Q · Maths 25Q · GK 25Q · 100 Questions",
-    password:    "june2026",
-    duration:    5400,
-    totalMarks:  100,
-    sections:    { "English": 25, "Reasoning": 25, "Maths": 25, "General Knowledge": 25 },
-    questionsFile: "questions/monthly_june25.js",
-    live:        false
   }
 ];
 
@@ -195,6 +202,13 @@ var PART_TESTS = [
   },
 
   // ── MATHS ──
+  {
+    id: "math_dq1", subject: "maths",
+    title: "Maths Daily Quiz 1", description: "SSC CGL Level · Mixed Topics · 15 Q",
+    password: "mdq001", duration: 900, totalMarks: 15,
+    sections: { "Maths": 15 },
+    questionsFile: "questions/math_dq1.js", live: true
+  },
   {
     id: "math_part1", subject: "maths",
     title: "Maths Part Test 1", description: "Profit Loss · Time Work · Algebra · 10 Q",
