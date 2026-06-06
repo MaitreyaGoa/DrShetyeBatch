@@ -17,13 +17,14 @@ var questions      = [];
 document.addEventListener("DOMContentLoaded", function () {
   var params  = new URLSearchParams(window.location.search);
   var testId  = params.get("id");
-  // MONTHLY_TESTS added so monthly test IDs are found
-  var allTests = (window.MONTHLY_TESTS || [])
-    .concat(window.FULL_TESTS    || [])
-    .concat(window.PYQ_TESTS     || [])
-    .concat(window.PART_TESTS    || [])
-    .concat(window.TOPIC_TESTS   || [])
-    .concat(window.SPECIAL_TESTS || []);
+  var allTests = (window.DAILY_TESTS         || [])
+    .concat(window.MONTHLY_TESTS             || [])
+    .concat(window.FULL_TESTS                || [])
+    .concat(window.PYQ_TESTS                 || [])
+    .concat(window.PART_TESTS                || [])
+    .concat(window.TOPIC_TESTS               || [])
+    .concat(window.SPECIAL_TESTS             || [])
+    .concat(window.SCHOLARSHIP_TESTS         || []);
   for (var i = 0; i < allTests.length; i++) {
     if (allTests[i].id === testId) { currentTest = allTests[i]; break; }
   }
@@ -93,7 +94,7 @@ var SECTION_ORDER = [
   "General Intelligence & Reasoning",
   "English Comprehension",
   "English", "Maths", "Reasoning", "Konkani",
-  "General Knowledge",
+  "General Knowledge", "Aptitude",
   "Chemistry", "Biology", "Physics", "Environment"
 ];
 
