@@ -18,11 +18,13 @@ function renderTestsGrid() {
   grid.innerHTML = "";
 
   appendMonthlyTests(grid);   // ← Section 1: Monthly Tests (FIRST)
+  appendDailyTests(grid);     // ← Section 2: Daily Tests
   appendGroup(grid, "Full Mock Tests", FULL_TESTS || []);
   appendGroup(grid, "Previous Year Papers", PYQ_TESTS || []);
   appendPartTests(grid);
   appendTopicTests(grid);
   appendSpecialTests(grid);   // ← Section 6: Core Subject Tests
+  appendScholarshipTests(grid); // ← Section 7: Scholarship & Olympiad
 }
 
 function appendGroup(grid, label, tests) {
@@ -32,6 +34,92 @@ function appendGroup(grid, label, tests) {
   lbl.textContent = label;
   grid.appendChild(lbl);
   tests.forEach(function(t){ grid.appendChild(buildTestCard(t)); });
+}
+
+// ══ DAILY TESTS (2nd section) ════════════════════════════
+function appendDailyTests(grid) {
+  if (!window.DAILY_TESTS || !DAILY_TESTS.length) return;
+
+  var lbl = document.createElement("div");
+  lbl.className = "test-group-label";
+  lbl.textContent = "📅 Daily Tests";
+  grid.appendChild(lbl);
+
+  var wrap = document.createElement("div");
+  wrap.className = "part-wrap";
+
+  // Build unique sorted date list
+  var dateMap = {};
+  DAILY_TESTS.forEach(function(t) {
+    if (!dateMap[t.date]) dateMap[t.date] = [];
+    dateMap[t.date].push(t);
+  });
+  var dates = Object.keys(dateMap).sort().reverse(); // latest first
+
+  // Format date for display: "2026-06-06" → "06 Jun 2026"
+  function fmtDate(d) {
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var parts = d.split('-');
+    return parts[2] + ' ' + months[parseInt(parts[1],10)-1] + ' ' + parts[0];
+  }
+
+  // Mark today
+  var today = new Date();
+  var todayStr = today.getFullYear() + '-'
+    + String(today.getMonth()+1).padStart(2,'0') + '-'
+    + String(today.getDate()).padStart(2,'0');
+
+  var tabs = '<div class="subject-tabs" id="dailyTabs">';
+  dates.forEach(function(d, i) {
+    var isToday = d === todayStr;
+    tabs += '<button class="sub-tab' + (i===0?' active':'') + '" '
+          + 'onclick="showDailyTab(\'' + d + '\',this)">'
+          + (isToday ? '🔴 Today' : fmtDate(d)) + '</button>';
+  });
+  tabs += '</div>';
+
+  var panels = '';
+  dates.forEach(function(d, i) {
+    var tests = dateMap[d];
+    var rows = tests.map(function(t) {
+      var badge = t.live
+        ? '<span class="badge-live">Live</span>'
+        : '<span class="badge-soon">Soon</span>';
+      var secTags = Object.keys(t.sections||{}).map(function(s){
+        return '<span class="sec-tag">'+s+': '+t.sections[s]+'</span>';
+      }).join('');
+      var top5Btn = t.live
+        ? '<button class="btn-sm-gold" onclick="toggleTop5(\''+t.id+'\',\''+t.title.replace(/'/g,"\\'")+'\',' +t.totalMarks+',this)">🏅</button>'
+        : '';
+      var actionBtn = t.live
+        ? '<button class="btn-sm-primary" onclick="goToTest(\''+t.id+'\')">Start →</button>'
+        : '<button class="btn-sm-disabled">Soon</button>';
+      return '<div class="test-row">'
+        +'<div class="test-row-info">'
+        +'<div class="test-row-top"><span class="test-row-title">📝 '+t.title+'</span>'+badge+'</div>'
+        +'<div class="test-row-meta">'+t.description+' · ⏱ '+Math.round(t.duration/60)+' min · '+t.totalMarks+' marks</div>'
+        +'<div class="test-row-tags">'+secTags+'</div>'
+        +'</div>'
+        +'<div class="test-row-actions">'+top5Btn+actionBtn+'</div>'
+        +'</div>'
+        +'<div class="top5-panel" id="top5-'+t.id+'"></div>';
+    }).join('');
+
+    panels += '<div id="dtPanel-' + d + '" class="subject-panel'+(i>0?' hidden':'')+'">'
+            + '<div class="test-list">' + rows + '</div></div>';
+  });
+
+  wrap.innerHTML = tabs + panels;
+  grid.appendChild(wrap);
+}
+
+function showDailyTab(date, btn) {
+  document.querySelectorAll("[id^='dtPanel-']").forEach(function(p){p.classList.add("hidden");});
+  document.getElementById("dailyTabs").querySelectorAll(".sub-tab")
+    .forEach(function(t){t.classList.remove("active");});
+  var panel = document.getElementById("dtPanel-"+date);
+  if(panel) panel.classList.remove("hidden");
+  btn.classList.add("active");
 }
 
 // ══ MONTHLY TESTS (1st section) ══════════════════════════
@@ -541,6 +629,89 @@ function renderBlackboard() {
     +"  padding:6px 12px; margin:6px 0 4px; border-radius:0 6px 6px 0; }";
   document.head.appendChild(style);
 })();
+
+// ══ SCHOLARSHIP & OLYMPIAD TESTS (7th section) ═══════════
+function appendScholarshipTests(grid) {
+  if (!window.SCHOLARSHIP_TESTS || !SCHOLARSHIP_TESTS.length) return;
+
+  var lbl = document.createElement("div");
+  lbl.className = "test-group-label";
+  lbl.textContent = "🏅 School Level — Scholarship & Olympiad Training";
+  grid.appendChild(lbl);
+
+  var wrap = document.createElement("div");
+  wrap.className = "part-wrap";
+
+  var classes = ["10", "9", "8", "7", "6"];
+  var icons   = { "10":"📘", "9":"📗", "8":"📙", "7":"📒", "6":"📔" };
+
+  var tabs = '<div class="subject-tabs" id="scholarTabs">';
+  classes.forEach(function(cls, i) {
+    tabs += '<button class="sub-tab' + (i === 0 ? ' active' : '') + '" '
+          + 'onclick="showScholarshipTab(\'' + cls + '\',this)">'
+          + icons[cls] + ' Class ' + cls + '</button>';
+  });
+  tabs += '</div>';
+
+  var panels = "";
+  classes.forEach(function(cls, i) {
+    var tests = (SCHOLARSHIP_TESTS || []).filter(function(t) { return t.stdClass === cls; });
+    var rows = "";
+    if (!tests.length) {
+      rows = '<p class="empty-msg">No tests available for Class ' + cls + ' yet. Coming soon!</p>';
+    } else {
+      var groups = {};
+      tests.forEach(function(t) {
+        var key = t.subject || "General";
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(t);
+      });
+      Object.keys(groups).forEach(function(subj) {
+        rows += '<div class="topic-group">'
+              + '<div class="topic-group-label">📌 ' + subj + '</div>';
+        groups[subj].forEach(function(t) { rows += buildScholarshipRowHTML(t); });
+        rows += '</div>';
+      });
+    }
+    panels += '<div id="scPanel-' + cls + '" class="subject-panel' + (i > 0 ? ' hidden' : '') + '">'
+            + '<div class="test-list">' + rows + '</div></div>';
+  });
+
+  wrap.innerHTML = tabs + panels;
+  grid.appendChild(wrap);
+}
+
+function showScholarshipTab(cls, btn) {
+  ["10","9","8","7","6"].forEach(function(c) {
+    var p = document.getElementById("scPanel-" + c);
+    if (p) p.classList.add("hidden");
+  });
+  btn.closest(".subject-tabs").querySelectorAll(".sub-tab")
+    .forEach(function(t) { t.classList.remove("active"); });
+  var panel = document.getElementById("scPanel-" + cls);
+  if (panel) panel.classList.remove("hidden");
+  btn.classList.add("active");
+}
+
+function buildScholarshipRowHTML(test) {
+  var badge = test.live
+    ? '<span class="badge-live">Live</span>'
+    : '<span class="badge-soon">Soon</span>';
+  var top5Btn = test.live
+    ? '<button class="btn-sm-gold" onclick="toggleTop5(\'' + test.id + '\',\'' + test.title.replace(/'/g, "\\'") + '\',' + test.totalMarks + ',this)">🏅</button>'
+    : '';
+  var actionBtn = test.live
+    ? '<button class="btn-sm-primary" onclick="goToTest(\'' + test.id + '\')">Start →</button>'
+    : '<button class="btn-sm-disabled">Soon</button>';
+  return '<div class="test-row">'
+    + '<div class="test-row-info">'
+    + '<div class="test-row-top"><span class="test-row-title">🏅 ' + test.title + '</span>' + badge + '</div>'
+    + '<div class="test-row-meta">' + test.description + ' · ⏱ ' + Math.round(test.duration / 60) + ' min · ' + test.totalMarks + ' marks</div>'
+    + '</div>'
+    + '<div class="test-row-actions">' + top5Btn + actionBtn + '</div>'
+    + '</div>'
+    + '<div class="top5-panel" id="top5-' + test.id + '"></div>';
+}
 
 // ══ NAV & ADMIN ═══════════════════════════════════════════
 function goToTest(testId){ window.location.href="test.html?id="+testId; }
