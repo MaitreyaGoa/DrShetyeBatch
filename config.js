@@ -48,6 +48,19 @@ var MONTHLY_TESTS = [
 // 1. FULL TESTS
 // ──────────────────────────────────────────────────────────
 var FULL_TESTS = [
+  // ── DAILY TESTS (embedded directly in FULL_TESTS for compatibility) ──
+  {
+    id:          "daily_20260606_maths",
+    date:        "2026-06-06",
+    title:       "Daily Maths Quiz — 6 June 2026",
+    description: "SSC CGL Level · 15 Questions · Mixed Topics",
+    password:    "d060626",
+    duration:    900,
+    totalMarks:  15,
+    sections:    { "Maths": 15 },
+    questionsFile: "questions/math_dq1.js",
+    live:        true
+  },
   {
     id:          "fulltest1",
     title:       "Full Mock Test 1",
