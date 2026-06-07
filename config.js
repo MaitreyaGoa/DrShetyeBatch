@@ -15,7 +15,7 @@ var DAILY_TESTS = [
     id:          "daily_20260606_maths",
     date:        "2026-06-06",
     title:       "Daily Maths Quiz — 6 June 2026",
-    description: "SSC CGL Level · 15 Questions · Mixed Topics",
+    description: "15 Questions · Mixed Topics",
     password:    "d060626",
     duration:    900,
     totalMarks:  15,
@@ -45,27 +45,14 @@ var MONTHLY_TESTS = [
 ];
 
 // ──────────────────────────────────────────────────────────
-// 1. FULL TESTS
+// 1a. GSSC TESTS  (Goa State Service Commission — PC / Clerk / Junior posts)
 // ──────────────────────────────────────────────────────────
-var FULL_TESTS = [
-  // ── DAILY TESTS (embedded directly in FULL_TESTS for compatibility) ──
-  {
-    id:          "daily_20260606_maths",
-    date:        "2026-06-06",
-    title:       "Daily Maths Quiz — 6 June 2026",
-    description: "SSC CGL Level · 15 Questions · Mixed Topics",
-    password:    "d060626",
-    duration:    900,
-    totalMarks:  15,
-    sections:    { "Maths": 15 },
-    questionsFile: "questions/math_dq1.js",
-    live:        true
-  },
+var GSSC_TESTS = [
   {
     id:          "fulltest1",
-    title:       "Full Mock Test 1",
-    description: "All sections · 50 Questions",
-    password:    "ssc001",
+    title:       "GSSC Full Mock Test 1",
+    description: "English · Maths · Reasoning · 50 Questions",
+    password:    "gssc001",
     duration:    3600,
     totalMarks:  50,
     sections:    { "English": 30, "Maths": 10, "Reasoning": 10 },
@@ -74,9 +61,9 @@ var FULL_TESTS = [
   },
   {
     id:          "fulltest2",
-    title:       "Full Mock Test 2",
-    description: "All sections · 50 Questions",
-    password:    "ssc002",
+    title:       "GSSC Full Mock Test 2",
+    description: "English · Maths · Reasoning · 50 Questions",
+    password:    "gssc002",
     duration:    3600,
     totalMarks:  50,
     sections:    { "English": 30, "Maths": 10, "Reasoning": 10 },
@@ -84,9 +71,26 @@ var FULL_TESTS = [
     live:        true
   },
   {
+    id:          "fulltest4",
+    title:       "GSSC Full Mock Test 3",
+    description: "English · Maths · Reasoning · 50 Questions",
+    password:    "gssc003",
+    duration:    3600,
+    totalMarks:  50,
+    sections:    { "English": 30, "Maths": 10, "Reasoning": 10 },
+    questionsFile: "questions/fulltest4.js",
+    live:        false
+  }
+];
+
+// ──────────────────────────────────────────────────────────
+// 1b. GPSC TESTS  (Goa Public Service Commission — JSO / Group A & B)
+// ──────────────────────────────────────────────────────────
+var GPSC_TESTS = [
+  {
     id:          "fulltest3",
-    title:       "JSO Pre-Screening Test",
-    description: "All sections · 60 Questions",
+    title:       "JSO Pre-Screening Test 1",
+    description: "General Intelligence & Reasoning 50Q · English 10Q",
     password:    "jso001",
     duration:    4500,
     totalMarks:  60,
@@ -95,20 +99,9 @@ var FULL_TESTS = [
     live:        true
   },
   {
-    id:          "fulltest4",
-    title:       "Full Mock Test 4",
-    description: "All sections · 50 Questions",
-    password:    "ssc003",
-    duration:    3600,
-    totalMarks:  50,
-    sections:    { "English": 30, "Maths": 10, "Reasoning": 10 },
-    questionsFile: "questions/fulltest4.js",
-    live:        false
-  },
-  {
     id:          "fulltest5",
     title:       "JSO Pre-Screening Test 2",
-    description: "Reasoning & Aptitude 50Q · English 10Q · 60 Questions",
+    description: "General Intelligence & Reasoning 50Q · English 10Q",
     password:    "jso002",
     duration:    4500,
     totalMarks:  60,
@@ -119,7 +112,7 @@ var FULL_TESTS = [
   {
     id:          "fulltest6",
     title:       "JSO Pre-Screening Test 3",
-    description: "Reasoning & Aptitude 50Q · English 10Q · 60 Questions",
+    description: "General Intelligence & Reasoning 50Q · English 10Q",
     password:    "jso003",
     duration:    4500,
     totalMarks:  60,
@@ -130,7 +123,7 @@ var FULL_TESTS = [
   {
     id:          "fulltest7",
     title:       "JSO Pre-Screening Test 4",
-    description: "Reasoning & Aptitude 50Q · English 10Q · 60 Questions",
+    description: "General Intelligence & Reasoning 50Q · English 10Q",
     password:    "jso004",
     duration:    4500,
     totalMarks:  60,
@@ -139,6 +132,9 @@ var FULL_TESTS = [
     live:        true
   }
 ];
+
+// Keep FULL_TESTS as combined for backward compatibility
+var FULL_TESTS = GSSC_TESTS.concat(GPSC_TESTS);
 
 // ──────────────────────────────────────────────────────────
 // 2. PREVIOUS YEAR QUESTION TESTS (PYQ)
@@ -217,7 +213,7 @@ var PART_TESTS = [
   // ── MATHS ──
   {
     id: "math_dq1", subject: "maths",
-    title: "Maths Daily Quiz 1", description: "SSC CGL Level · Mixed Topics · 15 Q",
+    title: "Maths Daily Quiz 1", description: "Mixed Topics · 15 Q",
     password: "mdq001", duration: 900, totalMarks: 15,
     sections: { "Maths": 15 },
     questionsFile: "questions/math_dq1.js", live: true
@@ -557,9 +553,15 @@ var SPECIAL_TESTS = [
   }
 ];
 
-// ── MERGE ALL ARRAYS INTO FULL_TESTS so old test.js can find every test ──
-// This ensures backward compatibility regardless of test.js version on server
-FULL_TESTS = FULL_TESTS
-  .concat(DAILY_TESTS   || [])
-  .concat(MONTHLY_TESTS || [])
-  .concat(SCHOLARSHIP_TESTS || []);
+// ── ALL_TESTS: used by test.js to find every test by ID ──
+// FULL_TESTS itself stays as fulltest1-7 only (for homepage display)
+// test.js checks window.ALL_TESTS first, then falls back to FULL_TESTS
+var ALL_TESTS = (GSSC_TESTS       || [])
+  .concat(GPSC_TESTS         || [])
+  .concat(DAILY_TESTS        || [])
+  .concat(MONTHLY_TESTS      || [])
+  .concat(PYQ_TESTS          || [])
+  .concat(PART_TESTS         || [])
+  .concat(TOPIC_TESTS        || [])
+  .concat(SPECIAL_TESTS      || [])
+  .concat(SCHOLARSHIP_TESTS  || []);
