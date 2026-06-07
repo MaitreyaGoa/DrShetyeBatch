@@ -789,6 +789,67 @@
       .site-footer{padding:48px 20px 28px;}
       .four-tiles{grid-template-columns:1fr 1fr;}
     }
+
+    /* ─── 8 TEST CATEGORY SUB-TILES ─────────────────────── */
+    .test-cat-intro{
+      font-size:13px;color:#6e6e73;margin-bottom:20px;
+    }
+    .eight-tiles{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:8px;
+      margin-bottom:36px;
+    }
+    @media(max-width:900px){.eight-tiles{grid-template-columns:repeat(4,1fr);}}
+    @media(max-width:640px){.eight-tiles{grid-template-columns:repeat(2,1fr);}}
+
+    .stile{
+      display:flex;flex-direction:column;align-items:flex-start;
+      background:#fff;
+      border:1px solid rgba(0,0,0,0.08);
+      border-radius:14px;
+      padding:14px 14px 12px;
+      cursor:pointer;
+      text-decoration:none;
+      transition:box-shadow 0.18s,transform 0.18s,border-color 0.18s;
+      position:relative;overflow:hidden;
+    }
+    .stile:hover{
+      box-shadow:0 6px 20px rgba(0,0,0,0.1);
+      transform:translateY(-2px);
+      border-color:rgba(0,113,227,0.25);
+    }
+    .stile-emoji{
+      font-size:22px;margin-bottom:8px;
+      width:38px;height:38px;
+      background:#f5f5f7;border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .stile-title{
+      font-size:12px;font-weight:700;color:#1d1d1f;
+      line-height:1.3;margin-bottom:3px;letter-spacing:-0.1px;
+    }
+    .stile-sub{
+      font-size:10px;color:#86868b;line-height:1.4;
+    }
+    .stile-arrow{
+      position:absolute;bottom:10px;right:12px;
+      font-size:11px;color:#aeaeb2;
+      transition:transform 0.18s,color 0.18s;
+    }
+    .stile:hover .stile-arrow{transform:translate(2px,-1px);color:#0071e3;}
+
+    /* colour accent strip at top */
+    .stile::before{
+      content:'';position:absolute;top:0;left:0;right:0;
+      height:3px;border-radius:14px 14px 0 0;
+      background:var(--stile-color,#0071e3);
+      opacity:0;transition:opacity 0.18s;
+    }
+    .stile:hover::before{opacity:1;}
+
+    /* sub-section anchors — tiny offset so header doesn't cover */
+    .test-subsection{scroll-margin-top:72px;padding-top:8px;}
   </style>
 </head>
 <body>
@@ -941,8 +1002,83 @@
   <div class="section-inner">
     <div class="section-label">Mock Tests</div>
     <h2 class="section-title">Test Series</h2>
-    <p class="section-sub">Full Tests · Previous Year Papers · Section-wise Part Tests</p>
-    <div class="tests-grid" id="testsGrid"></div>
+    <p class="section-sub">Choose a category below to jump straight to those tests.</p>
+
+    <!-- 8 SUB-CATEGORY TILES -->
+    <div class="eight-tiles">
+
+      <a href="#sec-monthly" class="stile" style="--stile-color:#ff9500;">
+        <div class="stile-emoji">📆</div>
+        <div class="stile-title">Monthly Tests</div>
+        <div class="stile-sub">Full 100-mark tests</div>
+        <span class="stile-arrow">↓</span>
+      </a>
+
+      <a href="#sec-daily" class="stile" style="--stile-color:#ff3b30;">
+        <div class="stile-emoji">📅</div>
+        <div class="stile-title">Daily Quiz</div>
+        <div class="stile-sub">Date-wise daily drills</div>
+        <span class="stile-arrow">↓</span>
+      </a>
+
+      <a href="#sec-gssc" class="stile" style="--stile-color:#0071e3;">
+        <div class="stile-emoji">🏛</div>
+        <div class="stile-title">GSSC Mock Tests</div>
+        <div class="stile-sub">Police · Clerk · PC</div>
+        <span class="stile-arrow">↓</span>
+      </a>
+
+      <a href="#sec-gpsc" class="stile" style="--stile-color:#5856d6;">
+        <div class="stile-emoji">🎯</div>
+        <div class="stile-title">GPSC / JSO Tests</div>
+        <div class="stile-sub">JSO Pre-Screening</div>
+        <span class="stile-arrow">↓</span>
+      </a>
+
+      <a href="#sec-pyq" class="stile" style="--stile-color:#34c759;">
+        <div class="stile-emoji">📄</div>
+        <div class="stile-title">Previous Year Papers</div>
+        <div class="stile-sub">Official GSSC PYQs</div>
+        <span class="stile-arrow">↓</span>
+      </a>
+
+      <a href="#sec-part" class="stile" style="--stile-color:#007aff;">
+        <div class="stile-emoji">📝</div>
+        <div class="stile-title">Part Tests</div>
+        <div class="stile-sub">English · Maths · Reasoning</div>
+        <span class="stile-arrow">↓</span>
+      </a>
+
+      <a href="#sec-topic" class="stile" style="--stile-color:#af52de;">
+        <div class="stile-emoji">🔬</div>
+        <div class="stile-title">Topic Drills</div>
+        <div class="stile-sub">Topic-wise focused tests</div>
+        <span class="stile-arrow">↓</span>
+      </a>
+
+      <a href="#sec-scholar" class="stile" style="--stile-color:#ff9500;">
+        <div class="stile-emoji">🏆</div>
+        <div class="stile-title">Scholarship &amp; Olympiad</div>
+        <div class="stile-sub">Class 7–10 aptitude</div>
+        <span class="stile-arrow">↓</span>
+      </a>
+
+    </div>
+    <!-- END 8 SUB-TILES -->
+
+    <!-- ANCHORED SUBSECTIONS — JS renders into these divs -->
+    <div id="sec-monthly" class="test-subsection"></div>
+    <div id="sec-daily"   class="test-subsection"></div>
+    <div id="sec-gssc"    class="test-subsection"></div>
+    <div id="sec-gpsc"    class="test-subsection"></div>
+    <div id="sec-pyq"     class="test-subsection"></div>
+    <div id="sec-part"    class="test-subsection"></div>
+    <div id="sec-topic"   class="test-subsection"></div>
+    <div id="sec-special" class="test-subsection"></div>
+    <div id="sec-scholar" class="test-subsection"></div>
+
+    <!-- testsGrid kept for backward compat — hidden; JS still renders here, we re-route below -->
+    <div class="tests-grid" id="testsGrid" style="display:none;"></div>
   </div>
 </section>
 
@@ -1083,3 +1219,85 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script src="config.js"></script>
 <script src="home.js"></script>
+
+<script>
+// ── SUBSECTION ROUTER ───────────────────────────────────────
+document.addEventListener("DOMContentLoaded", function () {
+
+  var routeMap = [
+    { match: "Monthly Tests",          target: "sec-monthly" },
+    { match: "Daily Tests",            target: "sec-daily"   },
+    { match: "GSSC Mock Tests",        target: "sec-gssc"    },
+    { match: "GPSC / JSO Tests",       target: "sec-gpsc"    },
+    { match: "Previous Year Papers",   target: "sec-pyq"     },
+    { match: "Part Tests",             target: "sec-part"    },
+    { match: "Topic Tests",            target: "sec-topic"   },
+    { match: "Core Subject Tests",     target: "sec-special" },
+    { match: "School Level",           target: "sec-scholar" }
+  ];
+
+  setTimeout(function () {
+    var grid = document.getElementById("testsGrid");
+    if (!grid) return;
+
+    var children = Array.prototype.slice.call(grid.childNodes);
+    var currentTarget = null;
+    var buffer = [];
+
+    function flush() {
+      if (!currentTarget || !buffer.length) return;
+      var dest = document.getElementById(currentTarget);
+      if (dest) buffer.forEach(function(n){ dest.appendChild(n); });
+      buffer = [];
+    }
+
+    children.forEach(function(node) {
+      if (node.nodeType === 1 && node.classList && node.classList.contains("test-group-label")) {
+        flush();
+        var txt = node.textContent.trim();
+        currentTarget = null;
+        for (var i = 0; i < routeMap.length; i++) {
+          if (txt.indexOf(routeMap[i].match) !== -1) {
+            currentTarget = routeMap[i].target;
+            break;
+          }
+        }
+        buffer = [node];
+      } else {
+        buffer.push(node);
+      }
+    });
+    flush();
+
+    // Add mini header to each subsection
+    var labels = {
+      "sec-monthly": { emoji:"📆", title:"Monthly Tests",            sub:"Full 100-mark · 4 sections · 90 min" },
+      "sec-daily":   { emoji:"📅", title:"Daily Quiz",               sub:"One new quiz every day" },
+      "sec-gssc":    { emoji:"🏛", title:"GSSC Mock Tests",          sub:"Police Constable · PC · Clerk posts" },
+      "sec-gpsc":    { emoji:"🎯", title:"GPSC / JSO Tests",         sub:"Junior Statistical Officer pre-screening" },
+      "sec-pyq":     { emoji:"📄", title:"Previous Year Papers",     sub:"Official GSSC question papers" },
+      "sec-part":    { emoji:"📝", title:"Part Tests",               sub:"Subject-wise section practice" },
+      "sec-topic":   { emoji:"🔬", title:"Topic Drills",             sub:"Topic-focused 10-15 question sets" },
+      "sec-special": { emoji:"🧪", title:"Core Subject Tests",       sub:"CBSE Std 10 Science special papers" },
+      "sec-scholar": { emoji:"🏆", title:"Scholarship & Olympiad",   sub:"Class 7-10 aptitude training" }
+    };
+
+    Object.keys(labels).forEach(function(id) {
+      var el = document.getElementById(id);
+      if (!el || !el.hasChildNodes()) return;
+      var info = labels[id];
+      var hdr = document.createElement("div");
+      hdr.style.cssText = "display:flex;align-items:center;gap:10px;margin-bottom:14px;padding:12px 0 12px;border-bottom:1px solid rgba(0,0,0,0.07);";
+      hdr.innerHTML =
+        '<span style="font-size:22px;">' + info.emoji + '</span>'
+        + '<div>'
+        + '<div style="font-size:15px;font-weight:700;color:#1d1d1f;letter-spacing:-0.2px;">' + info.title + '</div>'
+        + '<div style="font-size:11px;color:#86868b;margin-top:1px;">' + info.sub + '</div>'
+        + '</div>'
+        + '<a href="#tests" style="margin-left:auto;font-size:11px;color:#0071e3;text-decoration:none;font-weight:500;white-space:nowrap;">↑ Top</a>';
+      el.insertBefore(hdr, el.firstChild);
+    });
+
+  }, 0);
+});
+</script>
