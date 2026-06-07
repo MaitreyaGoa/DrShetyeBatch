@@ -77,8 +77,9 @@ function login() {
   var pass = document.getElementById("studentPassword").value.trim();
   var err  = document.getElementById("loginError");
   if (!name) { err.textContent = "Please enter your full name."; err.style.display = "block"; return; }
+  if (!currentTest) { err.textContent = "Test not found. Please go back and click Start again."; err.style.display = "block"; return; }
   if (pass !== currentTest.password) { err.textContent = "Incorrect password. Please check with your coordinator."; err.style.display = "block"; return; }
-  if (!questions || questions.length === 0) { err.textContent = "Questions not loaded yet. Please refresh."; err.style.display = "block"; return; }
+  if (!questions || questions.length === 0) { err.textContent = "Questions not loaded yet. Please wait 2 seconds and try again."; err.style.display = "block"; return; }
   err.style.display  = "none";
   currentStudent     = name;
   userAnswers        = {};

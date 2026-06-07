@@ -543,3 +543,10 @@ var SPECIAL_TESTS = [
     live:        true
   }
 ];
+
+// ── MERGE ALL ARRAYS INTO FULL_TESTS so old test.js can find every test ──
+// This ensures backward compatibility regardless of test.js version on server
+FULL_TESTS = FULL_TESTS
+  .concat(DAILY_TESTS   || [])
+  .concat(MONTHLY_TESTS || [])
+  .concat(SCHOLARSHIP_TESTS || []);
