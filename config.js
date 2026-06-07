@@ -22,6 +22,30 @@ var DAILY_TESTS = [
     sections:    { "Maths": 15 },
     questionsFile: "questions/math_dq1.js",
     live:        true
+  },
+  {
+    id:          "daily_20260607_mixed",
+    date:        "2026-06-07",
+    title:       "Daily Quiz — 7 June 2026",
+    description: "6 Maths · 5 English · 4 Reasoning · 15 Questions",
+    password:    "d070626",
+    duration:    900,
+    totalMarks:  15,
+    sections:    { "Maths": 6, "English": 5, "Reasoning": 4 },
+    questionsFile: "questions/daily_20260607.js",
+    live:        true
+  },
+  {
+    id:          "daily_20260608_mixed",
+    date:        "2026-06-08",
+    title:       "Daily Quiz — 8 June 2026",
+    description: "6 Maths · 5 English · 4 Reasoning · 15 Questions",
+    password:    "d080626",
+    duration:    900,
+    totalMarks:  15,
+    sections:    { "Maths": 6, "English": 5, "Reasoning": 4 },
+    questionsFile: "questions/daily_20260608.js",
+    live:        true
   }
 ];
 
@@ -485,7 +509,19 @@ var TOPIC_TESTS = [
   { id:"topic_mo",  subject:"reasoning", topic:"Mathematical Operations",
     title:"Mathematical Operations", description:"10 topic-focused questions",
     password:"tmo001", duration:600, totalMarks:10,
-    sections:{"Reasoning":10}, questionsFile:"questions/topic_mathematical_operations.js", live:true }
+    sections:{"Reasoning":10}, questionsFile:"questions/topic_mathematical_operations.js", live:true },
+
+  // ── NEW: MATHS ──
+  { id:"topic_alg", subject:"maths", topic:"Algebra",
+    title:"Algebra", description:"10 topic-focused questions on algebraic expressions and equations",
+    password:"talg01", duration:600, totalMarks:10,
+    sections:{"Maths":10}, questionsFile:"questions/topic_algebra.js", live:true },
+
+  // ── NEW: ENGLISH ──
+  { id:"topic_apv", subject:"english", topic:"Active/Passive Voice",
+    title:"Active/Passive Voice", description:"15 questions on active and passive voice transformations",
+    password:"tapv01", duration:900, totalMarks:15,
+    sections:{"English":15}, questionsFile:"questions/topic_active_passive.js", live:true }
 ];
 
 // ──────────────────────────────────────────────────────────
