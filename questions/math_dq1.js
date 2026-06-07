@@ -1,5 +1,5 @@
 // math_dq1.js – Dr Shetye Academic Programme
-// Maths Daily Quiz 1 — SSC CGL Level
+// Maths Daily Quiz 1 — Goa Competitive Exams
 // 15 Questions · IDs 5301–5315 · 15 Marks · 15 Minutes
 // Topics: Percentage, Profit/Loss, SI/CI, Time-Work, Ratio,
 //         Speed-Distance, Algebra, Number System, Mensuration, Averages
