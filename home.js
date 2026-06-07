@@ -19,7 +19,8 @@ function renderTestsGrid() {
 
   appendMonthlyTests(grid);   // ← Section 1: Monthly Tests (FIRST)
   appendDailyTests(grid);     // ← Section 2: Daily Tests
-  appendGroup(grid, "Full Mock Tests", FULL_TESTS || []);
+  appendGroup(grid, "🏛 GSSC Mock Tests", window.GSSC_TESTS || []);
+  appendGroup(grid, "🏛 GPSC / JSO Tests", window.GPSC_TESTS || []);
   appendGroup(grid, "Previous Year Papers", PYQ_TESTS || []);
   appendPartTests(grid);
   appendTopicTests(grid);
