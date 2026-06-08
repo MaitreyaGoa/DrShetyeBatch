@@ -17,14 +17,15 @@ var questions      = [];
 document.addEventListener("DOMContentLoaded", function () {
   var params  = new URLSearchParams(window.location.search);
   var testId  = params.get("id");
-  var allTests = (window.DAILY_TESTS         || [])
-    .concat(window.MONTHLY_TESTS             || [])
-    .concat(window.FULL_TESTS                || [])
-    .concat(window.PYQ_TESTS                 || [])
-    .concat(window.PART_TESTS                || [])
-    .concat(window.TOPIC_TESTS               || [])
-    .concat(window.SPECIAL_TESTS             || [])
-    .concat(window.SCHOLARSHIP_TESTS         || []);
+  // ALL_TESTS is pre-built in config.js — single source of truth
+  var allTests = window.ALL_TESTS || (window.FULL_TESTS || [])
+    .concat(window.DAILY_TESTS        || [])
+    .concat(window.MONTHLY_TESTS      || [])
+    .concat(window.PYQ_TESTS          || [])
+    .concat(window.PART_TESTS         || [])
+    .concat(window.TOPIC_TESTS        || [])
+    .concat(window.SPECIAL_TESTS      || [])
+    .concat(window.SCHOLARSHIP_TESTS  || []);
   for (var i = 0; i < allTests.length; i++) {
     if (allTests[i].id === testId) { currentTest = allTests[i]; break; }
   }
@@ -181,9 +182,9 @@ function renderQuestion(idx) {
   var labels = ["A", "B", "C", "D"];
   for (var i = 0; i < q.options.length; i++) {
     var lbl = labels[i];
-    var isSel = userAnswers[q.id] === lbl;
+    var isSel = userAnswers[String(q.id)] === lbl;
     html += '<li class="option-item' + (isSel ? " selected" : "") + '" '
-          + 'data-qid="' + q.id + '" data-lbl="' + lbl + '" onclick="selectAnswer(this)">'
+          + 'data-qid="' + String(q.id) + '" data-lbl="' + lbl + '" onclick="selectAnswer(this)">'
           + '<span class="opt-label-cell">'
           + '<span class="radio-circle' + (isSel ? " checked" : "") + '"></span>'
           + '<span class="opt-letter">' + lbl + '</span>'
@@ -214,7 +215,7 @@ function renderQuestion(idx) {
 }
 
 function selectAnswer(el) {
-  var qid = parseInt(el.getAttribute("data-qid"));
+  var qid = el.getAttribute("data-qid");  // keep as string — consistent with q.id toString
   userAnswers[qid] = el.getAttribute("data-lbl");
   document.querySelectorAll(".option-item").forEach(function (li) {
     li.classList.remove("selected");
@@ -226,7 +227,7 @@ function selectAnswer(el) {
 }
 
 function clearResponse() {
-  delete userAnswers[questions[currentQ].id];
+  delete userAnswers[String(questions[currentQ].id)];
   document.querySelectorAll(".option-item").forEach(function (li) {
     li.classList.remove("selected");
     li.querySelector(".radio-circle").classList.remove("checked");
@@ -256,7 +257,7 @@ function prevQuestion() { if (currentQ > 0) renderQuestion(currentQ - 1); }
 function nextQuestion() {
   if (currentQ >= questions.length - 1) return;
   var nb = document.getElementById("nextBtn");
-  if (nb && userAnswers[questions[currentQ].id]) {
+  if (nb && userAnswers[String(questions[currentQ].id)]) {
     var orig = nb.textContent;
     nb.textContent = "Saved ✓";
     nb.style.background = "#15803d";
@@ -314,7 +315,7 @@ function updatePalette() {
   for (var i = 0; i < questions.length; i++) {
     var btn       = document.getElementById("pal-" + i);
     if (!btn) continue;
-    var isAns     = !!userAnswers[questions[i].id];
+    var isAns     = !!userAnswers[String(questions[i].id)];
     var isMark    = !!markedReview[i];
     var isVisited = !!visitedQ[i];
     var isCurrent = i === currentQ;
@@ -398,7 +399,7 @@ function calculateScore() {
   var scores = {};
   questions.forEach(function (q) {
     if (!scores[q.section]) scores[q.section] = 0;
-    if (userAnswers[q.id] === q.answer) scores[q.section]++;
+    if (userAnswers[String(q.id)] === q.answer) scores[q.section]++;
   });
   var total = 0;
   Object.keys(scores).forEach(function (k) { total += scores[k]; });
@@ -466,7 +467,7 @@ function viewAnswers() {
   var labels = ["A", "B", "C", "D"];
   list.innerHTML = "";
   questions.forEach(function (q, i) {
-    var given   = userAnswers[q.id];
+    var given   = userAnswers[String(q.id)];
     var correct = q.answer;
     var optText = function (lbl) { return lbl ? q.options[labels.indexOf(lbl)] : "—"; };
     var status  = given === correct ? "correct" : given ? "incorrect" : "skipped";
