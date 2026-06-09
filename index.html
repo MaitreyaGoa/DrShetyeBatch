@@ -781,6 +781,36 @@
     .modal-btns .btn.outline{background:#f5f5f7;color:#6e6e73;}
     .error-msg{color:#ff3b30;font-size:12px;margin-top:8px;}
 
+    /* ─── MINI QUICK-LINK TILES ─────────────────────── */
+    .mini-tiles{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin-top:12px;
+    }
+    @media(max-width:560px){.mini-tiles{grid-template-columns:1fr;}}
+    .mini-tile{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:11px 14px;
+      border-radius:14px;
+      text-decoration:none;
+      border:1px solid rgba(0,0,0,0.08);
+      background:#fff;
+      transition:transform 0.18s, box-shadow 0.18s;
+    }
+    .mini-tile:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.09);}
+    .mini-tile-blue{border-left:3px solid #0071e3;}
+    .mini-tile-green{border-left:3px solid #34c759;}
+    .mini-tile-icon{font-size:20px;flex-shrink:0;}
+    .mini-tile-text{flex:1;min-width:0;}
+    .mini-tile-title{font-size:12px;font-weight:700;color:#1d1d1f;letter-spacing:-0.1px;}
+    .mini-tile-sub{font-size:10px;color:#6e6e73;margin-top:2px;}
+    .mini-tile-arrow{font-size:11px;color:#aeaeb2;flex-shrink:0;}
+    .mini-tile-blue .mini-tile-arrow{color:#0071e3;}
+    .mini-tile-green .mini-tile-arrow{color:#34c759;}
+
     @media(max-width:600px){
       .hero{padding:0 20px;}
       .section{padding:40px 20px;}
@@ -955,6 +985,27 @@
           </div>
         </div>
       </div>
+
+      <!-- TWO SMALL QUICK-LINK TILES -->
+      <div class="mini-tiles">
+        <a href="https://www.excelbicholim.in/studentmanual" target="_blank" class="mini-tile mini-tile-blue">
+          <span class="mini-tile-icon">🔑</span>
+          <div class="mini-tile-text">
+            <div class="mini-tile-title">Test Password &amp; User Guide</div>
+            <div class="mini-tile-sub">How to take tests · tap-to-copy passwords</div>
+          </div>
+          <span class="mini-tile-arrow">↗</span>
+        </a>
+        <a href="https://www.excelbicholim.in/results" target="_blank" class="mini-tile mini-tile-green">
+          <span class="mini-tile-icon">🏆</span>
+          <div class="mini-tile-text">
+            <div class="mini-tile-title">ExcelBicholim Merit List</div>
+            <div class="mini-tile-sub">GSSC CBT-I results · rank search</div>
+          </div>
+          <span class="mini-tile-arrow">↗</span>
+        </a>
+      </div>
+
     </div>
 
         <div class="hero-photo-col">
