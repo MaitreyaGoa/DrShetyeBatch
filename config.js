@@ -12,6 +12,18 @@ var SCRIPT_URL     = "https://script.google.com/macros/s/AKfycbwc7NM-tgwtxCjZOOy
 // ──────────────────────────────────────────────────────────
 var DAILY_TESTS = [
   {
+    id:          "daily_20260609_maths",
+    date:        "2026-06-09",
+    title:       "Daily Maths Quiz — 9 June 2026",
+    description: "Goa Competitive Exams · 15 Questions · Mixed Topics",
+    password:    "d090626",
+    duration:    900,
+    totalMarks:  15,
+    sections:    { "Maths": 15 },
+    questionsFile: "questions/math_dq2.js",
+    live:        true
+  },
+  {
     id:          "daily_20260606_maths",
     date:        "2026-06-06",
     title:       "Daily Maths Quiz — 6 June 2026",
@@ -22,30 +34,6 @@ var DAILY_TESTS = [
     sections:    { "Maths": 15 },
     questionsFile: "questions/math_dq1.js",
     live:        true
-  },
-  {
-    id:          "daily_20260607_mixed",
-    date:        "2026-06-07",
-    title:       "Daily Quiz — 7 June 2026",
-    description: "6 Maths · 5 English · 4 Reasoning · 15 Questions",
-    password:    "d070626",
-    duration:    900,
-    totalMarks:  15,
-    sections:    { "Maths": 6, "English": 5, "Reasoning": 4 },
-    questionsFile: "questions/daily_20260607.js",
-    live:        true
-  },
-  {
-    id:          "daily_20260608_mixed",
-    date:        "2026-06-08",
-    title:       "Daily Quiz — 8 June 2026",
-    description: "6 Maths · 5 English · 4 Reasoning · 15 Questions",
-    password:    "d080626",
-    duration:    900,
-    totalMarks:  15,
-    sections:    { "Maths": 6, "English": 5, "Reasoning": 4 },
-    questionsFile: "questions/daily_20260608.js",
-    live:        true
   }
 ];
 
@@ -55,11 +43,11 @@ var DAILY_TESTS = [
 // ──────────────────────────────────────────────────────────
 var MONTHLY_TESTS = [
   {
-    id:          "monthly_may26",
+    id:          "monthly_may25",
     month:       "May",
-    title:       "May 2026 Monthly Full Test",
+    title:       "May 2025 Monthly Full Test",
     description: "English 25Q · Reasoning 25Q · Maths 25Q · GK 25Q · 100 Questions",
-    password:    "may2026",
+    password:    "may2025",
     duration:    5400,
     totalMarks:  100,
     sections:    { "English": 25, "Reasoning": 25, "Maths": 25, "General Knowledge": 25 },
@@ -509,19 +497,7 @@ var TOPIC_TESTS = [
   { id:"topic_mo",  subject:"reasoning", topic:"Mathematical Operations",
     title:"Mathematical Operations", description:"10 topic-focused questions",
     password:"tmo001", duration:600, totalMarks:10,
-    sections:{"Reasoning":10}, questionsFile:"questions/topic_mathematical_operations.js", live:true },
-
-  // ── NEW: MATHS ──
-  { id:"topic_alg", subject:"maths", topic:"Algebra",
-    title:"Algebra", description:"10 topic-focused questions on algebraic expressions and equations",
-    password:"talg01", duration:600, totalMarks:10,
-    sections:{"Maths":10}, questionsFile:"questions/topic_algebra.js", live:true },
-
-  // ── NEW: ENGLISH ──
-  { id:"topic_apv", subject:"english", topic:"Active/Passive Voice",
-    title:"Active/Passive Voice", description:"15 questions on active and passive voice transformations",
-    password:"tapv01", duration:900, totalMarks:15,
-    sections:{"English":15}, questionsFile:"questions/topic_active_passive.js", live:true }
+    sections:{"Reasoning":10}, questionsFile:"questions/topic_mathematical_operations.js", live:true }
 ];
 
 // ──────────────────────────────────────────────────────────
