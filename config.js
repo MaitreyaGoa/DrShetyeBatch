@@ -24,6 +24,30 @@ var DAILY_TESTS = [
     live:        true
   },
   {
+    id:          "daily_20260608_maths",
+    date:        "2026-06-08",
+    title:       "Daily Maths Quiz — 8 June 2026",
+    description: "15 Questions · Mixed Topics",
+    password:    "d080626",
+    duration:    900,
+    totalMarks:  15,
+    sections:    { "Maths": 15 },
+    questionsFile: "questions/math_dq3.js",
+    live:        true
+  },
+   {
+    id:          "daily_20260607_maths",
+    date:        "2026-06-07",
+    title:       "Daily Maths Quiz — 7 June 2026",
+    description: "15 Questions · Mixed Topics",
+    password:    "d070626",
+    duration:    900,
+    totalMarks:  15,
+    sections:    { "Maths": 15 },
+    questionsFile: "questions/math_dq4.js",
+    live:        true
+   },
+   {
     id:          "daily_20260606_maths",
     date:        "2026-06-06",
     title:       "Daily Maths Quiz — 6 June 2026",
@@ -34,7 +58,6 @@ var DAILY_TESTS = [
     sections:    { "Maths": 15 },
     questionsFile: "questions/math_dq1.js",
     live:        true
-  }
 ];
 
 // ──────────────────────────────────────────────────────────
@@ -53,6 +76,18 @@ var MONTHLY_TESTS = [
     sections:    { "English": 25, "Reasoning": 25, "Maths": 25, "General Knowledge": 25 },
     questionsFile: "questions/monthly_may25.js",
     live:        true
+  },
+    {
+    id:          "monthly_june26",
+    month:       "June",
+    title:       "June 2026 Monthly Full Test",
+    description: "English 25Q · Reasoning 25Q · Maths 25Q · GK 25Q · 100 Questions",
+    password:    "june2026",
+    duration:    5400,
+    totalMarks:  100,
+    sections:    { "English": 25, "Reasoning": 25, "Maths": 25, "General Knowledge": 25 },
+    questionsFile: "questions/monthly_june25.js",
+    live:        false
   }
 ];
 
