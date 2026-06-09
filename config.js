@@ -58,6 +58,7 @@ var DAILY_TESTS = [
     sections:    { "Maths": 15 },
     questionsFile: "questions/math_dq1.js",
     live:        true
+   }
 ];
 
 // ──────────────────────────────────────────────────────────
