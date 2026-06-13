@@ -166,9 +166,30 @@ function renderQuestion(idx) {
   var html = "";
 
   if (q.passage) {
-    html += '<div class="passage-box">'
-          + '<div class="passage-label">📄 Read the following passage carefully</div>'
-          + q.passage + '</div>';
+    // RC_PASSAGES lookup: if q.passage is a key in RC_PASSAGES, render the full passage block
+    if (window.RC_PASSAGES && window.RC_PASSAGES[q.passage]) {
+      var pObj = window.RC_PASSAGES[q.passage];
+      // Only show passage when first question of that passage is rendered OR passage changes
+      var prevPassage = idx > 0 ? questions[idx-1].passage : null;
+      var showPassage = (pObj && q.passage !== prevPassage);
+      if (showPassage) {
+        html += '<div class="passage-box">'
+              + '<div class="passage-label" style="font-weight:700;font-size:0.8rem;margin-bottom:6px;">📄 '
+              + pObj.title + ' — ' + pObj.label + '</div>'
+              + '<div style="white-space:pre-line;line-height:1.75;font-size:0.88rem;">' + pObj.text + '</div>'
+              + '</div>';
+      } else if (showPassage === false) {
+        html += '<div class="passage-box" style="background:#f0f7ff;border-left-color:#2563eb;padding:10px 14px;">'
+              + '<div class="passage-label" style="font-size:0.75rem;color:#2563eb;">📄 Refer to '
+              + pObj.title + ' above</div>'
+              + '</div>';
+      }
+    } else {
+      // Legacy: q.passage is raw HTML text
+      html += '<div class="passage-box">'
+            + '<div class="passage-label">📄 Read the following passage carefully</div>'
+            + q.passage + '</div>';
+    }
   }
   if (q.clozeContext) {
     html += '<div class="passage-box" style="font-style:italic;">' + q.clozeContext + '</div>';
