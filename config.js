@@ -12,6 +12,30 @@ var SCRIPT_URL     = "https://script.google.com/macros/s/AKfycbwc7NM-tgwtxCjZOOy
 // ──────────────────────────────────────────────────────────
 var DAILY_TESTS = [
   {
+    id:          "daily_20260611_maths",
+    date:        "2026-06-11",
+    title:       "Daily Maths Quiz — 11 June 2026",
+    description: "Goa Competitive Exams · 15 Questions · Mixed Topics",
+    password:    "d110626",
+    duration:    900,
+    totalMarks:  15,
+    sections:    { "Maths": 15 },
+    questionsFile: "questions/math_dq6.js",
+    live:        true
+  },
+  {
+    id:          "daily_20260610_maths",
+    date:        "2026-06-10",
+    title:       "Daily Maths Quiz — 10 June 2026",
+    description: "Goa Competitive Exams · 15 Questions · Mixed Topics",
+    password:    "d100626",
+    duration:    900,
+    totalMarks:  15,
+    sections:    { "Maths": 15 },
+    questionsFile: "questions/math_dq5.js",
+    live:        true
+  },
+  {
     id:          "daily_20260609_maths",
     date:        "2026-06-09",
     title:       "Daily Maths Quiz — 9 June 2026",
@@ -256,6 +280,14 @@ var PART_TESTS = [
     password: "eng004", duration: 1800, totalMarks: 30,
     sections: { "English": 30 },
     questionsFile: "questions/eng_part2.js", live: false
+  },
+  {
+    id: "eng_rc1", subject: "english",
+    title: "English RC — CAT Level Test 1",
+    description: "2 Passages · 6 Questions each · CAT / IIM Level · 12 Q",
+    password: "engrc1", duration: 1200, totalMarks: 12,
+    sections: { "English": 12 },
+    questionsFile: "questions/eng_rc1.js", live: true
   },
 
   // ── MATHS ──
@@ -542,6 +574,19 @@ var TOPIC_TESTS = [
 //    subject: used for grouping within class tab
 // ──────────────────────────────────────────────────────────
 var SCHOLARSHIP_TESTS = [
+  {
+    id:          "scholar_ntse_mat1",
+    stdClass:    "ntse",
+    subject:     "MAT",
+    title:       "NTSE MAT Mock Test 1 — Advanced",
+    description: "Mental Ability Test · 100 Questions · Advanced Level",
+    password:    "ntsemat1",
+    duration:    7200,
+    totalMarks:  100,
+    sections:    { "Mental Ability Test": 100 },
+    questionsFile: "questions/scholar_ntse_mat1.js",
+    live:        true
+  },
   {
     id: "scholar_cls10_apt1", stdClass: "10", subject: "Aptitude",
     title: "Class 10 Aptitude Test 1",
