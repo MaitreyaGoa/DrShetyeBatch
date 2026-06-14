@@ -34,7 +34,38 @@ function appendGroup(grid, label, tests) {
   lbl.className = "test-group-label";
   lbl.textContent = label;
   grid.appendChild(lbl);
-  tests.forEach(function(t){ grid.appendChild(buildTestCard(t)); });
+
+  var wrap = document.createElement("div");
+  wrap.className = "part-wrap";
+  var rows = tests.map(buildFullTestRowHTML).join('');
+  wrap.innerHTML = '<div class="test-list">' + rows + '</div>';
+  grid.appendChild(wrap);
+}
+
+// Compact row for GSSC/GPSC/PYQ/Special — same style as part tests
+function buildFullTestRowHTML(test) {
+  var icon = test.id && test.id.includes("pyq") ? "📜" : test.id && test.id.includes("sci") ? "🔬" : "📋";
+  var badge = test.live
+    ? '<span class="badge-live">Live</span>'
+    : '<span class="badge-soon">Soon</span>';
+  var secTags = Object.keys(test.sections||{}).map(function(s){
+    return '<span class="sec-tag">'+s+': '+test.sections[s]+'</span>';
+  }).join('');
+  var top5Btn = test.live
+    ? '<button class="btn-sm-gold" onclick="toggleTop5(\''+test.id+'\',\''+test.title.replace(/'/g,"\\'")+'\','+test.totalMarks+',this)">🏅</button>'
+    : '';
+  var actionBtn = test.live
+    ? '<button class="btn-sm-primary" onclick="goToTest(\''+test.id+'\')">Start →</button>'
+    : '<button class="btn-sm-disabled">Soon</button>';
+  return '<div class="test-row">'
+    +'<div class="test-row-info">'
+    +'<div class="test-row-top"><span class="test-row-title">'+icon+' '+test.title+'</span>'+badge+'</div>'
+    +'<div class="test-row-meta">'+test.description+' · ⏱ '+Math.round(test.duration/60)+' min · '+test.totalMarks+' marks</div>'
+    +'<div class="test-row-tags">'+secTags+'</div>'
+    +'</div>'
+    +'<div class="test-row-actions">'+top5Btn+actionBtn+'</div>'
+    +'</div>'
+    +'<div class="top5-panel" id="top5-'+test.id+'"></div>';
 }
 
 // ══ DAILY TESTS (2nd section) ════════════════════════════
@@ -317,7 +348,11 @@ function appendSpecialTests(grid) {
   lbl.textContent = "Core Subject Tests";
   grid.appendChild(lbl);
 
-  SPECIAL_TESTS.forEach(function(t){ grid.appendChild(buildTestCard(t)); });
+  var wrap = document.createElement("div");
+  wrap.className = "part-wrap";
+  var rows = SPECIAL_TESTS.map(buildFullTestRowHTML).join('');
+  wrap.innerHTML = '<div class="test-list">' + rows + '</div>';
+  grid.appendChild(wrap);
 }
 
 // ══ TEST CARD (Full/PYQ/Special tests) ════════════════════
