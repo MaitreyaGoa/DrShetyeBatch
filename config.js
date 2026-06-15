@@ -289,8 +289,24 @@ var PART_TESTS = [
     sections: { "English": 12 },
     questionsFile: "questions/eng_rc1.js", live: true
   },
+  {
+    id: "eng_rc2", subject: "english",
+    title: "English RC — CAT Level Test 2",
+    description: "2 Passages · 6 Questions each · CAT / IIM Level · 12 Q",
+    password: "engrc2", duration: 1200, totalMarks: 12,
+    sections: { "English": 12 },
+    questionsFile: "questions/eng_rc2.js", live: true
+  },
 
   // ── MATHS ──
+  {
+    id: "math_part8", subject: "maths",
+    title: "Maths Part Test 8 — CAT Level",
+    description: "Extreme Difficulty · Number Theory · Logs · Geometry · P&C · 10 Q",
+    password: "mat008", duration: 600, totalMarks: 10,
+    sections: { "Maths": 10 },
+    questionsFile: "questions/math_part8.js", live: true
+  },
   {
     id: "math_dq1", subject: "maths",
     title: "Maths Daily Quiz 1", description: "Mixed Topics · 15 Q",
