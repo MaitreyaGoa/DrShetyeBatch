@@ -233,6 +233,17 @@ var PYQ_TESTS = [
     sections:    { "English": 30, "Maths": 10, "Reasoning": 10 },
     questionsFile: "questions/pyq_gssc2.js",
     live:        false
+  },
+  {
+    id:          "pyq_gssc3",
+    title:       "GSSC PYQ Test 3",
+    description: "Official GSSC Paper · 60 Questions",
+    password:    "pyq003",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Konkani": 10, "English": 30, "Maths": 10, "Reasoning": 10 },
+    questionsFile: "questions/pyq_gssc3.js",
+    live:        false
   }
 ];
 
@@ -271,6 +282,22 @@ var PART_TESTS = [
     questionsFile: "questions/eng_part2.js", live: false
   },
   {
+    id: "eng_rc1", subject: "english",
+    title: "English RC — CAT Level Test 1",
+    description: "2 Passages · 6 Questions each · CAT / IIM Level · 12 Q",
+    password: "engrc1", duration: 1200, totalMarks: 12,
+    sections: { "English": 12 },
+    questionsFile: "questions/eng_rc1.js", live: true
+  },
+  {
+    id: "eng_rc6", subject: "english",
+    title: "English RC — CAT Level Test 6",
+    description: "2 Passages · 6 Questions each · CAT / IIM Level · 12 Q",
+    password: "engrc6", duration: 1200, totalMarks: 12,
+    sections: { "English": 12 },
+    questionsFile: "questions/eng_rc6.js", live: true
+  },
+  {
     id: "eng_rc5", subject: "english",
     title: "English RC — CAT Level Test 5",
     description: "2 Passages · 6 Questions each · CAT / IIM Level · 12 Q",
@@ -302,16 +329,16 @@ var PART_TESTS = [
     sections: { "English": 12 },
     questionsFile: "questions/eng_rc2.js", live: true
   },
-    {
-    id: "eng_rc1", subject: "english",
-    title: "English RC — CAT Level Test 1",
-    description: "2 Passages · 6 Questions each · CAT / IIM Level · 12 Q",
-    password: "engrc1", duration: 1200, totalMarks: 12,
-    sections: { "English": 12 },
-    questionsFile: "questions/eng_rc1.js", live: true
-  },
 
   // ── MATHS ──
+  {
+    id: "math_part12", subject: "maths",
+    title: "Maths Part Test 12 — CAT Level",
+    description: "GP · 3D Mensuration · Number System · Permutations · AP · 10 Q",
+    password: "mat012", duration: 600, totalMarks: 10,
+    sections: { "Maths": 10 },
+    questionsFile: "questions/math_part12.js", live: true
+  },
   {
     id: "math_part11", subject: "maths",
     title: "Maths Part Test 11 — CAT Level",
