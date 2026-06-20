@@ -915,6 +915,44 @@
   </div>
 </header>
 
+<!-- NEWS TICKER -->
+<a href="https://www.excelbicholim.in/PCresult" class="news-ticker" aria-label="Final Result for Forester and Police Constable posts — click to view">
+  <span class="news-ticker-badge">RESULTS</span>
+  <span class="news-ticker-track">
+    <span class="news-ticker-text">Final Result — CBT held on 16th, 17th, 24th, 30th &amp; 31st May 2026 Round &nbsp;|&nbsp; Forester, Police Constable (Male/Female), Police Constable (Armed Police), Police Constable Driver (Grade-III) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Final Result — CBT held on 16th, 17th, 24th, 30th &amp; 31st May 2026 Round &nbsp;|&nbsp; Forester, Police Constable (Male/Female), Police Constable (Armed Police), Police Constable Driver (Grade-III)</span>
+  </span>
+</a>
+<style>
+  .news-ticker{
+    display:flex;align-items:center;gap:10px;
+    background:#BB1919;color:#fff;
+    height:36px;padding:0 16px;
+    position:sticky;top:56px;z-index:190;
+    text-decoration:none;overflow:hidden;
+    box-shadow:0 2px 6px rgba(0,0,0,0.15);
+  }
+  .news-ticker-badge{
+    flex-shrink:0;font-weight:700;font-size:11px;letter-spacing:0.5px;
+    background:#fff;color:#BB1919;border-radius:4px;
+    padding:3px 8px;line-height:1;
+  }
+  .news-ticker-track{flex:1;overflow:hidden;white-space:nowrap;position:relative;mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);}
+  .news-ticker-text{
+    display:inline-block;white-space:nowrap;font-size:13px;font-weight:500;
+    padding-left:100%;
+    animation:newsTickerScroll 26s linear infinite;
+  }
+  .news-ticker:hover .news-ticker-text{animation-play-state:paused;}
+  @keyframes newsTickerScroll{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-50%);}
+  }
+  @media (max-width:600px){
+    .news-ticker{padding:0 10px;height:32px;}
+    .news-ticker-text{font-size:12px;}
+  }
+</style>
+
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
