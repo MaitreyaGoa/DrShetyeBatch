@@ -290,6 +290,14 @@ var PART_TESTS = [
     questionsFile: "questions/eng_rc1.js", live: true
   },
   {
+    id: "eng_rc7", subject: "english",
+    title: "English RC — CAT Level Test 7",
+    description: "2 Passages · 6 Questions each · CAT / IIM Level · 12 Q",
+    password: "engrc7", duration: 1200, totalMarks: 12,
+    sections: { "English": 12 },
+    questionsFile: "questions/eng_rc7.js", live: true
+  },
+  {
     id: "eng_rc6", subject: "english",
     title: "English RC — CAT Level Test 6",
     description: "2 Passages · 6 Questions each · CAT / IIM Level · 12 Q",
@@ -331,6 +339,14 @@ var PART_TESTS = [
   },
 
   // ── MATHS ──
+  {
+    id: "math_part13", subject: "maths",
+    title: "Maths Part Test 13 — CAT Level",
+    description: "Speed-Stoppage · Quadratics · Tangents · Probability · 10 Q",
+    password: "mat013", duration: 600, totalMarks: 10,
+    sections: { "Maths": 10 },
+    questionsFile: "questions/math_part13.js", live: true
+  },
   {
     id: "math_part12", subject: "maths",
     title: "Maths Part Test 12 — CAT Level",
