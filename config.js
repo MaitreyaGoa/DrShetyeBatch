@@ -290,6 +290,14 @@ var PART_TESTS = [
     questionsFile: "questions/eng_rc1.js", live: true
   },
   {
+    id: "eng_rc8", subject: "english",
+    title: "English RC — CAT Level Test 8",
+    description: "2 Passages · 6 Questions each · CAT / IIM Level · 12 Q",
+    password: "engrc8", duration: 1200, totalMarks: 12,
+    sections: { "English": 12 },
+    questionsFile: "questions/eng_rc8.js", live: true
+  },
+  {
     id: "eng_rc7", subject: "english",
     title: "English RC — CAT Level Test 7",
     description: "2 Passages · 6 Questions each · CAT / IIM Level · 12 Q",
@@ -339,6 +347,14 @@ var PART_TESTS = [
   },
 
   // ── MATHS ──
+  {
+    id: "math_part14", subject: "maths",
+    title: "Maths Part Test 14 — CAT Level (Commercial Maths)",
+    description: "CI · Successive Discounts · Profit Chains · Shares · Alligation · 10 Q",
+    password: "mat014", duration: 600, totalMarks: 10,
+    sections: { "Maths": 10 },
+    questionsFile: "questions/math_part14.js", live: true
+  },
   {
     id: "math_part13", subject: "maths",
     title: "Maths Part Test 13 — CAT Level",
