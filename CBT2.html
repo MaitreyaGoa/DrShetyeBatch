@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Syllabus Plan — Dr. Shetye Academic Programme</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #EEF1F6;
+    --paper: #FFFFFF;
+    --ink: #1A2233;
+    --ink-soft: #5B6472;
+    --navy: #1F3A5F;
+    --navy-deep: #142943;
+    --gold: #C99A3E;
+    --line: #D8DEE8;
+
+    --q-tint: #E4EEF9;
+    --q-strong: #3E6FA6;
+    --lr-tint: #FBE9E2;
+    --lr-strong: #C1653C;
+    --en-tint: #E7F1E3;
+    --en-strong: #4C8058;
+    --gs-tint: #FBF0D9;
+    --gs-strong: #B98420;
+    --mock-tint: #EFE7F6;
+    --mock-strong: #7A56A8;
+    --rev-tint: #FBE2E2;
+    --rev-strong: #B3453F;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection{ background: var(--gold); color: #fff; }
+  a{ color: inherit; }
+
+  .wrap{
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background: linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 62%, #2B4A70 100%);
+    color: #F4F6FA;
+    padding: 46px 20px 34px;
+    position: relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background-image: radial-gradient(circle at 85% 20%, rgba(201,154,62,0.20), transparent 45%);
+    pointer-events:none;
+  }
+  .hero-inner{ max-width: 920px; margin: 0 auto; position: relative; }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #C9D6E8;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{ content:""; width:7px; height:7px; border-radius:50%; background: var(--gold); display:inline-block; }
+  h1{
+    font-family:'Newsreader', serif;
+    font-weight: 600;
+    font-size: clamp(32px, 6vw, 50px);
+    line-height: 1.06;
+    margin: 14px 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .hero-sub{ font-size: 16px; color:#D6E0EE; max-width: 58ch; margin: 0 0 12px; }
+  .hero-sub b{ color:#fff; font-weight:600; }
+
+  .timing-strip{
+    display:flex; flex-wrap:wrap; gap: 10px;
+    margin: 14px 0 22px;
+  }
+  .timing-pill{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.20);
+    padding: 7px 12px;
+    border-radius: 999px;
+    color: #EAF0F8;
+  }
+  .timing-pill b{ color: var(--gold); }
+
+  .meter{
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 14px;
+    padding: 16px 18px 18px;
+  }
+  .meter-top{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color:#CBD8EA;
+    margin-bottom:10px;
+  }
+  #meterLabel{ color:#fff; font-weight:600; }
+  .track{ height: 8px; background: rgba(255,255,255,0.14); border-radius: 999px; overflow:hidden; }
+  .fill{ height:100%; width:0%; background: linear-gradient(90deg, var(--gold), #E7C879); border-radius: 999px; transition: width 0.9s cubic-bezier(.4,0,.2,1); }
+  .meter-foot{ display:flex; justify-content:space-between; font-size: 11.5px; color:#9FB0C6; margin-top:8px; font-family:'IBM Plex Mono', monospace; }
+
+  /* ---------- TODAY CARD ---------- */
+  .today-wrap{ margin: -30px 0 26px; position:relative; z-index: 3; }
+  .today-card{
+    background: var(--paper);
+    border-radius: 16px;
+    box-shadow: 0 14px 30px -14px rgba(20,41,67,0.35);
+    padding: 20px 22px;
+    border: 1px solid var(--line);
+  }
+  .today-top{ display:flex; gap:16px; align-items:center; margin-bottom: 12px; }
+  .today-date{
+    font-family:'IBM Plex Mono', monospace;
+    background: var(--navy);
+    color:#fff;
+    border-radius: 10px;
+    padding: 8px 10px;
+    text-align:center;
+    min-width: 62px;
+    line-height:1.1;
+    flex-shrink:0;
+  }
+  .today-date .d{ font-size:20px; font-weight:600; display:block; }
+  .today-date .m{ font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; opacity:0.85; }
+  .today-body .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing:0.06em; text-transform:uppercase; color: var(--ink-soft);
+  }
+  .today-body .topic{ font-weight:600; font-size: 16px; margin-top:2px; }
+  .today-time{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    background: var(--gs-tint);
+    color: #7A5A10;
+    padding: 5px 10px;
+    border-radius: 999px;
+    margin-top: 8px;
+  }
+  .covered-toggle{
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--line);
+    display:flex; align-items:center; justify-content:space-between;
+    cursor:pointer;
+    font-size: 13.5px;
+    font-weight:600;
+    color: var(--navy);
+  }
+  .covered-toggle .chev{ transition: transform 0.2s ease; }
+  .covered-toggle.open .chev{ transform: rotate(90deg); }
+  .covered-list{
+    display:none;
+    margin-top: 10px;
+    max-height: 260px;
+    overflow-y:auto;
+  }
+  .covered-list.open{ display:block; }
+  .covered-item{
+    display:flex; gap:10px;
+    font-size: 13px;
+    padding: 6px 0;
+    border-bottom: 1px solid #F0F2F6;
+  }
+  .covered-item .cdate{ font-family:'IBM Plex Mono', monospace; color: var(--ink-soft); min-width: 68px; flex-shrink:0; }
+  .covered-item .csub{
+    font-size: 10px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase;
+    padding: 1px 6px; border-radius:5px; height:fit-content;
+  }
+
+  /* ---------- CALENDAR ---------- */
+  .cal-card{
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 18px 18px 10px;
+    margin-bottom: 30px;
+  }
+  .cal-head{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom: 14px;
+  }
+  .cal-title{ font-family:'Newsreader', serif; font-size: 21px; font-weight:600; }
+  .cal-nav{ display:flex; gap:6px; }
+  .cal-btn{
+    width:32px; height:32px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: #fff;
+    cursor:pointer;
+    font-size: 15px;
+    color: var(--navy);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .cal-btn:hover{ background: var(--bg); }
+  .cal-btn.today-btn{
+    width:auto; padding: 0 12px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+  }
+  .cal-grid{
+    display:grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+  }
+  .cal-dow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    text-transform:uppercase;
+    color: var(--ink-soft);
+    text-align:center;
+    padding-bottom: 6px;
+    letter-spacing: 0.04em;
+  }
+  .cal-cell{
+    aspect-ratio: 1/1;
+    border-radius: 9px;
+    border: 1px solid var(--line);
+    background: #fff;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap: 3px;
+    cursor:default;
+    position:relative;
+  }
+  .cal-cell.empty{ border:none; background:transparent; }
+  .cal-cell.has-session{ cursor:pointer; }
+  .cal-cell .num{ font-size: 12.5px; font-weight:600; }
+  .cal-cell .dot{ width:6px; height:6px; border-radius:50%; }
+  .cal-cell.no-class .num{ color: #B8C0CC; }
+  .cal-cell.selected{ box-shadow: 0 0 0 2px var(--navy) inset; }
+  .cal-cell.is-today{ background: #FFF8E9; border-color: var(--gold); }
+  .cal-cell.is-today .num{ color:#8A6512; font-weight:700; }
+  .cal-cell.is-past{ opacity: 0.55; }
+
+  .cal-cell[data-subj="quants"] .dot{ background: var(--q-strong); }
+  .cal-cell[data-subj="lr"] .dot{ background: var(--lr-strong); }
+  .cal-cell[data-subj="english"] .dot{ background: var(--en-strong); }
+  .cal-cell[data-subj="gs"] .dot{ background: var(--gs-strong); }
+  .cal-cell[data-subj="mock"] .dot{ background: var(--mock-strong); }
+  .cal-cell[data-subj="revision"] .dot{ background: var(--rev-strong); }
+
+  .cal-legend{
+    display:flex; flex-wrap:wrap; gap: 10px 16px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+  .leg-item{ display:flex; align-items:center; gap:6px; font-size: 12px; color: var(--ink-soft); }
+  .leg-dot{ width:8px; height:8px; border-radius:50%; }
+  .leg-item[data-subj="quants"] .leg-dot{ background: var(--q-strong); }
+  .leg-item[data-subj="lr"] .leg-dot{ background: var(--lr-strong); }
+  .leg-item[data-subj="english"] .leg-dot{ background: var(--en-strong); }
+  .leg-item[data-subj="gs"] .leg-dot{ background: var(--gs-strong); }
+  .leg-item[data-subj="mock"] .leg-dot{ background: var(--mock-strong); }
+  .leg-item[data-subj="revision"] .leg-dot{ background: var(--rev-strong); }
+
+  .cal-detail{
+    margin-top: 14px;
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display:none;
+  }
+  .cal-detail.open{ display:block; }
+  .cal-detail .dd-date{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px; color: var(--ink-soft); margin-bottom: 4px;
+  }
+  .cal-detail .dd-topic{ font-weight:600; font-size: 14.5px; margin-bottom: 6px; }
+  .cal-detail .dd-time{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 4px 9px;
+    border-radius: 999px;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- SUBJECT NAV ---------- */
+  .subnav{
+    position: sticky; top:0; z-index: 10;
+    background: rgba(238,241,246,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+    padding: 10px 20px;
+    margin: 0 -20px 34px;
+  }
+  .subnav-inner{ max-width: 880px; margin:0 auto; display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; }
+  .subnav-inner::-webkit-scrollbar{ display:none; }
+  .chip{
+    flex: 0 0 auto;
+    font-weight:600; font-size: 13.5px;
+    padding: 8px 14px; border-radius: 999px;
+    border: 1px solid var(--line); background: #fff;
+    cursor:pointer; color: var(--ink-soft);
+    transition: all 0.15s ease; white-space:nowrap;
+  }
+  .chip:hover{ border-color: var(--navy); color: var(--navy); }
+  .chip.active{ background: var(--navy); border-color: var(--navy); color:#fff; }
+
+  /* ---------- SUBJECT SECTIONS ---------- */
+  .subject{ margin-bottom: 46px; scroll-margin-top: 84px; }
+  .subject-head{
+    display:flex; align-items:flex-end; justify-content:space-between; gap: 14px;
+    margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--line);
+  }
+  .subject-name{ font-family:'Newsreader', serif; font-size: 26px; font-weight:600; }
+  .subject-cadence{ font-family:'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-soft); text-align:right; line-height:1.5; }
+  .subject[data-subj="quants"] .subject-name{ color: var(--q-strong); }
+  .subject[data-subj="lr"] .subject-name{ color: var(--lr-strong); }
+  .subject[data-subj="english"] .subject-name{ color: var(--en-strong); }
+  .subject[data-subj="gs"] .subject-name{ color: var(--gs-strong); }
+
+  .timeline{ position:relative; padding-left: 26px; }
+  .timeline::before{ content:""; position:absolute; left: 5px; top:6px; bottom:6px; width: 2px; background: var(--line); }
+  .row{
+    position:relative; padding: 12px 14px 12px 16px; margin-bottom: 8px;
+    border-radius: 10px; background: var(--paper); border: 1px solid var(--line);
+    display:flex; gap:14px; align-items:baseline; flex-wrap:wrap;
+  }
+  .row::before{
+    content:""; position:absolute; left: -25px; top: 18px; width: 10px; height:10px;
+    border-radius:50%; background: var(--paper); border: 2px solid var(--line);
+  }
+  .subject[data-subj="quants"] .row::before{ border-color: var(--q-strong); }
+  .subject[data-subj="lr"] .row::before{ border-color: var(--lr-strong); }
+  .subject[data-subj="english"] .row::before{ border-color: var(--en-strong); }
+  .subject[data-subj="gs"] .row::before{ border-color: var(--gs-strong); }
+  .row.done{ opacity: 0.52; }
+  .row.done::before{ background: var(--gold); border-color: var(--gold); }
+  .row.today{ border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,154,62,0.18); }
+  .row.today::before{ background: var(--gold); border-color: var(--gold); }
+  .row-date{ font-family:'IBM Plex Mono', monospace; font-size: 12.5px; font-weight:600; color: var(--ink-soft); min-width: 92px; }
+  .row-topic{ font-size: 14.5px; line-height:1.5; flex: 1 1 320px; }
+  .badge-today{
+    font-family:'IBM Plex Mono', monospace; font-size: 10px; letter-spacing:0.06em; text-transform:uppercase;
+    background: var(--gold); color:#fff; padding: 2px 8px; border-radius: 999px;
+  }
+
+  /* ---------- FOOTER NOTES ---------- */
+  .also{ background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; margin-top: 10px; }
+  .also h3{ font-family:'Newsreader', serif; font-size: 19px; margin: 0 0 12px; }
+  .also ul{ margin:0; padding-left: 18px; }
+  .also li{ margin-bottom: 8px; font-size: 14.5px; line-height:1.55; }
+  .also li b{ color: var(--navy); }
+
+  footer{ text-align:center; color: var(--ink-soft); font-size: 12.5px; margin-top: 40px; font-family:'IBM Plex Mono', monospace; }
+
+  @media (max-width: 560px){
+    .hero{ padding-top: 34px; }
+    .subject-head{ flex-direction:column; align-items:flex-start; }
+    .subject-cadence{ text-align:left; }
+    .row-date{ min-width: 78px; }
+    .cal-cell .num{ font-size: 11px; }
+  }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } .fill{ transition:none; } }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Dr. Shetye Academic Programme · Bicholim, Goa</div>
+    <h1>Full Syllabus Plan</h1>
+    <p class="hero-sub">GSSC / GPSC exam preparation batch — <b>Quantitative Aptitude, Logical Reasoning, English</b> and <b>General Studies</b>, one new topic every session, nothing repeated, 13 July to 2 November 2026.</p>
+
+    <div class="timing-strip">
+      <span class="timing-pill">Mon – Sat class time: <b>7:00 PM – 8:30 PM</b></span>
+      <span class="timing-pill">Sunday: <b>Online test only</b> — no live class</span>
+    </div>
+
+    <div class="meter">
+      <div class="meter-top">
+        <span>PROGRAMME PROGRESS</span>
+        <span id="meterLabel">—</span>
+      </div>
+      <div class="track"><div class="fill" id="fillBar"></div></div>
+      <div class="meter-foot">
+        <span>13 Jul 2026</span>
+        <span>2 Nov 2026</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="today-wrap">
+    <div class="today-card">
+      <div class="today-top">
+        <div class="today-date" id="todayDateBox">
+          <span class="d">—</span>
+          <span class="m">—</span>
+        </div>
+        <div class="today-body">
+          <div class="tag" id="todayTag">Loading…</div>
+          <div class="topic" id="todayTopic">—</div>
+          <div class="today-time" id="todayTime">—</div>
+        </div>
+      </div>
+      <div class="covered-toggle" id="coveredToggle">
+        <span id="coveredLabel">Topics covered so far</span>
+        <span class="chev">›</span>
+      </div>
+      <div class="covered-list" id="coveredList"></div>
+    </div>
+  </div>
+
+  <div class="cal-card">
+    <div class="cal-head">
+      <div class="cal-title" id="calTitle">—</div>
+      <div class="cal-nav">
+        <button class="cal-btn" id="calPrev" aria-label="Previous month">‹</button>
+        <button class="cal-btn today-btn" id="calToday">Today</button>
+        <button class="cal-btn" id="calNext" aria-label="Next month">›</button>
+      </div>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div class="cal-detail" id="calDetail">
+      <div class="dd-date" id="ddDate">—</div>
+      <div class="dd-topic" id="ddTopic">—</div>
+      <div class="dd-time" id="ddTime">—</div>
+    </div>
+    <div class="cal-legend">
+      <span class="leg-item" data-subj="quants"><span class="leg-dot"></span>Quants</span>
+      <span class="leg-item" data-subj="lr"><span class="leg-dot"></span>Reasoning</span>
+      <span class="leg-item" data-subj="english"><span class="leg-dot"></span>English</span>
+      <span class="leg-item" data-subj="gs"><span class="leg-dot"></span>GS</span>
+      <span class="leg-item" data-subj="mock"><span class="leg-dot"></span>Mock Test</span>
+      <span class="leg-item" data-subj="revision"><span class="leg-dot"></span>Revision</span>
+    </div>
+  </div>
+
+  <div class="subnav">
+    <div class="subnav-inner">
+      <button class="chip active" data-target="quants">Quantitative Aptitude</button>
+      <button class="chip" data-target="lr">Logical Reasoning</button>
+      <button class="chip" data-target="english">English</button>
+      <button class="chip" data-target="gs">General Studies</button>
+      <button class="chip" data-target="also">Weekly Rhythm</button>
+    </div>
+  </div>
+
+  <section class="subject" data-subj="quants" id="sec-quants">
+    <div class="subject-head">
+      <div class="subject-name">Quantitative Aptitude</div>
+      <div class="subject-cadence">Monday — Live + Offline Class<br>Tuesday — Test + Open Doubt Solving*</div>
+    </div>
+    <div class="timeline" id="list-quants"></div>
+  </section>
+
+  <section class="subject" data-subj="lr" id="sec-lr">
+    <div class="subject-head">
+      <div class="subject-name">Logical Reasoning</div>
+      <div class="subject-cadence">Wednesday — Online + Offline Class<br>Thursday — Test + Open Doubt Solving*</div>
+    </div>
+    <div class="timeline" id="list-lr"></div>
+  </section>
+
+  <section class="subject" data-subj="english" id="sec-english">
+    <div class="subject-head">
+      <div class="subject-name">English</div>
+      <div class="subject-cadence">Friday — Offline Class<br>+ Online Test, same day</div>
+    </div>
+    <div class="timeline" id="list-english"></div>
+  </section>
+
+  <section class="subject" data-subj="gs" id="sec-gs">
+    <div class="subject-head">
+      <div class="subject-name">General Studies</div>
+      <div class="subject-cadence">Saturday — Offline Class<br>+ Online Test, same day</div>
+    </div>
+    <div class="timeline" id="list-gs"></div>
+  </section>
+
+  <section id="sec-also">
+    <div class="also">
+      <h3>Also every week</h3>
+      <p style="font-size:12.5px;color:var(--ink-soft);margin:0 0 10px;">* Tuesday/Thursday tests cover that week's topic; the offline doubt-solving slot afterward is flexible — see below.</p>
+      <ul>
+        <li><b>Class timing</b> — every live/offline class and test runs <b>7:00 PM to 8:30 PM</b>, Monday to Saturday.</li>
+        <li><b>Sunday</b> — no live class. Full mock test (CBT-2 pattern / GPSC level / CAT level, mixed across all four subjects) — online, as announced.</li>
+        <li><b>Doubt-solving</b> (Tue &amp; Thu, offline) is open attendance — come whenever you need extra help. Besides the day's test topic, students can request <b>any</b> previously covered Quants (Tue) or LR (Thu) topic to be discussed again — just ask.</li>
+        <li><b>2 November 2026</b> — Full syllabus revision day: a buffer session covering all subjects before the programme wraps up.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>Hinde Classes · MHC Digital — Bicholim, Goa</footer>
+</div>
+
+<script>
+const SESSIONS = {"2026-07-13":{"format":"class","notes":"New topic introduced","subject":"quants","topic":"Number System"},"2026-07-14":{"extra":"Offline doubt-solving also open for any previously covered Quantitative Aptitude topic \u2014 as requested by students.","format":"test","notes":"Test on Monday's topic + doubt solving","subject":"quants","topic":"Number System"},"2026-07-15":{"format":"class","notes":"New topic introduced","subject":"lr","topic":"Analogy & Classification (Odd One Out)"},"2026-07-16":{"extra":"Offline doubt-solving also open for any previously covered Logical Reasoning topic \u2014 as requested by students.","format":"test","notes":"Test on Wednesday's topic + doubt solving","subject":"lr","topic":"Analogy & Classification (Odd One Out)"},"2026-07-17":{"format":"classtest","notes":"New topic + same-day test","subject":"english","topic":"Reading Comprehension Strategies"},"2026-07-18":{"format":"classtest","notes":"New topic + same-day test","subject":"gs","topic":"Indian Polity - Constitution Basics"},"2026-07-19":{"format":"mock","notes":"Cumulative mock test","subject":"mock","topic":"CBT-2 Pattern / GPSC Level / CAT Level - Mixed (All Subjects)"},"2026-07-20":{"format":"class","notes":"New topic introduced","subject":"quants","topic":"Simplification & Approximation"},"2026-07-21":{"extra":"Offline doubt-solving also open for any previously covered Quantitative Aptitude topic \u2014 as requested by students.","format":"test","notes":"Test on Monday's topic + doubt solving","subject":"quants","topic":"Simplification & Approximation"},"2026-07-22":{"format":"class","notes":"New topic introduced","subject":"lr","topic":"Series Completion (Number/Alphabet)"},"2026-07-23":{"extra":"Offline doubt-solving also open for any previously covered Logical Reasoning topic \u2014 as requested by students.","format":"test","notes":"Test on Wednesday's topic + doubt solving","subject":"lr","topic":"Series Completion (Number/Alphabet)"},"2026-07-24":{"format":"classtest","notes":"New topic + same-day test","subject":"english","topic":"Vocabulary Building - Synonyms/Antonyms (Word Power Made Easy)"},"2026-07-25":{"format":"classtest","notes":"New topic + same-day test","subject":"gs","topic":"Ancient Indian History"},"2026-07-26":{"format":"mock","notes":"Cumulative mock test","subject":"mock","topic":"CBT-2 Pattern / GPSC Level / CAT Level - Mixed (All Subjects)"},"2026-07-27":{"format":"class","notes":"New topic introduced","subject":"quants","topic":"HCF & LCM"},"2026-07-28":{"extra":"Offline doubt-solving also open for any previously covered Quantitative Aptitude topic \u2014 as requested by students.","format":"test","notes":"Test on Monday's topic + doubt solving","subject":"quants","topic":"HCF & LCM"},"2026-07-29":{"format":"class","notes":"New topic introduced","subject":"lr","topic":"Coding-Decoding"},"2026-07-30":{"extra":"Offline doubt-solving also open for any previously covered Logical Reasoning topic \u2014 as requested by students.","format":"test","notes":"Test on Wednesday's topic + doubt solving","subject":"lr","topic":"Coding-Decoding"},"2026-07-31":{"format":"classtest","notes":"New topic + same-day test","subject":"english","topic":"One Word Substitution"},"2026-08-01":{"format":"classtest","notes":"New topic + same-day test","subject":"gs","topic":"Medieval Indian History"},"2026-08-02":{"format":"mock","notes":"Cumulative mock test","subject":"mock","topic":"CBT-2 Pattern / GPSC Level / CAT Level - Mixed (All Subjects)"},"2026-08-03":{"format":"class","notes":"New topic introduced","subject":"quants","topic":"Percentage"},"2026-08-04":{"extra":"Offline doubt-solving also open for any previously covered Quantitative Aptitude topic \u2014 as requested by students.","format":"test","notes":"Test on Monday's topic + doubt solving","subject":"quants","topic":"Percentage"},"2026-08-05":{"format":"class","notes":"New topic introduced","subject":"lr","topic":"Blood Relations"},"2026-08-06":{"extra":"Offline doubt-solving also open for any previously covered Logical Reasoning topic \u2014 as requested by students.","format":"test","notes":"Test on Wednesday's topic + doubt solving","subject":"lr","topic":"Blood Relations"},"2026-08-07":{"format":"classtest","notes":"New topic + same-day test","subject":"english","topic":"Idioms & Phrases"},"2026-08-08":{"format":"classtest","notes":"New topic + same-day test","subject":"gs","topic":"Modern History - Freedom Struggle"},"2026-08-09":{"format":"mock","notes":"Cumulative mock test","subject":"mock","topic":"CBT-2 Pattern / GPSC Level / CAT Level - Mixed (All Subjects)"},"2026-08-10":{"format":"class","notes":"New topic introduced","subject":"quants","topic":"Profit & Loss"},"2026-08-11":{"extra":"Offline doubt-solving also open for any previously covered Quantitative Aptitude topic \u2014 as requested by students.","format":"test","notes":"Test on Monday's topic + doubt solving","subject":"quants","topic":"Profit & Loss"},"2026-08-12":{"format":"class","notes":"New topic introduced","subject":"lr","topic":"Direction Sense"},"2026-08-13":{"extra":"Offline doubt-solving also open for any previously covered Logical Reasoning topic \u2014 as requested by students.","format":"test","notes":"Test on Wednesday's topic + doubt solving","subject":"lr","topic":"Direction Sense"},"2026-08-14":{"format":"classtest","notes":"New topic + same-day test","subject":"english","topic":"Spotting Errors / Error Detection"},"2026-08-15":{"format":"classtest","notes":"New topic + same-day test","subject":"gs","topic":"Indian Physical Geography"},"2026-08-16":{"format":"mock","notes":"Cumulative mock test","subject":"mock","topic":"CBT-2 Pattern / GPSC Level / CAT Level - Mixed (All Subjects)"},"2026-08-17":{"format":"class","notes":"New topic introduced","subject":"quants","topic":"Ratio & Proportion"},"2026-08-18":{"extra":"Offline doubt-solving also open for any previously covered Quantitative Aptitude topic \u2014 as requested by students.","format":"test","notes":"Test on Monday's topic + doubt solving","subject":"quants","topic":"Ratio & Proportion"},"2026-08-19":{"format":"class","notes":"New topic introduced","subject":"lr","topic":"Ranking & Order / Sequential Arrangement"},"2026-08-20":{"extra":"Offline doubt-solving also open for any previously covered Logical Reasoning topic \u2014 as requested by students.","format":"test","notes":"Test on Wednesday's topic + doubt solving","subject":"lr","topic":"Ranking & Order / Sequential Arrangement"},"2026-08-21":{"format":"classtest","notes":"New topic + same-day test","subject":"english","topic":"Sentence Improvement & Transformation"},"2026-08-22":{"format":"classtest","notes":"New topic + same-day test","subject":"gs","topic":"Goa GK & Current Affairs"},"2026-08-23":{"format":"mock","notes":"Cumulative mock test","subject":"mock","topic":"CBT-2 Pattern / GPSC Level / CAT Level - Mixed (All Subjects)"},"2026-08-24":{"format":"class","notes":"New topic introduced","subject":"quants","topic":"Average"},"2026-08-25":{"extra":"Offline doubt-solving also open for any previously covered Quantitative Aptitude topic \u2014 as requested by students.","format":"test","notes":"Test on Monday's topic + doubt solving","subject":"quants","topic":"Average"},"2026-08-26":{"format":"class","notes":"New topic introduced","subject":"lr","topic":"Syllogism"},"2026-08-27":{"extra":"Offline doubt-solving also open for any previously covered Logical Reasoning topic \u2014 as requested by students.","format":"test","notes":"Test on Wednesday's topic + doubt solving","subject":"lr","topic":"Syllogism"},"2026-08-28":{"format":"classtest","notes":"New topic + same-day test","subject":"english","topic":"Cloze Test / Fill in the Blanks"},"2026-08-29":{"format":"classtest","notes":"New topic + same-day test","subject":"gs","topic":"Indian Economy Basics"},"2026-08-30":{"format":"mock","notes":"Cumulative mock test","subject":"mock","topic":"CBT-2 Pattern / GPSC Level / CAT Level - Mixed (All Subjects)"},"2026-08-31":{"format":"class","notes":"New topic introduced","subject":"quants","topic":"Mixture & Alligation"},"2026-09-01":{"extra":"Offline doubt-solving also open for any previously covered Quantitative Aptitude topic \u2014 as requested by students.","format":"test","notes":"Test on Monday's topic + doubt solving","subject":"quants","topic":"Mixture & Alligation"},"2026-09-02":{"format":"class","notes":"New topic introduced","subject":"lr","topic":"Venn Diagrams & Statement-Conclusion"},"2026-09-03":{"extra":"Offline doubt-solving also open for any previously covered Logical Reasoning topic \u2014 as requested by students.","format":"test","notes":"Test on Wednesday's topic + doubt solving","subject":"lr","topic":"Venn Diagrams & Statement-Conclusion"},"2026-09-04":{"format":"classtest","notes":"New topic + same-day test","subject":"english","topic":"Active-Passive Voice"},"2026-09-05":{"format":"classtest","notes":"New topic + same-day test","subject":"gs","topic":"Science & Technology - Static GK"},"2026-09-06":{"format":"mock","notes":"Cumulative mock test","subject":"mock","topic":"CBT-2 Pattern / GPSC Level / CAT Level - Mixed (All Subjects)"},"2026-09-07":{"format":"class","notes":"New topic introduced","subject":"quants","topic":"Time & Work"},"2026-09-08":{"extra":"Offline doubt-solving also open for any previously covered Quantitative Aptitude topic \u2014 as requested by students.","format":"test","notes":"Test on Monday's topic + doubt solving","subject":"quants","topic":"Time & Work"},"2026-09-09":{"format":"class","notes":"New topic introduced","subject":"lr","topic":"Seating Arrangement (Linear)"},"2026-09-10":{"extra":"Offline doubt-solving also open for any previously covered Logical Reasoning topic \u2014 as requested by students.","format":"test","notes":"Test on Wednesday's topic + doubt solving","subject":"lr","topic":"Seating Arrangement (Linear)"},"2026-09-11":{"format":"classtest","notes":"New topic + same-day test","subject":"english","topic":"Para Jumbles / Sentence Rearrangement"},"2026-09-12":{"format":"classtest","notes":"New topic + same-day test","subject":"gs","topic":"Current Affairs Roundup (National & International)"},"2026-09-18":{"format":"classtest","notes":"2 new topics + same-day test","subject":"english","topic":"Antonyms & Synonyms - Advanced Word Lists; Sentence Correction - Advanced Grammar Rules"},"2026-09-19":{"format":"classtest","notes":"2 new topics + same-day test","subject":"gs","topic":"Indian Polity - Fundamental Rights & DPSP; Indian Polity - Parliament & State Legislature"},"2026-09-20":{"format":"mock","notes":"Cumulative mock test","subject":"mock","topic":"CBT-2 Pattern / GPSC Level / CAT Level - Mixed (All Subjects)"},"2026-09-21":{"format":"class","notes":"2 new topics - compressed pace","subject":"quants","topic":"Pipes & Cisterns; Time, Speed & Distance"},"2026-09-22":{"extra":"Offline doubt-solving also open for any previously covered Quantitative Aptitude topic \u2014 as requested by students.","format":"test","notes":"Test on Monday's topics + doubt solving","subject":"quants","topic":"Pipes & Cisterns; Time, Speed & Distance"},"2026-09-23":{"format":"class","notes":"2 new topics - compressed pace","subject":"lr","topic":"Seating Arrangement (Circular); Puzzles (Floor/Box based)"},"2026-09-24":{"extra":"Offline doubt-solving also open for any previously covered Logical Reasoning topic \u2014 as requested by students.","format":"test","notes":"Test on Wednesday's topics + doubt solving","subject":"lr","topic":"Seating Arrangement (Circular); Puzzles (Floor/Box based)"},"2026-09-25":{"format":"classtest","notes":"2 new topics + same-day test","subject":"english","topic":"Direct-Indirect Speech (Narration); Passage-based Vocabulary in Context"},"2026-09-26":{"format":"classtest","notes":"2 new topics + same-day test","subject":"gs","topic":"Modern History - Post-Independence India; World History Overview (Revolutions, World Wars)"},"2026-09-27":{"format":"mock","notes":"Cumulative mock test","subject":"mock","topic":"CBT-2 Pattern / GPSC Level / CAT Level - Mixed (All Subjects)"},"2026-09-28":{"format":"class","notes":"2 new topics - compressed pace","subject":"quants","topic":"Boats & Streams; Simple Interest"},"2026-09-29":{"extra":"Offline doubt-solving also open for any previously covered Quantitative Aptitude topic \u2014 as requested by students.","format":"test","notes":"Test on Monday's topics + doubt solving","subject":"quants","topic":"Boats & Streams; Simple Interest"},"2026-09-30":{"format":"class","notes":"2 new topics - compressed pace","subject":"lr","topic":"Non-Verbal Reasoning - Mirror & Water Images; Non-Verbal Reasoning - Paper Folding/Cutting & Embedded Figures"},"2026-10-01":{"extra":"Offline doubt-solving also open for any previously covered Logical Reasoning topic \u2014 as requested by students.","format":"test","notes":"Test on Wednesday's topics + doubt solving","subject":"lr","topic":"Non-Verbal Reasoning - Mirror & Water Images; Non-Verbal Reasoning - Paper Folding/Cutting & Embedded Figures"},"2026-10-02":{"format":"classtest","notes":"2 new topics + same-day test","subject":"english","topic":"Common Errors - Prepositions & Articles; Confusing Words & Word Usage"},"2026-10-03":{"format":"classtest","notes":"2 new topics + same-day test","subject":"gs","topic":"Geography - Indian Rivers, Mountains & Climate; Geography - World Continents & Oceans"},"2026-10-04":{"format":"mock","notes":"Cumulative mock test","subject":"mock","topic":"CBT-2 Pattern / GPSC Level / CAT Level - Mixed (All Subjects)"},"2026-10-05":{"format":"class","notes":"2 new topics - compressed pace","subject":"quants","topic":"Compound Interest; Algebra - Basic Identities & Equations"},"2026-10-06":{"extra":"Offline doubt-solving also open for any previously covered Quantitative Aptitude topic \u2014 as requested by students.","format":"test","notes":"Test on Monday's topics + doubt solving","subject":"quants","topic":"Compound Interest; Algebra - Basic Identities & Equations"},"2026-10-07":{"format":"class","notes":"2 new topics - compressed pace","subject":"lr","topic":"Calendar; Clocks"},"2026-10-08":{"extra":"Offline doubt-solving also open for any previously covered Logical Reasoning topic \u2014 as requested by students.","format":"test","notes":"Test on Wednesday's topics + doubt solving","subject":"lr","topic":"Calendar; Clocks"},"2026-10-09":{"format":"classtest","notes":"2 new topics + same-day test","subject":"english","topic":"Comprehension - Advanced/GS-linked Passages; Letter, Application & Essay Writing Formats"},"2026-10-10":{"format":"classtest","notes":"2 new topics + same-day test","subject":"gs","topic":"Goa History & Culture (Liberation Movement); Indian Economy - Five Year Plans & Government Schemes"},"2026-10-11":{"format":"mock","notes":"Cumulative mock test","subject":"mock","topic":"CBT-2 Pattern / GPSC Level / CAT Level - Mixed (All Subjects)"},"2026-10-12":{"format":"class","notes":"3 new topics - compressed pace","subject":"quants","topic":"Geometry - Lines, Angles & Triangles; Geometry - Circles; Mensuration - 2D Figures"},"2026-10-13":{"extra":"Offline doubt-solving also open for any previously covered Quantitative Aptitude topic \u2014 as requested by students.","format":"test","notes":"Test on Monday's topics + doubt solving","subject":"quants","topic":"Geometry - Lines, Angles & Triangles; Geometry - Circles; Mensuration - 2D Figures"},"2026-10-14":{"format":"class","notes":"3 new topics - compressed pace","subject":"lr","topic":"Data Sufficiency; Cubes & Dice; Analytical Reasoning (Input-Output)"},"2026-10-15":{"extra":"Offline doubt-solving also open for any previously covered Logical Reasoning topic \u2014 as requested by students.","format":"test","notes":"Test on Wednesday's topics + doubt solving","subject":"lr","topic":"Data Sufficiency; Cubes & Dice; Analytical Reasoning (Input-Output)"},"2026-10-16":{"format":"classtest","notes":"2 new topics + same-day test","subject":"english","topic":"Idioms & Phrasal Verbs - Advanced; Tenses - Rules & Error Spotting"},"2026-10-17":{"format":"classtest","notes":"2 new topics + same-day test","subject":"gs","topic":"Indian Economy - Budget & Banking Basics; Science - Physics Basics (Static GK)"},"2026-10-18":{"format":"mock","notes":"Cumulative mock test","subject":"mock","topic":"CBT-2 Pattern / GPSC Level / CAT Level - Mixed (All Subjects)"},"2026-10-19":{"format":"class","notes":"3 new topics - compressed pace","subject":"quants","topic":"Mensuration - 3D Figures; Trigonometry & Heights and Distances; Data Interpretation - Tables & Bar Graphs"},"2026-10-20":{"extra":"Offline doubt-solving also open for any previously covered Quantitative Aptitude topic \u2014 as requested by students.","format":"test","notes":"Test on Monday's topics + doubt solving","subject":"quants","topic":"Mensuration - 3D Figures; Trigonometry & Heights and Distances; Data Interpretation - Tables & Bar Graphs"},"2026-10-21":{"format":"class","notes":"3 new topics - compressed pace","subject":"lr","topic":"Statement-Argument & Course of Action; Symbols, Notations & Inequality; Word Formation & Dictionary-based Reasoning"},"2026-10-22":{"extra":"Offline doubt-solving also open for any previously covered Logical Reasoning topic \u2014 as requested by students.","format":"test","notes":"Test on Wednesday's topics + doubt solving","subject":"lr","topic":"Statement-Argument & Course of Action; Symbols, Notations & Inequality; Word Formation & Dictionary-based Reasoning"},"2026-10-23":{"format":"classtest","notes":"2 new topics + same-day test","subject":"english","topic":"Subject-Verb Agreement; Punctuation Rules"},"2026-10-24":{"format":"classtest","notes":"2 new topics + same-day test","subject":"gs","topic":"Science - Chemistry Basics (Static GK); Science - Biology Basics (Static GK)"},"2026-10-25":{"format":"mock","notes":"Cumulative mock test","subject":"mock","topic":"CBT-2 Pattern / GPSC Level / CAT Level - Mixed (All Subjects)"},"2026-10-26":{"format":"class","notes":"3 new topics - compressed pace","subject":"quants","topic":"Data Interpretation - Pie Charts & Line Graphs; Coordinate Geometry Basics; Number Series & Sequences"},"2026-10-27":{"extra":"Offline doubt-solving also open for any previously covered Quantitative Aptitude topic \u2014 as requested by students.","format":"test","notes":"Test on Monday's topics + doubt solving","subject":"quants","topic":"Data Interpretation - Pie Charts & Line Graphs; Coordinate Geometry Basics; Number Series & Sequences"},"2026-10-28":{"format":"class","notes":"3 new topics - compressed pace","subject":"lr","topic":"Mathematical Operations (BODMAS-based Reasoning); Verification of Truth of Statements; Figure Counting & Pattern Completion"},"2026-10-29":{"extra":"Offline doubt-solving also open for any previously covered Logical Reasoning topic \u2014 as requested by students.","format":"test","notes":"Test on Wednesday's topics + doubt solving","subject":"lr","topic":"Mathematical Operations (BODMAS-based Reasoning); Verification of Truth of Statements; Figure Counting & Pattern Completion"},"2026-10-30":{"format":"classtest","notes":"3 new topics + same-day test","subject":"english","topic":"Spelling Test & Odd Word Out; One Word Substitution - Advanced; Full-Length English Practice (Mixed Topics)"},"2026-10-31":{"format":"classtest","notes":"3 new topics + same-day test","subject":"gs","topic":"Environment & Ecology - Goa & India Specific; Sports, Awards & Important Days; Books, Authors & Government Schemes (Static GK)"},"2026-11-01":{"format":"mock","notes":"Cumulative mock test","subject":"mock","topic":"CBT-2 Pattern / GPSC Level / CAT Level - Mixed (All Subjects)"},"2026-11-02":{"format":"revision","notes":"Buffer day: consolidation, pending doubts, full mixed practice set","subject":"revision","topic":"Full Syllabus Revision - Quants + LR + English + GS"}};
+
+const SUBJECT_LABEL = {
+  quants: "Quantitative Aptitude",
+  lr: "Logical Reasoning",
+  english: "English",
+  gs: "General Studies",
+  mock: "Full Mock Test",
+  revision: "Revision Day",
+};
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const MONTHS_SHORT = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+const DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+function isoOf(y,m,d){
+  return y + "-" + String(m+1).padStart(2,"0") + "-" + String(d).padStart(2,"0");
+}
+function timeFor(dateObj, subject){
+  if (dateObj.getDay() === 0) return "Online Test — no live class";
+  if (subject === "revision") return "7:00 PM – 8:30 PM · Revision";
+  return "7:00 PM – 8:30 PM";
+}
+
+const today = new Date();
+today.setHours(0,0,0,0);
+const todayISO = isoOf(today.getFullYear(), today.getMonth(), today.getDate());
+
+/* ---------- TODAY CARD ---------- */
+(function renderToday(){
+  const allDates = Object.keys(SESSIONS).sort();
+  let key = todayISO;
+  let info = SESSIONS[key];
+  let label = "Today";
+  if (!info) {
+    // find nearest upcoming, else nearest past
+    const upcoming = allDates.find(d => d >= todayISO);
+    if (upcoming) { key = upcoming; info = SESSIONS[key]; label = key === todayISO ? "Today" : "Next Class"; }
+    else { key = allDates[allDates.length-1]; info = SESSIONS[key]; label = "Programme Complete · Last Session"; }
+  }
+  const [y,m,d] = key.split("-").map(Number);
+  const dObj = new Date(y, m-1, d);
+  document.querySelector("#todayDateBox .d").textContent = d;
+  document.querySelector("#todayDateBox .m").textContent = MONTHS_SHORT[m-1];
+  document.getElementById("todayTag").textContent = label + " · " + SUBJECT_LABEL[info.subject];
+  document.getElementById("todayTopic").textContent = info.topic;
+  document.getElementById("todayTime").textContent = timeFor(dObj, info.subject);
+  if (info.extra) {
+    const extraEl = document.createElement("div");
+    extraEl.style.cssText = "margin-top:8px;font-size:12.5px;color:var(--ink-soft);line-height:1.5;";
+    extraEl.textContent = info.extra;
+    document.getElementById("todayTime").insertAdjacentElement("afterend", extraEl);
+  }
+
+  // Topics covered so far (all sessions with date <= today, class/classtest/revision formats only, unique topics)
+  const coveredKeys = allDates.filter(dt => dt <= todayISO && ["class","classtest","revision"].includes(SESSIONS[dt].format));
+  const listEl = document.getElementById("coveredList");
+  document.getElementById("coveredLabel").textContent = "Topics covered so far (" + coveredKeys.length + ")";
+  coveredKeys.slice().reverse().forEach(dt => {
+    const s = SESSIONS[dt];
+    const [yy,mm,dd] = dt.split("-").map(Number);
+    const item = document.createElement("div");
+    item.className = "covered-item";
+    item.innerHTML = `<span class="cdate">${dd} ${MONTHS_SHORT[mm-1]}</span><span class="csub" style="background:var(--${s.subject === 'quants' ? 'q' : s.subject === 'lr' ? 'lr' : s.subject === 'english' ? 'en' : s.subject === 'gs' ? 'gs' : 'rev'}-tint); color:var(--${s.subject === 'quants' ? 'q' : s.subject === 'lr' ? 'lr' : s.subject === 'english' ? 'en' : s.subject === 'gs' ? 'gs' : 'rev'}-strong)">${SUBJECT_LABEL[s.subject]}</span><span>${s.topic}</span>`;
+    listEl.appendChild(item);
+  });
+  if (coveredKeys.length === 0) {
+    listEl.innerHTML = '<div style="font-size:13px;color:var(--ink-soft);padding:8px 0;">No sessions completed yet — the programme starts 13 July 2026.</div>';
+  }
+
+  document.getElementById("coveredToggle").addEventListener("click", () => {
+    document.getElementById("coveredToggle").classList.toggle("open");
+    document.getElementById("coveredList").classList.toggle("open");
+  });
+})();
+
+/* ---------- PROGRESS METER (session-based) ---------- */
+(function renderMeter(){
+  const allDates = Object.keys(SESSIONS).sort();
+  const total = allDates.length;
+  const completed = allDates.filter(d => d <= todayISO).length;
+  const pct = total ? (completed/total*100) : 0;
+  document.getElementById("fillBar").style.width = pct.toFixed(1) + "%";
+
+  const startISO = allDates[0], endISO = allDates[allDates.length-1];
+  let label;
+  if (todayISO < startISO) {
+    const [y,m,d] = startISO.split("-").map(Number);
+    const daysTo = Math.ceil((new Date(y,m-1,d) - today) / 86400000);
+    label = `Starts in ${daysTo} day${daysTo===1?'':'s'}`;
+  } else if (todayISO > endISO) {
+    label = "Programme complete";
+  } else {
+    label = `${completed} / ${total} sessions done (${pct.toFixed(0)}%)`;
+  }
+  document.getElementById("meterLabel").textContent = label;
+})();
+
+/* ---------- CALENDAR ---------- */
+let calYear = today.getFullYear();
+let calMonth = today.getMonth();
+if (todayISO < Object.keys(SESSIONS).sort()[0]) {
+  const [y,m] = Object.keys(SESSIONS).sort()[0].split("-").map(Number);
+  calYear = y; calMonth = m-1;
+}
+
+function renderCalendar(){
+  const grid = document.getElementById("calGrid");
+  grid.innerHTML = "";
+  document.getElementById("calTitle").textContent = MONTHS[calMonth] + " " + calYear;
+
+  DOW.forEach(d => {
+    const el = document.createElement("div");
+    el.className = "cal-dow";
+    el.textContent = d;
+    grid.appendChild(el);
+  });
+
+  const firstDay = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+
+  for (let i=0; i<firstDay; i++){
+    const el = document.createElement("div");
+    el.className = "cal-cell empty";
+    grid.appendChild(el);
+  }
+
+  for (let day=1; day<=daysInMonth; day++){
+    const iso = isoOf(calYear, calMonth, day);
+    const info = SESSIONS[iso];
+    const cell = document.createElement("div");
+    cell.className = "cal-cell";
+    cell.dataset.iso = iso;
+
+    if (info) {
+      cell.classList.add("has-session");
+      cell.dataset.subj = info.subject;
+      cell.innerHTML = `<span class="num">${day}</span><span class="dot"></span>`;
+    } else {
+      cell.classList.add("no-class");
+      cell.innerHTML = `<span class="num">${day}</span>`;
+    }
+    if (iso < todayISO) cell.classList.add("is-past");
+    if (iso === todayISO) cell.classList.add("is-today");
+
+    if (info) {
+      cell.addEventListener("click", () => showDetail(iso));
+    }
+    grid.appendChild(cell);
+  }
+}
+
+function showDetail(iso){
+  document.querySelectorAll(".cal-cell.selected").forEach(c => c.classList.remove("selected"));
+  const cell = document.querySelector(`.cal-cell[data-iso="${iso}"]`);
+  if (cell) cell.classList.add("selected");
+
+  const info = SESSIONS[iso];
+  const [y,m,d] = iso.split("-").map(Number);
+  const dObj = new Date(y, m-1, d);
+  const dayName = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][dObj.getDay()];
+
+  document.getElementById("ddDate").textContent = `${dayName}, ${d} ${MONTHS_SHORT[m-1]} ${y} · ${SUBJECT_LABEL[info.subject]}`;
+  document.getElementById("ddTopic").textContent = info.topic;
+  document.getElementById("ddTime").textContent = timeFor(dObj, info.subject);
+  const existingExtra = document.getElementById("ddExtra");
+  if (existingExtra) existingExtra.remove();
+  if (info.extra) {
+    const extraEl = document.createElement("div");
+    extraEl.id = "ddExtra";
+    extraEl.style.cssText = "margin-top:8px;font-size:12.5px;color:var(--ink-soft);line-height:1.5;";
+    extraEl.textContent = info.extra;
+    document.getElementById("ddTime").insertAdjacentElement("afterend", extraEl);
+  }
+  document.getElementById("calDetail").classList.add("open");
+}
+
+document.getElementById("calPrev").addEventListener("click", () => {
+  calMonth--; if (calMonth < 0){ calMonth = 11; calYear--; }
+  renderCalendar();
+  document.getElementById("calDetail").classList.remove("open");
+});
+document.getElementById("calNext").addEventListener("click", () => {
+  calMonth++; if (calMonth > 11){ calMonth = 0; calYear++; }
+  renderCalendar();
+  document.getElementById("calDetail").classList.remove("open");
+});
+document.getElementById("calToday").addEventListener("click", () => {
+  calYear = today.getFullYear(); calMonth = today.getMonth();
+  renderCalendar();
+  if (SESSIONS[todayISO]) showDetail(todayISO);
+});
+
+renderCalendar();
+if (SESSIONS[todayISO]) showDetail(todayISO);
+
+/* ---------- SUBJECT TIMELINES ---------- */
+const TOPIC_DATA = {
+  quants: [],
+  lr: [],
+  english: [],
+  gs: [],
+};
+Object.keys(SESSIONS).sort().forEach(iso => {
+  const s = SESSIONS[iso];
+  if (["quants","lr"].includes(s.subject) && s.format === "class") TOPIC_DATA[s.subject].push([iso, s.topic]);
+  if (["english","gs"].includes(s.subject) && s.format === "classtest") TOPIC_DATA[s.subject].push([iso, s.topic]);
+});
+
+Object.keys(TOPIC_DATA).forEach(key => {
+  const container = document.getElementById("list-" + key);
+  TOPIC_DATA[key].forEach(([iso, topic]) => {
+    const [y,m,d] = iso.split("-").map(Number);
+    const rowDate = new Date(y,m-1,d);
+    const isPast = rowDate < today;
+    const isToday = iso === todayISO;
+    const row = document.createElement("div");
+    row.className = "row" + (isPast ? " done" : "") + (isToday ? " today" : "");
+    row.innerHTML = `
+      <div class="row-date">${d} ${MONTHS_SHORT[m-1]} ${y}</div>
+      <div class="row-topic">${topic}${isToday ? ' <span class="badge-today">Today</span>' : ''}</div>
+    `;
+    container.appendChild(row);
+  });
+});
+
+/* ---------- SUBJECT NAV ---------- */
+const chips = document.querySelectorAll(".chip");
+chips.forEach(chip => {
+  chip.addEventListener("click", () => {
+    chips.forEach(c => c.classList.remove("active"));
+    chip.classList.add("active");
+    const targetId = chip.dataset.target === "also" ? "sec-also" : "sec-" + chip.dataset.target;
+    document.getElementById(targetId).scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+});
+const sections = ["quants","lr","english","gs"].map(k => document.getElementById("sec-" + k));
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const subj = entry.target.dataset.subj;
+      chips.forEach(c => c.classList.toggle("active", c.dataset.target === subj));
+    }
+  });
+}, { rootMargin: "-30% 0px -60% 0px" });
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
