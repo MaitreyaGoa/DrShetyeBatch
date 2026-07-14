@@ -1,3 +1,4 @@
+(function(){var s=document.createElement('style');s.textContent='.btn-sm-solution{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;background:#fff;border:1.5px solid #1565c0;border-radius:6px;color:#1565c0;font-size:0.75rem;font-weight:700;text-decoration:none;transition:all 0.15s;}.btn-sm-solution:hover{background:#e3f2fd;}';document.head.appendChild(s);})();
 // home.js – Dr Shetye Academic Programme
 // Updated: Added Core Subject Tests section (5th tab group)
 
@@ -34,38 +35,7 @@ function appendGroup(grid, label, tests) {
   lbl.className = "test-group-label";
   lbl.textContent = label;
   grid.appendChild(lbl);
-
-  var wrap = document.createElement("div");
-  wrap.className = "part-wrap";
-  var rows = tests.map(buildFullTestRowHTML).join('');
-  wrap.innerHTML = '<div class="test-list">' + rows + '</div>';
-  grid.appendChild(wrap);
-}
-
-// Compact row for GSSC/GPSC/PYQ/Special — same style as part tests
-function buildFullTestRowHTML(test) {
-  var icon = test.id && test.id.includes("pyq") ? "📜" : test.id && test.id.includes("sci") ? "🔬" : "📋";
-  var badge = test.live
-    ? '<span class="badge-live">Live</span>'
-    : '<span class="badge-soon">Soon</span>';
-  var secTags = Object.keys(test.sections||{}).map(function(s){
-    return '<span class="sec-tag">'+s+': '+test.sections[s]+'</span>';
-  }).join('');
-  var top5Btn = test.live
-    ? '<button class="btn-sm-gold" onclick="toggleTop5(\''+test.id+'\',\''+test.title.replace(/'/g,"\\'")+'\','+test.totalMarks+',this)">🏅</button>'
-    : '';
-  var actionBtn = test.live
-    ? '<button class="btn-sm-primary" onclick="goToTest(\''+test.id+'\')">Start →</button>'
-    : '<button class="btn-sm-disabled">Soon</button>';
-  return '<div class="test-row">'
-    +'<div class="test-row-info">'
-    +'<div class="test-row-top"><span class="test-row-title">'+icon+' '+test.title+'</span>'+badge+'</div>'
-    +'<div class="test-row-meta">'+test.description+' · ⏱ '+Math.round(test.duration/60)+' min · '+test.totalMarks+' marks</div>'
-    +'<div class="test-row-tags">'+secTags+'</div>'
-    +'</div>'
-    +'<div class="test-row-actions">'+top5Btn+actionBtn+'</div>'
-    +'</div>'
-    +'<div class="top5-panel" id="top5-'+test.id+'"></div>';
+  tests.forEach(function(t){ grid.appendChild(buildTestCard(t)); });
 }
 
 // ══ DAILY TESTS (2nd section) ════════════════════════════
@@ -132,7 +102,7 @@ function appendDailyTests(grid) {
         +'<div class="test-row-meta">'+t.description+' · ⏱ '+Math.round(t.duration/60)+' min · '+t.totalMarks+' marks</div>'
         +'<div class="test-row-tags">'+secTags+'</div>'
         +'</div>'
-        +'<div class="test-row-actions">'+top5Btn+actionBtn+'</div>'
+        +'<div class="test-row-actions">'+top5Btn+solutionBtn+actionBtn+'</div>'
         +'</div>'
         +'<div class="top5-panel" id="top5-'+t.id+'"></div>';
     }).join('');
@@ -348,11 +318,7 @@ function appendSpecialTests(grid) {
   lbl.textContent = "Core Subject Tests";
   grid.appendChild(lbl);
 
-  var wrap = document.createElement("div");
-  wrap.className = "part-wrap";
-  var rows = SPECIAL_TESTS.map(buildFullTestRowHTML).join('');
-  wrap.innerHTML = '<div class="test-list">' + rows + '</div>';
-  grid.appendChild(wrap);
+  SPECIAL_TESTS.forEach(function(t){ grid.appendChild(buildTestCard(t)); });
 }
 
 // ══ TEST CARD (Full/PYQ/Special tests) ════════════════════
@@ -678,14 +644,14 @@ function appendScholarshipTests(grid) {
   var wrap = document.createElement("div");
   wrap.className = "part-wrap";
 
-  var classes = ["10", "9", "8", "7", "6"];
-  var icons   = { "10":"📘", "9":"📗", "8":"📙", "7":"📒", "6":"📔" };
+  var classes = ["ntse", "10", "9", "8", "7", "6"];
+  var icons   = { "ntse":"🏆", "10":"📘", "9":"📗", "8":"📙", "7":"📒", "6":"📔" };
 
   var tabs = '<div class="subject-tabs" id="scholarTabs">';
   classes.forEach(function(cls, i) {
     tabs += '<button class="sub-tab' + (i === 0 ? ' active' : '') + '" '
           + 'onclick="showScholarshipTab(\'' + cls + '\',this)">'
-          + icons[cls] + ' Class ' + cls + '</button>';
+          + icons[cls] + ' ' + (cls === 'ntse' ? 'NTSE' : 'Class ' + cls) + '</button>';
   });
   tabs += '</div>';
 
