@@ -299,7 +299,6 @@ var PART_TESTS = [
     totalMarks:  30,
     sections:    { "Maths": 30 },
     questionsFile: "questions/math_level2_jul14.js",
-    solutionLink: "https://drive.google.com/file/d/1r7vdhyHx5hmXcr-Gn-gGlT7cWsIX6aCs/view?usp=sharing",
     live:        true
   },
   {
