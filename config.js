@@ -290,6 +290,19 @@ var PART_TESTS = [
     questionsFile: "questions/eng_rc1.js", live: true
   },
   {
+    id:          "math_level2_jul14",
+    subject:     "maths",
+    title:       "Maths Level 2 Test — July 14th 2026",
+    description: "CAT / GPSC / GSSC CBT-II · PYQ-style",
+    password:    "July14",
+    duration:    2700,
+    totalMarks:  30,
+    sections:    { "Maths": 30 },
+    questionsFile: "questions/math_level2_jul14.js",
+    solutionLink: "https://drive.google.com/file/d/1r7vdhyHx5hmXcr-Gn-gGlT7cWsIX6aCs/view?usp=sharing",
+    live:        true
+  },
+  {
     id: "eng_rc9", subject: "english",
     title: "English RC — CAT Level Test 9",
     description: "2 Passages · 6 Questions each · CAT / IIM Level · 12 Q",
