@@ -293,12 +293,13 @@ var PART_TESTS = [
     id:          "math_level2_jul14",
     subject:     "maths",
     title:       "Maths Level 2 Test — July 14th 2026",
-    description: "CAT / GPSC / GSSC CBT-II · PYQ-style",
+    description: "CAT / IIM Level · PYQ-style · 30 Topics · Mixed Commercial & Pure Maths",
     password:    "July14",
     duration:    2700,
     totalMarks:  30,
     sections:    { "Maths": 30 },
     questionsFile: "questions/math_level2_jul14.js",
+    solutionLink: "https://drive.google.com/file/d/1r7vdhyHx5hmXcr-Gn-gGlT7cWsIX6aCs/view",
     live:        true
   },
   {
