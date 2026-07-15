@@ -1,5 +1,15 @@
 // home.js – Dr Shetye Academic Programme
-// Updated: Added Core Subject Tests section (5th tab group)
+// Updated: Solution buttons + newest-first sorting
+/* Solution button styles — auto-injected */
+(function(){
+  var s=document.createElement('style');
+  s.textContent=
+    '.btn-sm-solution{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;background:#fff;border:1.5px solid #1565c0;border-radius:6px;color:#1565c0;font-size:0.75rem;font-weight:700;text-decoration:none;cursor:pointer;transition:all 0.15s;}'+
+    '.btn-sm-solution:hover{background:#e3f2fd;}'+
+    '.btn-sm-solution-grey{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;background:#f5f5f5;border:1.5px solid #ddd;border-radius:6px;color:#aaa;font-size:0.75rem;font-weight:600;cursor:default;}';
+  document.head.appendChild(s);
+})();
+
 
 var top5Timers = {};
 
@@ -37,7 +47,7 @@ function appendGroup(grid, label, tests) {
 
   var wrap = document.createElement("div");
   wrap.className = "part-wrap";
-  var rows = tests.map(buildFullTestRowHTML).join('');
+  var rows = tests.slice().reverse().map(buildFullTestRowHTML).join('');
   wrap.innerHTML = '<div class="test-list">' + rows + '</div>';
   grid.appendChild(wrap);
 }
@@ -247,7 +257,7 @@ function appendPartTests(grid) {
 
   var panels = "";
   ["english","maths","reasoning","konkani"].forEach(function(subj,i){
-    var tests = (PART_TESTS||[]).filter(function(t){ return t.subject===subj; });
+    var tests = (PART_TESTS||[]).filter(function(t){ return t.subject===subj; }).slice().reverse();
     var rows = tests.length===0
       ? '<p class="empty-msg">No '+subj+' tests yet.</p>'
       : tests.map(buildTestRowHTML).join('');
@@ -297,7 +307,7 @@ function appendTopicTests(grid) {
 
   var panels = "";
   subjects.forEach(function(subj,i){
-    var tests = (TOPIC_TESTS||[]).filter(function(t){ return t.subject===subj; });
+    var tests = (TOPIC_TESTS||[]).filter(function(t){ return t.subject===subj; }).slice().reverse();
 
     var rows = "";
     if(!tests.length){
@@ -413,6 +423,14 @@ function buildTestRowHTML(test) {
   var actionBtn = test.live
     ? '<button class="btn-sm-primary" onclick="goToTest(\''+test.id+'\')">Start →</button>'
     : '<button class="btn-sm-disabled">Soon</button>';
+  var solutionBtn = '';
+  if (test.live) {
+    if (test.solutionLink && test.solutionLink.length > 0) {
+      solutionBtn = '<a class="btn-sm-solution" href="'+test.solutionLink+'" target="_blank">📄 Solutions</a>';
+    } else {
+      solutionBtn = '<button class="btn-sm-solution-grey" disabled title="Solutions not yet uploaded">📄 Soon</button>';
+    }
+  }
 
   return '<div class="test-row">'
     +'<div class="test-row-info">'
@@ -420,7 +438,7 @@ function buildTestRowHTML(test) {
     +'<div class="test-row-meta">'+test.description+' · ⏱ '+Math.round(test.duration/60)+' min</div>'
     +'<div class="test-row-tags">'+secTags+'</div>'
     +'</div>'
-    +'<div class="test-row-actions">'+top5Btn+actionBtn+'</div>'
+    +'<div class="test-row-actions">'+top5Btn+solutionBtn+actionBtn+'</div>'
     +'</div>'
     +'<div class="top5-panel" id="top5-'+test.id+'"></div>';
 }
@@ -435,13 +453,21 @@ function buildTopicRowHTML(test) {
   var actionBtn = test.live
     ? '<button class="btn-sm-primary" onclick="goToTest(\''+test.id+'\')">Start →</button>'
     : '<button class="btn-sm-disabled">Soon</button>';
+  var solutionBtn = '';
+  if (test.live) {
+    if (test.solutionLink && test.solutionLink.length > 0) {
+      solutionBtn = '<a class="btn-sm-solution" href="'+test.solutionLink+'" target="_blank">📄 Solutions</a>';
+    } else {
+      solutionBtn = '<button class="btn-sm-solution-grey" disabled title="Solutions not yet uploaded">📄 Soon</button>';
+    }
+  }
 
   return '<div class="test-row">'
     +'<div class="test-row-info">'
     +'<div class="test-row-top"><span class="test-row-title">'+test.title+'</span>'+badge+'</div>'
     +'<div class="test-row-meta">'+test.description+' · ⏱ '+Math.round(test.duration/60)+' min · '+test.totalMarks+' marks</div>'
     +'</div>'
-    +'<div class="test-row-actions">'+top5Btn+actionBtn+'</div>'
+    +'<div class="test-row-actions">'+top5Btn+solutionBtn+actionBtn+'</div>'
     +'</div>'
     +'<div class="top5-panel" id="top5-'+test.id+'"></div>';
 }
