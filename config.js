@@ -491,6 +491,19 @@ var PART_TESTS = [
 
   // ── REASONING ──
   {
+    id:          "reason_ac1",
+    subject:     "reasoning",
+    title:       "Analogy & Classification — Part Test 1",
+    description: "NTSE/SSC PYQ · Analogy (15Q) + Classification (15Q)",
+    password:    "reason01",
+    duration:    2100,
+    totalMarks:  30,
+    sections:    { "Reasoning": 30 },
+    questionsFile: "questions/reason_ac1.js",
+    solutionLink: "https://drive.google.com/file/d/1f5EPm8S4-EU0wW4OEgYpwPw8ceP_xP7K/view",
+    live:        true
+  },
+  {
     id: "reason_part1", subject: "reasoning",
     title: "Reasoning Part Test 1", description: "GSSC Police Constable · 10 Q",
     password: "rea001", duration: 600, totalMarks: 10,
