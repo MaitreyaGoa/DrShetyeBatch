@@ -494,7 +494,7 @@ var PART_TESTS = [
     id:          "reason_ac1",
     subject:     "reasoning",
     title:       "Analogy & Classification — Part Test 1",
-    description: "NTSE/SSC PYQ · Analogy (15Q) + Classification (15Q)",
+    description: "PYQ · Analogy (15Q) + Classification (15Q)",
     password:    "reason01",
     duration:    2100,
     totalMarks:  30,
