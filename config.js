@@ -290,19 +290,6 @@ var PART_TESTS = [
     questionsFile: "questions/eng_rc1.js", live: true
   },
   {
-    id:          "math_level2_jul14",
-    subject:     "maths",
-    title:       "Maths Level 2 Test — July 14th 2026",
-    description: "CAT / IIM Level · PYQ-style · 30 Topics · Mixed Commercial & Pure Maths",
-    password:    "July14",
-    duration:    2700,
-    totalMarks:  30,
-    sections:    { "Maths": 30 },
-    questionsFile: "questions/math_level2_jul14.js",
-    solutionLink: "https://drive.google.com/file/d/1r7vdhyHx5hmXcr-Gn-gGlT7cWsIX6aCs/view",
-    live:        true
-  },
-  {
     id: "eng_rc9", subject: "english",
     title: "English RC — CAT Level Test 9",
     description: "2 Passages · 6 Questions each · CAT / IIM Level · 12 Q",
@@ -365,6 +352,32 @@ var PART_TESTS = [
     password: "engrc2", duration: 1200, totalMarks: 12,
     sections: { "English": 12 },
     questionsFile: "questions/eng_rc2.js", live: true
+  },
+  {
+    id:          "eng_rc10",
+    subject:     "english",
+    title:       "English RC — CAT Level Test 10",
+    description: "3 Passages · 5 Questions each · CAT / IIM Level · 15 Q · 20 min",
+    password:    "engrc10",
+    duration:    1200,
+    totalMarks:  15,
+    sections:    { "English": 15 },
+    questionsFile: "questions/eng_rc10.js",
+    solutionLink: "",
+    live:        true
+  },
+  {
+    id:          "eng_rc11",
+    subject:     "english",
+    title:       "English RC — CAT Level Test 11",
+    description: "3 Passages · 5 Questions each · CAT / IIM Level · 15 Q · 30 min",
+    password:    "engrc11",
+    duration:    1800,
+    totalMarks:  15,
+    sections:    { "English": 15 },
+    questionsFile: "questions/eng_rc11.js",
+    solutionLink: "https://drive.google.com/file/d/1MDfjg_Q7ROLHvxJSvPLKQuZg0YEYQ_ck/view",
+    live:        true
   },
 
   // ── MATHS ──
@@ -488,21 +501,21 @@ var PART_TESTS = [
     sections: { "Maths": 10 },
     questionsFile: "questions/math_part7.js", live: false
   },
-
-  // ── REASONING ──
   {
-    id:          "reason_ac1",
-    subject:     "reasoning",
-    title:       "Analogy & Classification — Part Test 1",
-    description: "PYQ · Analogy (15Q) + Classification (15Q)",
-    password:    "reason01",
-    duration:    2100,
+    id:          "math_level2_jul14",
+    subject:     "maths",
+    title:       "Maths Level 2 Test — July 14th 2026",
+    description: "CAT / IIM Level · PYQ-style · 30 Topics · Mixed Commercial & Pure Maths",
+    password:    "July14",
+    duration:    2700,
     totalMarks:  30,
-    sections:    { "Reasoning": 30 },
-    questionsFile: "questions/reason_ac1.js",
-    solutionLink: "https://drive.google.com/file/d/1f5EPm8S4-EU0wW4OEgYpwPw8ceP_xP7K/view",
+    sections:    { "Maths": 30 },
+    questionsFile: "questions/math_level2_jul14.js",
+    solutionLink: "https://drive.google.com/file/d/1r7vdhyHx5hmXcr-Gn-gGlT7cWsIX6aCs/view",
     live:        true
   },
+
+  // ── REASONING ──
   {
     id: "reason_part1", subject: "reasoning",
     title: "Reasoning Part Test 1", description: "GSSC Police Constable · 10 Q",
@@ -523,6 +536,19 @@ var PART_TESTS = [
     password: "rea003", duration: 1800, totalMarks: 20,
     sections: { "Reasoning": 20 },
     questionsFile: "questions/reason_part3.js", live: false
+  },
+  {
+    id:          "reason_ac1",
+    subject:     "reasoning",
+    title:       "Analogy & Classification — Part Test 1",
+    description: "NTSE/SSC PYQ · Analogy (15Q) + Classification (15Q)",
+    password:    "reason01",
+    duration:    2100,
+    totalMarks:  30,
+    sections:    { "Reasoning": 30 },
+    questionsFile: "questions/reason_ac1.js",
+    solutionLink: "https://drive.google.com/file/d/1f5EPm8S4-EU0wW4OEgYpwPw8ceP_xP7K/view",
+    live:        true
   },
 
   // ── KONKANI ──
