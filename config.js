@@ -376,7 +376,7 @@ var PART_TESTS = [
     totalMarks:  15,
     sections:    { "English": 15 },
     questionsFile: "questions/eng_rc11.js",
-    solutionLink: "https://drive.google.com/file/d/1MDfjg_Q7ROLHvxJSvPLKQuZg0YEYQ_ck/view",
+    solutionLink: "https://drive.google.com/file/d/13Ih170VwQ-Vs136EsUz9PUHXVcFiGveU/view",
     live:        true
   },
 
@@ -512,6 +512,19 @@ var PART_TESTS = [
     sections:    { "Maths": 30 },
     questionsFile: "questions/math_level2_jul14.js",
     solutionLink: "https://drive.google.com/file/d/1r7vdhyHx5hmXcr-Gn-gGlT7cWsIX6aCs/view",
+    live:        true
+  },
+  {
+    id:          "math_level2_jul20",
+    subject:     "maths",
+    title:       "Maths Level 2 Test — July 20th 2026",
+    description: "CAT / IIM Level · PYQ-style · 30 Topics · Mixed Commercial & Pure Maths",
+    password:    "July20",
+    duration:    2700,
+    totalMarks:  30,
+    sections:    { "Maths": 30 },
+    questionsFile: "questions/math_level2_jul20.js",
+    solutionLink: "https://drive.google.com/file/d/13Ih170VwQ-Vs136EsUz9PUHXVcFiGveU/view",
     live:        true
   },
 
