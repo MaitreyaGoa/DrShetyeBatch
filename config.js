@@ -376,7 +376,20 @@ var PART_TESTS = [
     totalMarks:  15,
     sections:    { "English": 15 },
     questionsFile: "questions/eng_rc11.js",
-    solutionLink: "https://drive.google.com/file/d/13Ih170VwQ-Vs136EsUz9PUHXVcFiGveU/view",
+    solutionLink: "https://drive.google.com/file/d/1MDfjg_Q7ROLHvxJSvPLKQuZg0YEYQ_ck/view",
+    live:        true
+  },
+  {
+    id:          "eng_rc12",
+    subject:     "english",
+    title:       "English RC — CAT Level Test 12",
+    description: "3 Passages · 5 Questions each · CAT / IIM Level · 15 Q",
+    password:    "engrc12",
+    duration:    1800,
+    totalMarks:  15,
+    sections:    { "English": 15 },
+    questionsFile: "questions/eng_rc12.js",
+    solutionLink: "https://drive.google.com/file/d/1lbLtEmS7ALgeZTN--_eDSeCPTFBJBtiB/view",
     live:        true
   },
 
@@ -525,6 +538,19 @@ var PART_TESTS = [
     sections:    { "Maths": 30 },
     questionsFile: "questions/math_level2_jul20.js",
     solutionLink: "https://drive.google.com/file/d/13Ih170VwQ-Vs136EsUz9PUHXVcFiGveU/view",
+    live:        true
+  },
+  {
+    id:          "math_level2_jul29",
+    subject:     "maths",
+    title:       "Maths Level 2 Test — July 29th 2026",
+    description: "CAT / IIM Level · PYQ-style · 30 Topics · Mixed Commercial & Pure Maths",
+    password:    "July29",
+    duration:    2700,
+    totalMarks:  30,
+    sections:    { "Maths": 30 },
+    questionsFile: "questions/math_level2_aug3.js",
+    solutionLink: "https://drive.google.com/file/d/1rtyAQrFmqtUAHsjkva3qNoRa6bo4niyo/view",
     live:        true
   },
 
