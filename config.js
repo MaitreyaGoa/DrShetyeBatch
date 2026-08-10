@@ -111,8 +111,20 @@ var MONTHLY_TESTS = [
     duration:    5400,
     totalMarks:  100,
     sections:    { "English": 25, "Reasoning": 25, "Maths": 25, "General Knowledge": 25 },
-    questionsFile: "questions/monthly_june25.js",
-    live:        false
+    questionsFile: "questions/monthly_jun25.js",
+    live:        true
+  }
+  ,{
+    id:          "monthly_july26",
+    month:       "July",
+    title:       "July 2026 Monthly Full Test",
+    description: "English 25Q · Reasoning 25Q · Maths 25Q · GK 25Q · 100 Questions",
+    password:    "july2026",
+    duration:    5400,
+    totalMarks:  100,
+    sections:    { "English": 25, "Reasoning": 25, "Maths": 25, "General Knowledge": 25 },
+    questionsFile: "questions/monthly_jul25.js",
+    live:        true
   }
 ];
 
