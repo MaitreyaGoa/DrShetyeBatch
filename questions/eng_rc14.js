@@ -46,6 +46,7 @@ var questions = [
   // ---------- PASSAGE 1 ----------
   {
     id: 5707,
+    section: "English",
     passage: "passage_1",
     text: "The primary purpose of the passage is to:",
     options: [
@@ -59,6 +60,7 @@ var questions = [
   },
   {
     id: 5708,
+    section: "English",
     passage: "passage_1",
     text: "According to the passage, proponents of the 'technical' diagnosis of the replication crisis would most likely agree that:",
     options: [
@@ -72,6 +74,7 @@ var questions = [
   },
   {
     id: 5709,
+    section: "English",
     passage: "passage_1",
     text: "In the context of the passage, the phrase 'corrosive relativism' (final paragraph) refers to:",
     options: [
@@ -85,6 +88,7 @@ var questions = [
   },
   {
     id: 5710,
+    section: "English",
     passage: "passage_1",
     text: "Which of the following best describes the finding of the 2015 Open Science Collaboration replication attempt, as reported in the passage?",
     options: [
@@ -98,6 +102,7 @@ var questions = [
   },
   {
     id: 5711,
+    section: "English",
     passage: "passage_1",
     text: "With respect to the two diagnoses discussed in the passage, the author's stance can best be described as:",
     options: [
@@ -113,6 +118,7 @@ var questions = [
   // ---------- PASSAGE 2 ----------
   {
     id: 5712,
+    section: "English",
     passage: "passage_2",
     text: "The central concern of the passage is:",
     options: [
@@ -126,6 +132,7 @@ var questions = [
   },
   {
     id: 5713,
+    section: "English",
     passage: "passage_2",
     text: "The passage suggests that tacit knowledge is more vulnerable to permanent loss than explicit, codified knowledge primarily because:",
     options: [
@@ -139,6 +146,7 @@ var questions = [
   },
   {
     id: 5714,
+    section: "English",
     passage: "passage_2",
     text: "As used in the passage, a tacit skill being 'recoverable' means that:",
     options: [
@@ -152,6 +160,7 @@ var questions = [
   },
   {
     id: 5715,
+    section: "English",
     passage: "passage_2",
     text: "According to the passage, Michael Polanyi's central claim about tacit knowledge was that:",
     options: [
@@ -165,6 +174,7 @@ var questions = [
   },
   {
     id: 5716,
+    section: "English",
     passage: "passage_2",
     text: "Based on the distinction drawn in the final paragraph, which of the following pairs would the passage most likely treat as an example of a highly recoverable skill and a poorly recoverable skill, respectively?",
     options: [
@@ -180,6 +190,7 @@ var questions = [
   // ---------- PASSAGE 3 ----------
   {
     id: 5717,
+    section: "English",
     passage: "passage_3",
     text: "The passage is primarily concerned with:",
     options: [
@@ -193,6 +204,7 @@ var questions = [
   },
   {
     id: 5718,
+    section: "English",
     passage: "passage_3",
     text: "According to the passage, the 'time-inconsistency problem' identified by Kydland and Prescott refers to:",
     options: [
@@ -206,6 +218,7 @@ var questions = [
   },
   {
     id: 5719,
+    section: "English",
     passage: "passage_3",
     text: "The passage suggests that critics who converged 'from different directions' after 2008 (paragraph 2) were united primarily by their concern that:",
     options: [
@@ -219,6 +232,7 @@ var questions = [
   },
   {
     id: 5720,
+    section: "English",
     passage: "passage_3",
     text: "The phrase 'settled technocratic wisdom' (paragraph 2) is used by the author to convey that, for roughly three decades:",
     options: [
@@ -232,6 +246,7 @@ var questions = [
   },
   {
     id: 5721,
+    section: "English",
     passage: "passage_3",
     text: "According to the final paragraph, defenders of central bank independence respond to critics primarily by:",
     options: [
