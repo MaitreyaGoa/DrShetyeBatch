@@ -7,7 +7,7 @@
 var questions = [
 
   {
-    id: 6121,
+    id: 6121, section: "Maths",
     text: "A boat's speed in still water is 12 km/h. It takes exactly twice as long to travel a certain distance upstream as it takes to travel the same distance downstream. Find the speed of the stream.",
     options: ["A) 4 km/h", "B) 3 km/h", "C) 5 km/h", "D) 6 km/h"],
     answer: "A",
@@ -15,7 +15,7 @@ var questions = [
     difficulty: "hard"
   },
   {
-    id: 6122,
+    id: 6122, section: "Maths",
     text: "Pipe A can fill a tank in 12 hours and Pipe B can fill it in 18 hours. Both pipes are opened together, but after 4 hours Pipe B is closed. In how many more hours will Pipe A alone fill the remaining tank?",
     options: ["A) 4 hours", "B) 16/3 hours (5 1/3 hrs)", "C) 6 hours", "D) 14/3 hours (4 2/3 hrs)"],
     answer: "B",
@@ -23,7 +23,7 @@ var questions = [
     difficulty: "very hard"
   },
   {
-    id: 6123,
+    id: 6123, section: "Maths",
     text: "The price of an item is first increased by 20%, then decreased by 10%, and then increased again by 25%. Find the net percentage change in the price.",
     options: ["A) 30% increase", "B) 32.5% increase", "C) 35% increase", "D) 37.5% increase"],
     answer: "C",
@@ -31,7 +31,7 @@ var questions = [
     difficulty: "moderate"
   },
   {
-    id: 6124,
+    id: 6124, section: "Maths",
     text: "A, B, and C start a business investing in the ratio 3:5:7. A's capital remains invested for 6 months, B's for 8 months, and C's for the full 12 months. If the total profit at the end of the year is ₹71,000, find C's share of the profit.",
     options: ["A) ₹38,000", "B) ₹40,000", "C) ₹44,000", "D) ₹42,000"],
     answer: "D",
@@ -39,7 +39,7 @@ var questions = [
     difficulty: "hard"
   },
   {
-    id: 6125,
+    id: 6125, section: "Maths",
     text: "The average weight of 8 men increases by 2.5 kg when a man weighing 65 kg is replaced by a new man. Find the weight of the new man.",
     options: ["A) 85 kg", "B) 80 kg", "C) 90 kg", "D) 75 kg"],
     answer: "A",
@@ -47,7 +47,7 @@ var questions = [
     difficulty: "moderate"
   },
   {
-    id: 6126,
+    id: 6126, section: "Maths",
     text: "A container holds 40 litres of milk. 4 litres of milk is withdrawn and replaced with water. This process of withdrawing 4 litres of the mixture and replacing it with water is repeated two more times (three times in total). How much milk is left in the container?",
     options: ["A) 26.34 litres", "B) 29.16 litres", "C) 27.36 litres", "D) 32.4 litres"],
     answer: "B",
@@ -55,7 +55,7 @@ var questions = [
     difficulty: "hard"
   },
   {
-    id: 6127,
+    id: 6127, section: "Maths",
     text: "Find the smallest number which, when divided by 5, 6, and 7, leaves a remainder of 3 in each case, and which is also exactly divisible by 11.",
     options: ["A) 1653", "B) 1673", "C) 1683", "D) 1693"],
     answer: "C",
@@ -63,7 +63,7 @@ var questions = [
     difficulty: "very hard"
   },
   {
-    id: 6128,
+    id: 6128, section: "Maths",
     text: "How many numbers between 1 and 500 (inclusive) are divisible by 3 or 5, but not by 15?",
     options: ["A) 233", "B) 166", "C) 167", "D) 200"],
     answer: "D",
@@ -71,7 +71,7 @@ var questions = [
     difficulty: "hard"
   },
   {
-    id: 6129,
+    id: 6129, section: "Maths",
     text: "In how many ways can 6 people be seated around a circular table such that two particular people do not sit together?",
     options: ["A) 72", "B) 48", "C) 96", "D) 120"],
     answer: "A",
@@ -79,7 +79,7 @@ var questions = [
     difficulty: "moderate"
   },
   {
-    id: 6130,
+    id: 6130, section: "Maths",
     text: "From a group of 7 men and 5 women, a committee of 5 members is to be formed such that it contains at least 3 women. In how many ways can this be done?",
     options: ["A) 210", "B) 246", "C) 252", "D) 236"],
     answer: "B",
@@ -87,7 +87,7 @@ var questions = [
     difficulty: "hard"
   },
   {
-    id: 6131,
+    id: 6131, section: "Maths",
     text: "Two dice are thrown together. Find the probability that the sum of the numbers appearing on them is either 7 or 11.",
     options: ["A) 1/6", "B) 1/4", "C) 2/9", "D) 5/18"],
     answer: "C",
@@ -95,7 +95,7 @@ var questions = [
     difficulty: "moderate"
   },
   {
-    id: 6132,
+    id: 6132, section: "Maths",
     text: "A bag contains 4 red and 6 black balls. Two balls are drawn one after another without replacement. Given that the first ball drawn was black, find the probability that the second ball drawn is red.",
     options: ["A) 4/10", "B) 2/5", "C) 5/9", "D) 4/9"],
     answer: "D",
@@ -103,7 +103,7 @@ var questions = [
     difficulty: "moderate"
   },
   {
-    id: 6133,
+    id: 6133, section: "Maths",
     text: "The sum of the first 20 terms of an arithmetic progression is 650, and the sum of the first 10 terms is 175. Find the 15th term of the progression.",
     options: ["A) 46", "B) 43", "C) 49", "D) 52"],
     answer: "A",
@@ -111,7 +111,7 @@ var questions = [
     difficulty: "very hard"
   },
   {
-    id: 6134,
+    id: 6134, section: "Maths",
     text: "The sum to infinity of a geometric progression is 15, and the sum of the squares of its terms (also a GP to infinity) is 45. Find the common ratio of the original progression.",
     options: ["A) 1/3", "B) 2/3", "C) 3/4", "D) 3/5"],
     answer: "B",
@@ -119,7 +119,7 @@ var questions = [
     difficulty: "very hard"
   },
   {
-    id: 6135,
+    id: 6135, section: "Maths",
     text: "If alpha and beta are the roots of the equation x^2 - 7x + 12 = 0, find the value of alpha^3 + beta^3.",
     options: ["A) 85", "B) 98", "C) 91", "D) 79"],
     answer: "C",
@@ -127,7 +127,7 @@ var questions = [
     difficulty: "moderate"
   },
   {
-    id: 6136,
+    id: 6136, section: "Maths",
     text: "A function f satisfies f(x+y) = f(x) + f(y) for all real x and y, and f(1) = 5. Find the value of f(7).",
     options: ["A) 12", "B) 25", "C) 30", "D) 35"],
     answer: "D",
@@ -135,7 +135,7 @@ var questions = [
     difficulty: "moderate"
   },
   {
-    id: 6137,
+    id: 6137, section: "Maths",
     text: "In a class of 100 students, 50 play cricket, 40 play football, and 30 play hockey. 15 play both cricket and football, 12 play both football and hockey, 10 play both cricket and hockey, and 5 play all three games. How many students play none of the three games?",
     options: ["A) 12", "B) 15", "C) 10", "D) 18"],
     answer: "A",
@@ -143,7 +143,7 @@ var questions = [
     difficulty: "hard"
   },
   {
-    id: 6138,
+    id: 6138, section: "Maths",
     text: "In triangle ABC, DE is drawn parallel to BC, with D on AB and E on AC, such that AD:DB = 2:3. If the area of triangle ADE is 16 cm^2, find the area of the trapezium DBCE.",
     options: ["A) 80 cm^2", "B) 84 cm^2", "C) 88 cm^2", "D) 75 cm^2"],
     answer: "B",
@@ -151,7 +151,7 @@ var questions = [
     difficulty: "hard"
   },
   {
-    id: 6139,
+    id: 6139, section: "Maths",
     text: "Two circles of radii 8 cm and 3 cm have their centres 13 cm apart. Find the length of the direct common tangent to the two circles.",
     options: ["A) 10 cm", "B) 11 cm", "C) 12 cm", "D) 13 cm"],
     answer: "C",
@@ -159,7 +159,7 @@ var questions = [
     difficulty: "moderate"
   },
   {
-    id: 6140,
+    id: 6140, section: "Maths",
     text: "A solid is formed by mounting a cone of height 6 cm on top of a cylinder of the same base radius 7 cm and height 10 cm. Find the total volume of the solid. (Use pi = 22/7)",
     options: ["A) 1680 cm^3", "B) 1764 cm^3", "C) 1932 cm^3", "D) 1848 cm^3"],
     answer: "D",
@@ -167,7 +167,7 @@ var questions = [
     difficulty: "very hard"
   },
   {
-    id: 6141,
+    id: 6141, section: "Maths",
     text: "Find the area of the triangle formed by the points A(2,3), B(6,3), and C(4,7).",
     options: ["A) 8", "B) 10", "C) 12", "D) 6"],
     answer: "A",
@@ -175,7 +175,7 @@ var questions = [
     difficulty: "moderate"
   },
   {
-    id: 6142,
+    id: 6142, section: "Maths",
     text: "At what time between 4 o'clock and 5 o'clock will the minute hand and the hour hand of a clock be exactly opposite each other (that is, 180 degrees apart)?",
     options: ["A) 4:48", "B) 4:54 6/11", "C) 4:50", "D) 4:56 4/11"],
     answer: "B",
@@ -183,7 +183,7 @@ var questions = [
     difficulty: "hard"
   },
   {
-    id: 6143,
+    id: 6143, section: "Maths",
     text: "If 1st January 2024 was a Monday, what day of the week was 1st January 2025? (Note: 2024 is a leap year.)",
     options: ["A) Tuesday", "B) Thursday", "C) Wednesday", "D) Friday"],
     answer: "C",
@@ -191,7 +191,7 @@ var questions = [
     difficulty: "moderate"
   },
   {
-    id: 6144,
+    id: 6144, section: "Maths",
     text: "The present age of a father is 3 times the age of his son. 10 years ago, the father's age was 5 times the son's age at that time. Find the father's present age.",
     options: ["A) 45", "B) 50", "C) 55", "D) 60"],
     answer: "D",
@@ -199,7 +199,7 @@ var questions = [
     difficulty: "moderate"
   },
   {
-    id: 6145,
+    id: 6145, section: "Maths",
     text: "Two trains of lengths 150 m and 120 m are running towards each other on parallel tracks at speeds of 54 km/h and 36 km/h respectively. Find the time taken for them to cross each other completely.",
     options: ["A) 10.8 seconds", "B) 9.6 seconds", "C) 12 seconds", "D) 11.2 seconds"],
     answer: "A",
@@ -207,7 +207,7 @@ var questions = [
     difficulty: "moderate"
   },
   {
-    id: 6146,
+    id: 6146, section: "Maths",
     text: "In a 1000 m race, A beats B by 100 m. In another race of the same distance, B beats C by 100 m. Assuming each runner maintains a uniform speed throughout, by how many metres does A beat C in a 1000 m race?",
     options: ["A) 180 m", "B) 190 m", "C) 200 m", "D) 171 m"],
     answer: "B",
@@ -215,7 +215,7 @@ var questions = [
     difficulty: "very hard"
   },
   {
-    id: 6147,
+    id: 6147, section: "Maths",
     text: "The difference between the compound interest and the simple interest on a sum for 2 years at 10% per annum is ₹150. Find the sum.",
     options: ["A) ₹12,000", "B) ₹18,000", "C) ₹15,000", "D) ₹10,000"],
     answer: "C",
@@ -223,7 +223,7 @@ var questions = [
     difficulty: "moderate"
   },
   {
-    id: 6148,
+    id: 6148, section: "Maths",
     text: "In a survey of 200 people, 60% like tea, 45% like coffee, and 20% like both tea and coffee. What percentage of people like neither tea nor coffee?",
     options: ["A) 20%", "B) 10%", "C) 25%", "D) 15%"],
     answer: "D",
@@ -231,7 +231,7 @@ var questions = [
     difficulty: "easy"
   },
   {
-    id: 6149,
+    id: 6149, section: "Maths",
     text: "Solve for x: x^2 - 5x + 6 < 0. Find the range of values of x that satisfy this inequality.",
     options: ["A) 2 < x < 3", "B) x < 2 or x > 3", "C) -3 < x < -2", "D) x <= 2 or x >= 3"],
     answer: "A",
@@ -239,7 +239,7 @@ var questions = [
     difficulty: "moderate"
   },
   {
-    id: 6150,
+    id: 6150, section: "Maths",
     text: "A can complete a piece of work in 15 days and B can complete the same work in 10 days. They work together for 3 days, after which A leaves and B completes the remaining work alone. If the total wages for the work are ₹3000, and wages are divided in proportion to the work each person actually completed, find B's share of the wages.",
     options: ["A) ₹2,100", "B) ₹2,400", "C) ₹1,800", "D) ₹2,250"],
     answer: "B",
