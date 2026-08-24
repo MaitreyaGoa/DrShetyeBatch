@@ -417,6 +417,19 @@ var PART_TESTS = [
     solutionLink: "https://drive.google.com/file/d/1UxMb7VPKJRZAwGjWicbeSE6ydMq8vZtM/view",
     live:        true
   },
+  {
+    id:          "eng_rc14",
+    subject:     "english",
+    title:       "English RC — CAT Level Test 14",
+    description: "3 Passages · 5 Questions each · CAT / IIM Level · 15 Q",
+    password:    "engrc14",
+    duration:    1800,
+    totalMarks:  15,
+    sections:    { "English": 15 },
+    questionsFile: "questions/eng_rc14.js",
+    solutionLink: "https://drive.google.com/file/d/1Y5-FA-gu1sNnSLkGh3sfB4rIF17hgEHh/view",
+    live:        true
+  },
 
   // ── MATHS ──
   {
@@ -589,6 +602,19 @@ var PART_TESTS = [
     sections:    { "Maths": 30 },
     questionsFile: "questions/math_level2_aug10.js",
     solutionLink: "https://drive.google.com/file/d/15GvvBpwUsjkqehvJUA-MbPrt8niCCSIP/view",
+    live:        true
+  },
+  {
+    id:          "math_level2_aug24",
+    subject:     "maths",
+    title:       "Maths Level 2 Test — August 24th 2026",
+    description: "CAT / IIM Level · PYQ-style · 30 Topics · Mixed Commercial & Pure Maths",
+    password:    "Aug24",
+    duration:    2700,
+    totalMarks:  30,
+    sections:    { "Maths": 30 },
+    questionsFile: "questions/math_level2_aug24.js",
+    solutionLink: "https://drive.google.com/file/d/1lPwg3FbAMDGFCqtYlzpQG7nVVfjDyA2N/view",
     live:        true
   },
 
