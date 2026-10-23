@@ -622,7 +622,7 @@ function loadQB(idx,btn) {
   var set=QUESTION_BANK[idx];
   var wrap=document.getElementById("qbWrap");
   if(!wrap||!set) return;
-  var labels=["A","B","C","D"];
+  var labels=["A","B","C","D","E"];
   wrap.innerHTML='<div class="qbank-list">'+set.questions.map(function(q,i){
     var opts=q.options.map(function(opt,j){
       return '<li class="qb-option" data-qid="'+q.id+'" data-lbl="'+labels[j]+'" data-correct="'+q.answer+'" onclick="answerQB(this)">'
