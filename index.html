@@ -1162,22 +1162,8 @@
     <h2 class="section-title">Test Series</h2>
     <p class="section-sub">Choose a category below to jump straight to those tests.</p>
 
-    <!-- 8 SUB-CATEGORY TILES -->
+    <!-- 8 SUB-CATEGORY TILES (order matches the sections below) -->
     <div class="eight-tiles">
-
-      <a href="#sec-monthly" class="stile" style="--stile-color:#ff9500;">
-        <div class="stile-emoji">📆</div>
-        <div class="stile-title">Monthly Tests</div>
-        <div class="stile-sub">Full 100-mark tests</div>
-        <span class="stile-arrow">↓</span>
-      </a>
-
-      <a href="#sec-daily" class="stile" style="--stile-color:#ff3b30;">
-        <div class="stile-emoji">📅</div>
-        <div class="stile-title">Daily Quiz</div>
-        <div class="stile-sub">Date-wise daily drills</div>
-        <span class="stile-arrow">↓</span>
-      </a>
 
       <a href="#sec-gssc" class="stile" style="--stile-color:#0071e3;">
         <div class="stile-emoji">🏛</div>
@@ -1200,10 +1186,17 @@
         <span class="stile-arrow">↓</span>
       </a>
 
+      <a href="#sec-monthly" class="stile" style="--stile-color:#ff9500;">
+        <div class="stile-emoji">📆</div>
+        <div class="stile-title">Monthly Tests</div>
+        <div class="stile-sub">Full 100-mark tests</div>
+        <span class="stile-arrow">↓</span>
+      </a>
+
       <a href="#sec-part" class="stile" style="--stile-color:#007aff;">
         <div class="stile-emoji">📝</div>
         <div class="stile-title">Part Tests</div>
-        <div class="stile-sub">English · Maths · Reasoning</div>
+        <div class="stile-sub">English · Maths · Reasoning · Konkani</div>
         <span class="stile-arrow">↓</span>
       </a>
 
@@ -1214,7 +1207,14 @@
         <span class="stile-arrow">↓</span>
       </a>
 
-      <a href="#sec-scholar" class="stile" style="--stile-color:#ff9500;">
+      <a href="#sec-special" class="stile" style="--stile-color:#ff2d55;">
+        <div class="stile-emoji">🧪</div>
+        <div class="stile-title">Core Subject Tests</div>
+        <div class="stile-sub">Std 10 Science papers</div>
+        <span class="stile-arrow">↓</span>
+      </a>
+
+      <a href="#sec-scholar" class="stile" style="--stile-color:#ffcc00;">
         <div class="stile-emoji">🏆</div>
         <div class="stile-title">Scholarship &amp; Olympiad</div>
         <div class="stile-sub">Class 7–10 aptitude</div>
@@ -1224,14 +1224,13 @@
     </div>
     <!-- END 8 SUB-TILES -->
 
-    <!-- ANCHORED SUBSECTIONS — JS renders into these divs -->
+    <!-- ANCHORED SUBSECTIONS — JS renders into these divs (same order as the tiles) -->
+    <div id="sec-gssc" class="test-subsection"></div>
+    <div id="sec-gpsc" class="test-subsection"></div>
+    <div id="sec-pyq" class="test-subsection"></div>
     <div id="sec-monthly" class="test-subsection"></div>
-    <div id="sec-daily"   class="test-subsection"></div>
-    <div id="sec-gssc"    class="test-subsection"></div>
-    <div id="sec-gpsc"    class="test-subsection"></div>
-    <div id="sec-pyq"     class="test-subsection"></div>
-    <div id="sec-part"    class="test-subsection"></div>
-    <div id="sec-topic"   class="test-subsection"></div>
+    <div id="sec-part" class="test-subsection"></div>
+    <div id="sec-topic" class="test-subsection"></div>
     <div id="sec-special" class="test-subsection"></div>
     <div id="sec-scholar" class="test-subsection"></div>
 
@@ -1383,11 +1382,10 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener("DOMContentLoaded", function () {
 
   var routeMap = [
-    { match: "Monthly Tests",          target: "sec-monthly" },
-    { match: "Daily Tests",            target: "sec-daily"   },
     { match: "GSSC Mock Tests",        target: "sec-gssc"    },
     { match: "GPSC / JSO Tests",       target: "sec-gpsc"    },
     { match: "Previous Year Papers",   target: "sec-pyq"     },
+    { match: "Monthly Tests",          target: "sec-monthly" },
     { match: "Part Tests",             target: "sec-part"    },
     { match: "Topic Tests",            target: "sec-topic"   },
     { match: "Core Subject Tests",     target: "sec-special" },
@@ -1428,17 +1426,26 @@ document.addEventListener("DOMContentLoaded", function () {
     flush();
 
     // Add mini header to each subsection
+    // Section headers — numbered, with live/total counts from config.js
+    function cnt(arr) { arr = arr || []; var l = arr.filter(function(t){ return t.live; }).length; return arr.length ? (l + " live · " + arr.length + " tests") : ""; }
     var labels = {
-      "sec-monthly": { emoji:"📆", title:"Monthly Tests",            sub:"Full 100-mark · 4 sections · 90 min" },
-      "sec-daily":   { emoji:"📅", title:"Daily Quiz",               sub:"One new quiz every day" },
-      "sec-gssc":    { emoji:"🏛", title:"GSSC Mock Tests",          sub:"Police Constable · PC · LDC · Clerk posts" },
-      "sec-gpsc":    { emoji:"🎯", title:"GPSC / JSO Tests",         sub:"Junior Statistical Officer pre-screening" },
-      "sec-pyq":     { emoji:"📄", title:"Previous Year Papers",     sub:"Official GSSC question papers" },
-      "sec-part":    { emoji:"📝", title:"Part Tests",               sub:"Subject-wise section practice" },
-      "sec-topic":   { emoji:"🔬", title:"Topic Drills",             sub:"Topic-focused 10-15 question sets" },
-      "sec-special": { emoji:"🧪", title:"Core Subject Tests",       sub:"CBSE Std 10 Science special papers" },
-      "sec-scholar": { emoji:"🏆", title:"Scholarship & Olympiad",   sub:"Class 7-10 aptitude training" }
+      "sec-gssc":    { n:1, emoji:"🏛", title:"GSSC Mock Tests",        sub:"Police Constable · PC · LDC · Clerk posts", c: cnt(window.GSSC_TESTS) },
+      "sec-gpsc":    { n:2, emoji:"🎯", title:"GPSC / JSO Tests",       sub:"Junior Statistical Officer pre-screening",  c: cnt(window.GPSC_TESTS) },
+      "sec-pyq":     { n:3, emoji:"📄", title:"Previous Year Papers",   sub:"Official GSSC question papers",             c: cnt(window.PYQ_TESTS) },
+      "sec-monthly": { n:4, emoji:"📆", title:"Monthly Tests",          sub:"Full 100-mark · 4 sections · 90 min",       c: cnt(window.MONTHLY_TESTS) },
+      "sec-part":    { n:5, emoji:"📝", title:"Part Tests",             sub:"Subject-wise section practice",             c: cnt(window.PART_TESTS) },
+      "sec-topic":   { n:6, emoji:"🔬", title:"Topic Drills",           sub:"Topic-focused 10–15 question sets",         c: cnt(window.TOPIC_TESTS) },
+      "sec-special": { n:7, emoji:"🧪", title:"Core Subject Tests",     sub:"CBSE Std 10 Science special papers",        c: cnt(window.SPECIAL_TESTS) },
+      "sec-scholar": { n:8, emoji:"🏆", title:"Scholarship & Olympiad", sub:"Class 7–10 aptitude training",              c: cnt(window.SCHOLARSHIP_TESTS) }
     };
+
+    // The mini header replaces the old small grey group label inside each section
+    Object.keys(labels).forEach(function(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var g = el.querySelector(".test-group-label");
+      if (g) g.style.display = "none";
+    });
 
     Object.keys(labels).forEach(function(id) {
       var el = document.getElementById(id);
@@ -1449,8 +1456,8 @@ document.addEventListener("DOMContentLoaded", function () {
       hdr.innerHTML =
         '<span style="font-size:22px;">' + info.emoji + '</span>'
         + '<div>'
-        + '<div style="font-size:15px;font-weight:700;color:#1d1d1f;letter-spacing:-0.2px;">' + info.title + '</div>'
-        + '<div style="font-size:11px;color:#86868b;margin-top:1px;">' + info.sub + '</div>'
+        + '<div style="font-size:15px;font-weight:700;color:#1d1d1f;letter-spacing:-0.2px;"><span style="color:#86868b;font-weight:600;margin-right:6px;">' + info.n + '.</span>' + info.title + '</div>'
+        + '<div style="font-size:11px;color:#86868b;margin-top:1px;">' + info.sub + (info.c ? ' · <b style="color:#15803d;font-weight:600;">' + info.c + '</b>' : '') + '</div>'
         + '</div>'
         + '<a href="#tests" style="margin-left:auto;font-size:11px;color:#0071e3;text-decoration:none;font-weight:500;white-space:nowrap;">↑ Top</a>';
       el.insertBefore(hdr, el.firstChild);
