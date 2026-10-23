@@ -7,83 +7,10 @@ var ADMIN_PASSWORD = "shetye@admin";
 var SCRIPT_URL     = "https://script.google.com/macros/s/AKfycbwc7NM-tgwtxCjZOOyLaFnLe41spGbr-0hzmYChly6cXjbzV4jrXSmelLxXN9IxPK2ZBA/exec";
 
 // ──────────────────────────────────────────────────────────
-// 00. DAILY TESTS  (one test per day, date-tabbed on homepage)
-//     date: "YYYY-MM-DD" format
+// 00. DAILY TESTS — retired (Daily Quiz section removed from homepage).
+//     Kept as an empty list so older pages that read it do not break.
 // ──────────────────────────────────────────────────────────
-var DAILY_TESTS = [
-  {
-    id:          "daily_20260611_maths",
-    date:        "2026-06-11",
-    title:       "Daily Maths Quiz — 11 June 2026",
-    description: "Goa Competitive Exams · 15 Questions · Mixed Topics",
-    password:    "d110626",
-    duration:    900,
-    totalMarks:  15,
-    sections:    { "Maths": 15 },
-    questionsFile: "questions/math_dq6.js",
-    live:        true
-  },
-  {
-    id:          "daily_20260610_maths",
-    date:        "2026-06-10",
-    title:       "Daily Maths Quiz — 10 June 2026",
-    description: "Goa Competitive Exams · 15 Questions · Mixed Topics",
-    password:    "d100626",
-    duration:    900,
-    totalMarks:  15,
-    sections:    { "Maths": 15 },
-    questionsFile: "questions/math_dq5.js",
-    live:        true
-  },
-  {
-    id:          "daily_20260609_maths",
-    date:        "2026-06-09",
-    title:       "Daily Maths Quiz — 9 June 2026",
-    description: "Goa Competitive Exams · 15 Questions · Mixed Topics",
-    password:    "d090626",
-    duration:    900,
-    totalMarks:  15,
-    sections:    { "Maths": 15 },
-    questionsFile: "questions/math_dq2.js",
-    live:        true
-  },
-  {
-    id:          "daily_20260608_maths",
-    date:        "2026-06-08",
-    title:       "Daily Maths Quiz — 8 June 2026",
-    description: "15 Questions · Mixed Topics",
-    password:    "d080626",
-    duration:    900,
-    totalMarks:  15,
-    sections:    { "Maths": 15 },
-    questionsFile: "questions/math_dq3.js",
-    live:        true
-  },
-   {
-    id:          "daily_20260607_maths",
-    date:        "2026-06-07",
-    title:       "Daily Maths Quiz — 7 June 2026",
-    description: "15 Questions · Mixed Topics",
-    password:    "d070626",
-    duration:    900,
-    totalMarks:  15,
-    sections:    { "Maths": 15 },
-    questionsFile: "questions/math_dq4.js",
-    live:        true
-   },
-   {
-    id:          "daily_20260606_maths",
-    date:        "2026-06-06",
-    title:       "Daily Maths Quiz — 6 June 2026",
-    description: "15 Questions · Mixed Topics",
-    password:    "d060626",
-    duration:    900,
-    totalMarks:  15,
-    sections:    { "Maths": 15 },
-    questionsFile: "questions/math_dq1.js",
-    live:        true
-   }
-];
+var DAILY_TESTS = [];
 
 // ──────────────────────────────────────────────────────────
 // 0. MONTHLY TESTS  (Monthly Full Tests — English + Reasoning + Maths + GK)
@@ -125,6 +52,42 @@ var MONTHLY_TESTS = [
     sections:    { "English": 25, "Reasoning": 25, "Maths": 25, "General Knowledge": 25 },
     questionsFile: "questions/monthly_jul25.js",
     live:        true
+  }
+  ,{
+    id:          "monthly_aug26",
+    month:       "August",
+    title:       "August 2026 Monthly Full Test",
+    description: "English 25Q · Reasoning 25Q · Maths 25Q · GK 25Q · 100 Questions",
+    password:    "aug2026",
+    duration:    5400,
+    totalMarks:  100,
+    sections:    { "English": 25, "Reasoning": 25, "Maths": 25, "General Knowledge": 25 },
+    questionsFile: "questions/monthly_aug26.js",
+    live:        true
+  }
+  ,{
+    id:          "monthly_sep26",
+    month:       "September",
+    title:       "September 2026 Monthly Full Test",
+    description: "English 25Q · Reasoning 25Q · Maths 25Q · GK 25Q · 100 Questions",
+    password:    "sep2026",
+    duration:    5400,
+    totalMarks:  100,
+    sections:    { "English": 25, "Reasoning": 25, "Maths": 25, "General Knowledge": 25 },
+    questionsFile: "questions/monthly_sep26.js",
+    live:        true
+  }
+  ,{
+    id:          "monthly_oct26",
+    month:       "October",
+    title:       "October 2026 Monthly Full Test",
+    description: "English 25Q · Reasoning 25Q · Maths 25Q · GK 25Q · 100 Questions",
+    password:    "oct2026",
+    duration:    5400,
+    totalMarks:  100,
+    sections:    { "English": 25, "Reasoning": 25, "Maths": 25, "General Knowledge": 25 },
+    questionsFile: "questions/monthly_oct26.js",
+    live:        false
   }
 ];
 
