@@ -1,5 +1,5 @@
 // home.js – Dr Shetye Academic Programme
-// Updated: Solution buttons + newest-first sorting
+// Updated: Solution buttons + newest-first sorting · Daily Quiz removed · sections re-ordered
 /* Solution button styles — auto-injected */
 (function(){
   var s=document.createElement('style');
@@ -27,15 +27,15 @@ function renderTestsGrid() {
   if(!grid) return;
   grid.innerHTML = "";
 
-  appendMonthlyTests(grid);   // ← Section 1: Monthly Tests (FIRST)
-  appendDailyTests(grid);     // ← Section 2: Daily Tests
-  appendGroup(grid, "🏛 GSSC Mock Tests", window.GSSC_TESTS || []);
-  appendGroup(grid, "🏛 GPSC / JSO Tests", window.GPSC_TESTS || []);
-  appendGroup(grid, "Previous Year Papers", PYQ_TESTS || []);
-  appendPartTests(grid);
-  appendTopicTests(grid);
-  appendSpecialTests(grid);   // ← Section 6: Core Subject Tests
-  appendScholarshipTests(grid); // ← Section 7: Scholarship & Olympiad
+  // Organised order: Govt-exam full mocks → full-length practice → subject-wise → topic-wise → school level
+  appendGroup(grid, "🏛 GSSC Mock Tests", window.GSSC_TESTS || []);   // 1. GSSC (PC · LDC · Clerk)
+  appendGroup(grid, "🎯 GPSC / JSO Tests", window.GPSC_TESTS || []);  // 2. GPSC / JSO
+  appendGroup(grid, "📄 Previous Year Papers", window.PYQ_TESTS || []); // 3. Official PYQs
+  appendMonthlyTests(grid);     // 4. Monthly full tests (100 marks)
+  appendPartTests(grid);        // 5. Subject-wise part tests
+  appendTopicTests(grid);       // 6. Topic drills
+  appendSpecialTests(grid);     // 7. Core subject (Std 10)
+  appendScholarshipTests(grid); // 8. Scholarship & Olympiad
 }
 
 function appendGroup(grid, label, tests) {
@@ -78,99 +78,13 @@ function buildFullTestRowHTML(test) {
     +'<div class="top5-panel" id="top5-'+test.id+'"></div>';
 }
 
-// ══ DAILY TESTS (2nd section) ════════════════════════════
-function appendDailyTests(grid) {
-  if (!window.DAILY_TESTS || !DAILY_TESTS.length) return;
-
-  var lbl = document.createElement("div");
-  lbl.className = "test-group-label";
-  lbl.textContent = "📅 Daily Tests";
-  grid.appendChild(lbl);
-
-  var wrap = document.createElement("div");
-  wrap.className = "part-wrap";
-
-  // Build unique sorted date list
-  var dateMap = {};
-  DAILY_TESTS.forEach(function(t) {
-    if (!dateMap[t.date]) dateMap[t.date] = [];
-    dateMap[t.date].push(t);
-  });
-  var dates = Object.keys(dateMap).sort().reverse(); // latest first
-
-  // Format date for display: "2026-06-06" → "06 Jun 2026"
-  function fmtDate(d) {
-    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    var parts = d.split('-');
-    return parts[2] + ' ' + months[parseInt(parts[1],10)-1] + ' ' + parts[0];
-  }
-
-  // Mark today
-  var today = new Date();
-  var todayStr = today.getFullYear() + '-'
-    + String(today.getMonth()+1).padStart(2,'0') + '-'
-    + String(today.getDate()).padStart(2,'0');
-
-  var tabs = '<div class="subject-tabs" id="dailyTabs">';
-  dates.forEach(function(d, i) {
-    var isToday = d === todayStr;
-    tabs += '<button class="sub-tab' + (i===0?' active':'') + '" '
-          + 'onclick="showDailyTab(\'' + d + '\',this)">'
-          + (isToday ? '🔴 Today' : fmtDate(d)) + '</button>';
-  });
-  tabs += '</div>';
-
-  var panels = '';
-  dates.forEach(function(d, i) {
-    var tests = dateMap[d];
-    var rows = tests.map(function(t) {
-      var badge = t.live
-        ? '<span class="badge-live">Live</span>'
-        : '<span class="badge-soon">Soon</span>';
-      var secTags = Object.keys(t.sections||{}).map(function(s){
-        return '<span class="sec-tag">'+s+': '+t.sections[s]+'</span>';
-      }).join('');
-      var top5Btn = t.live
-        ? '<button class="btn-sm-gold" onclick="toggleTop5(\''+t.id+'\',\''+t.title.replace(/'/g,"\\'")+'\',' +t.totalMarks+',this)">🏅</button>'
-        : '';
-      var actionBtn = t.live
-        ? '<button class="btn-sm-primary" onclick="goToTest(\''+t.id+'\')">Start →</button>'
-        : '<button class="btn-sm-disabled">Soon</button>';
-      return '<div class="test-row">'
-        +'<div class="test-row-info">'
-        +'<div class="test-row-top"><span class="test-row-title">📝 '+t.title+'</span>'+badge+'</div>'
-        +'<div class="test-row-meta">'+t.description+' · ⏱ '+Math.round(t.duration/60)+' min · '+t.totalMarks+' marks</div>'
-        +'<div class="test-row-tags">'+secTags+'</div>'
-        +'</div>'
-        +'<div class="test-row-actions">'+top5Btn+actionBtn+'</div>'
-        +'</div>'
-        +'<div class="top5-panel" id="top5-'+t.id+'"></div>';
-    }).join('');
-
-    panels += '<div id="dtPanel-' + d + '" class="subject-panel'+(i>0?' hidden':'')+'">'
-            + '<div class="test-list">' + rows + '</div></div>';
-  });
-
-  wrap.innerHTML = tabs + panels;
-  grid.appendChild(wrap);
-}
-
-function showDailyTab(date, btn) {
-  document.querySelectorAll("[id^='dtPanel-']").forEach(function(p){p.classList.add("hidden");});
-  document.getElementById("dailyTabs").querySelectorAll(".sub-tab")
-    .forEach(function(t){t.classList.remove("active");});
-  var panel = document.getElementById("dtPanel-"+date);
-  if(panel) panel.classList.remove("hidden");
-  btn.classList.add("active");
-}
-
-// ══ MONTHLY TESTS (1st section) ══════════════════════════
+// ══ MONTHLY TESTS (4th section) ══════════════════════════
 function appendMonthlyTests(grid) {
   if (!window.MONTHLY_TESTS || !MONTHLY_TESTS.length) return;
 
   var lbl = document.createElement("div");
   lbl.className = "test-group-label";
-  lbl.textContent = "Monthly Tests";
+  lbl.textContent = "📆 Monthly Tests";
   grid.appendChild(lbl);
 
   var wrap = document.createElement("div");
@@ -182,6 +96,7 @@ function appendMonthlyTests(grid) {
   MONTHLY_TESTS.forEach(function(t) {
     if (!seen[t.month]) { seen[t.month] = true; months.push(t.month); }
   });
+  months.reverse(); // latest month first, and opened by default
 
   var tabs = '<div class="subject-tabs" id="monthlyTabs">';
   months.forEach(function(m, i) {
@@ -242,7 +157,7 @@ function buildMonthlyRowHTML(test) {
 function appendPartTests(grid) {
   var lbl = document.createElement("div");
   lbl.className = "test-group-label";
-  lbl.textContent = "Part Tests";
+  lbl.textContent = "📝 Part Tests";
   grid.appendChild(lbl);
 
   var wrap = document.createElement("div");
@@ -287,7 +202,7 @@ function appendTopicTests(grid) {
 
   var lbl = document.createElement("div");
   lbl.className = "test-group-label";
-  lbl.textContent = "Topic Tests";
+  lbl.textContent = "🔬 Topic Tests";
   grid.appendChild(lbl);
 
   var wrap = document.createElement("div");
@@ -355,7 +270,7 @@ function appendSpecialTests(grid) {
 
   var lbl = document.createElement("div");
   lbl.className = "test-group-label";
-  lbl.textContent = "Core Subject Tests";
+  lbl.textContent = "🧪 Core Subject Tests";
   grid.appendChild(lbl);
 
   var wrap = document.createElement("div");
@@ -698,7 +613,7 @@ function appendScholarshipTests(grid) {
 
   var lbl = document.createElement("div");
   lbl.className = "test-group-label";
-  lbl.textContent = "🏅 School Level — Scholarship & Olympiad Training";
+  lbl.textContent = "🏆 School Level — Scholarship & Olympiad Training";
   grid.appendChild(lbl);
 
   var wrap = document.createElement("div");
