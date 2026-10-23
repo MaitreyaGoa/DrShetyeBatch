@@ -97,7 +97,7 @@ var MONTHLY_TESTS = [
 var GSSC_TESTS = [
   {
     id:          "fulltest1",
-    title:       "GSSC Full Mock Test 1",
+    title:       "Goa Police CBT 1",
     description: "English · Maths · Reasoning · 50 Questions",
     password:    "gssc001",
     duration:    3600,
@@ -108,7 +108,7 @@ var GSSC_TESTS = [
   },
   {
     id:          "fulltest2",
-    title:       "GSSC Full Mock Test 2",
+    title:       "Goa Police CBT 2",
     description: "English · Maths · Reasoning · 50 Questions",
     password:    "gssc002",
     duration:    3600,
@@ -119,7 +119,7 @@ var GSSC_TESTS = [
   },
   {
     id:          "fulltest4",
-    title:       "GSSC Full Mock Test 3",
+    title:       "Goa Police CBT 3",
     description: "English · Maths · Reasoning · 50 Questions",
     password:    "gssc003",
     duration:    3600,
@@ -151,7 +151,7 @@ var GSSC_TESTS = [
     totalMarks:  60,
     sections:    { "Konkani": 10, "English": 20, "Reasoning-I": 10, "Numerical Ability": 10, "Reasoning-II": 10 },
     questionsFile: "questions/ldc_mock02.js",
-    live:        false
+    live:        true
   },
   {
     id:          "ldc_mock03",
@@ -162,7 +162,7 @@ var GSSC_TESTS = [
     totalMarks:  60,
     sections:    { "Konkani": 10, "English": 20, "Reasoning-I": 10, "Numerical Ability": 10, "Reasoning-II": 10 },
     questionsFile: "questions/ldc_mock03.js",
-    live:        false
+    live:        true
   },
   {
     id:          "ldc_mock04",
@@ -173,7 +173,7 @@ var GSSC_TESTS = [
     totalMarks:  60,
     sections:    { "Konkani": 10, "English": 20, "Reasoning-I": 10, "Numerical Ability": 10, "Reasoning-II": 10 },
     questionsFile: "questions/ldc_mock04.js",
-    live:        false
+    live:        true
   },
   {
     id:          "ldc_mock05",
@@ -184,7 +184,7 @@ var GSSC_TESTS = [
     totalMarks:  60,
     sections:    { "Konkani": 10, "English": 20, "Reasoning-I": 10, "Numerical Ability": 10, "Reasoning-II": 10 },
     questionsFile: "questions/ldc_mock05.js",
-    live:        false
+    live:        true
   }
 ];
 
@@ -277,6 +277,28 @@ var PYQ_TESTS = [
     sections:    { "Konkani": 10, "English": 30, "Maths": 10, "Reasoning": 10 },
     questionsFile: "questions/pyq_gssc3.js",
     live:        false
+  },
+  {
+    id:          "pyq_cbt2026",
+    title:       "GSSC Group C (Clerical) PYQ — CBT April 2026",
+    description: "Official GSSC Paper · 26 April 2026 · 60 Questions · Konkani + English + Numerical + Reasoning",
+    password:    "pyq2026",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Konkani": 10, "English": 20, "Numerical Ability": 15, "Reasoning": 15 },
+    questionsFile: "questions/pyq_cbt2026.js",
+    live:        true
+  },
+  {
+    id:          "pyq_ldc2025",
+    title:       "GSSC LDC PYQ — CBT January 2025",
+    description: "Official GSSC LDC / Recovery Clerk Paper · 25 Jan 2025 · 60 Questions",
+    password:    "ldcpyq",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Konkani": 10, "English": 20, "Reasoning-I": 10, "Numerical Ability": 10, "Reasoning-II": 10 },
+    questionsFile: "questions/pyq_ldc2025.js",
+    live:        true
   }
 ];
 
