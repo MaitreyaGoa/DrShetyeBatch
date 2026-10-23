@@ -299,6 +299,39 @@ var PYQ_TESTS = [
     sections:    { "Konkani": 10, "English": 20, "Reasoning-I": 10, "Numerical Ability": 10, "Reasoning-II": 10 },
     questionsFile: "questions/pyq_ldc2025.js",
     live:        true
+  },
+  {
+    id:          "pyq_lab2026",
+    title:       "GSSC Lab Assistant PYQ — CBT February 2026",
+    description: "Official GSSC Lab Assistant Paper · 28 Feb 2026 · 60 Questions · Konkani + English + Numerical + Reasoning",
+    password:    "pyqlab",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Konkani": 10, "English": 20, "Numerical Ability": 15, "Reasoning": 15 },
+    questionsFile: "questions/pyq_lab2026.js",
+    live:        true
+  },
+  {
+    id:          "pyq_may26a",
+    title:       "GSSC Group C PYQ — CBT May 2026 (Shift 1)",
+    description: "Official GSSC Paper · 3 May 2026, 2:00 PM shift · 60 Questions · Konkani + English + Numerical + Reasoning",
+    password:    "pyqmay1",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Konkani": 10, "English": 20, "Numerical Ability": 15, "Reasoning": 15 },
+    questionsFile: "questions/pyq_may26a.js",
+    live:        true
+  },
+  {
+    id:          "pyq_may26b",
+    title:       "GSSC Group C PYQ — CBT May 2026 (Shift 2)",
+    description: "Official GSSC Paper · 3 May 2026, 4:15 PM shift · 60 Questions · Konkani + English + Numerical + Reasoning",
+    password:    "pyqmay2",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Konkani": 10, "English": 20, "Numerical Ability": 15, "Reasoning": 15 },
+    questionsFile: "questions/pyq_may26b.js",
+    live:        true
   }
 ];
 
