@@ -164,6 +164,64 @@ var GSSC_TESTS = [
     sections:    { "English": 30, "Maths": 10, "Reasoning": 10 },
     questionsFile: "questions/fulltest4.js",
     live:        false
+  },
+
+  // ── GSSC LDC / Recovery Clerk CBT-I Mocks (Konkani 10 · English 20 · Reasoning-I 10 · Numerical 10 · Reasoning-II 10) ──
+  // Homepage shows the list newest-first, so these appear at the top of "GSSC Mock Tests" (Test 5 → Test 1).
+  {
+    id:          "ldc_mock01",
+    title:       "GSSC LDC Full Mock Test 1",
+    description: "LDC / Recovery Clerk CBT-I · Konkani · English · Reasoning · Numerical · 60 Questions",
+    password:    "ldc001",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Konkani": 10, "English": 20, "Reasoning-I": 10, "Numerical Ability": 10, "Reasoning-II": 10 },
+    questionsFile: "questions/ldc_mock01.js",
+    live:        true
+  },
+  {
+    id:          "ldc_mock02",
+    title:       "GSSC LDC Full Mock Test 2",
+    description: "LDC / Recovery Clerk CBT-I · Konkani · English · Reasoning · Numerical · 60 Questions",
+    password:    "ldc002",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Konkani": 10, "English": 20, "Reasoning-I": 10, "Numerical Ability": 10, "Reasoning-II": 10 },
+    questionsFile: "questions/ldc_mock02.js",
+    live:        false
+  },
+  {
+    id:          "ldc_mock03",
+    title:       "GSSC LDC Full Mock Test 3",
+    description: "LDC / Recovery Clerk CBT-I · Konkani · English · Reasoning · Numerical · 60 Questions",
+    password:    "ldc003",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Konkani": 10, "English": 20, "Reasoning-I": 10, "Numerical Ability": 10, "Reasoning-II": 10 },
+    questionsFile: "questions/ldc_mock03.js",
+    live:        false
+  },
+  {
+    id:          "ldc_mock04",
+    title:       "GSSC LDC Full Mock Test 4",
+    description: "LDC / Recovery Clerk CBT-I · Konkani · English · Reasoning · Numerical · 60 Questions",
+    password:    "ldc004",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Konkani": 10, "English": 20, "Reasoning-I": 10, "Numerical Ability": 10, "Reasoning-II": 10 },
+    questionsFile: "questions/ldc_mock04.js",
+    live:        false
+  },
+  {
+    id:          "ldc_mock05",
+    title:       "GSSC LDC Full Mock Test 5",
+    description: "LDC / Recovery Clerk CBT-I · Konkani · English · Reasoning · Numerical · 60 Questions",
+    password:    "ldc005",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Konkani": 10, "English": 20, "Reasoning-I": 10, "Numerical Ability": 10, "Reasoning-II": 10 },
+    questionsFile: "questions/ldc_mock05.js",
+    live:        false
   }
 ];
 
