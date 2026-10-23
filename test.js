@@ -97,12 +97,17 @@ var SECTION_ORDER = [
   "English Comprehension",
   "English", "Maths", "Reasoning", "Konkani",
   "General Knowledge", "Aptitude",
-  "Chemistry", "Biology", "Physics", "Environment"
+  "Chemistry", "Biology", "Physics", "Environment",
+  "Reasoning-I", "Numerical Ability", "Reasoning-II"
 ];
 
 function getSections() {
+  // Sections appear in the order they occur in the question file (Konkani Q1–10 first for LDC).
+  // SECTION_ORDER is kept for reference; any new section name now works automatically.
+  var order = [];
+  questions.forEach(function (q) { if (q.section && order.indexOf(q.section) === -1) order.push(q.section); });
   var secs = [];
-  SECTION_ORDER.forEach(function (sec) {
+  order.forEach(function (sec) {
     var start = -1, count = 0;
     questions.forEach(function (q, i) {
       if (q.section === sec) { if (start === -1) start = i; count++; }
@@ -113,7 +118,8 @@ function getSections() {
 }
 
 function secShort(s) {
-  return { "General Intelligence & Reasoning": "Reasoning & Aptitude", "English Comprehension": "English" }[s] || s;
+  return { "General Intelligence & Reasoning": "Reasoning & Aptitude", "English Comprehension": "English",
+           "Numerical Ability": "Numerical", "Reasoning-I": "Reasoning-I", "Reasoning-II": "Reasoning-II" }[s] || s;
 }
 
 // ── START TEST ────────────────────────────────────────────
@@ -192,7 +198,7 @@ function renderQuestion(idx) {
 
   html += '<div class="question-text">' + q.text + '</div>';
   html += '<ul class="options-list">';
-  var labels = ["A", "B", "C", "D"];
+  var labels = ["A", "B", "C", "D", "E"];
   for (var i = 0; i < q.options.length; i++) {
     var lbl = labels[i];
     var isSel = userAnswers[String(q.id)] === lbl;
@@ -436,8 +442,8 @@ function saveResultCentral(result) {
     "name="      + encodeURIComponent(result.name),
     "timestamp=" + encodeURIComponent(result.timestamp),
     "english="   + encodeURIComponent(sc["English Comprehension"] || sc["English"] || 0),
-    "maths="     + encodeURIComponent(sc["Maths"] || 0),
-    "reasoning=" + encodeURIComponent(sc["General Intelligence & Reasoning"] || sc["Reasoning"] || 0),
+    "maths="     + encodeURIComponent(sc["Maths"] || sc["Numerical Ability"] || 0),
+    "reasoning=" + encodeURIComponent(sc["General Intelligence & Reasoning"] || sc["Reasoning"] || ((sc["Reasoning-I"] || 0) + (sc["Reasoning-II"] || 0))),
     "konkani="   + encodeURIComponent(sc["Konkani"] || 0),
     "total="     + encodeURIComponent(result.total),
     "outOf="     + encodeURIComponent(result.outOf || 60)
@@ -477,7 +483,7 @@ function renderResult(result) {
 // ── ANSWER REVIEW ─────────────────────────────────────────
 function viewAnswers() {
   var list   = document.getElementById("answerList");
-  var labels = ["A", "B", "C", "D"];
+  var labels = ["A", "B", "C", "D", "E"];
   list.innerHTML = "";
   questions.forEach(function (q, i) {
     var given   = userAnswers[String(q.id)];
