@@ -69,8 +69,48 @@ function showPage(id) {
     document.getElementById(p).style.display = "none";
   });
   document.getElementById(id).style.display = "block";
+  // The site footer sat on top of the fixed bottom bar when scrolled to the end,
+  // so Next/Prev taps hit the footer. Hide it while the test is running.
+  var ft = document.querySelector(".site-footer");
+  if (ft) ft.style.display = (id === "testPage") ? "none" : "";
+  if (id === "testPage" && !document.getElementById("testNavFixCss")) {
+    var st = document.createElement("style");
+    st.id = "testNavFixCss";
+    st.textContent = ".bottom-bar{z-index:1000 !important;padding-bottom:calc(8px + env(safe-area-inset-bottom)) !important;}"
+                   + ".float-palette-btn{z-index:1001 !important;}"
+                   + ".palette-overlay{z-index:1098 !important;}.palette-drawer{z-index:1099 !important;}";
+    document.head.appendChild(st);
+  }
   window.scrollTo(0, 0);
 }
+
+// ── EXIT GUARD (browser / phone Back button, refresh, closing tab) ──
+var testActive = false, testGuardArmed = false;
+var EXIT_MSG = "Are you sure you want to exit the test?\n\nYour answers will NOT be submitted.";
+function armExitGuard() {
+  testActive = true;
+  if (!testGuardArmed) {
+    testGuardArmed = true;
+    try { history.pushState({ inTest: true }, "", location.href); } catch (e) {}
+  }
+}
+function disarmExitGuard() { testActive = false; }
+window.addEventListener("popstate", function () {
+  if (testActive) {
+    if (confirm(EXIT_MSG)) {
+      testActive = false;
+      history.back();                       // really leave
+    } else {
+      try { history.pushState({ inTest: true }, "", location.href); } catch (e) {}  // stay on the test
+    }
+  } else if (testGuardArmed) {
+    testGuardArmed = false;
+    history.back();                         // test already submitted: one Back press leaves normally
+  }
+});
+window.addEventListener("beforeunload", function (e) {
+  if (testActive) { e.preventDefault(); e.returnValue = EXIT_MSG; return EXIT_MSG; }
+});
 
 // ── LOGIN ─────────────────────────────────────────────────
 function login() {
@@ -131,6 +171,7 @@ function startTest() {
   buildPalette();
   renderQuestion(0);
   startTimer();
+  armExitGuard();
 }
 
 function buildSectionTabs() {
@@ -229,8 +270,12 @@ function renderQuestion(idx) {
   if (nb) {
     nb.disabled = (idx === questions.length - 1);
     nb.textContent = (idx === questions.length - 1) ? "Last ▶" : "Next ▶";
+    nb.style.background = "";
   }
+  navBusy = false;
   updatePalette();
+  // Always show the new question from its top (students were left at the bottom of the previous one)
+  window.scrollTo(0, 0);
 }
 
 function selectAnswer(el) {
@@ -273,8 +318,10 @@ function saveAndNext() {
 }
 
 function prevQuestion() { if (currentQ > 0) renderQuestion(currentQ - 1); }
+var navBusy = false;
 function nextQuestion() {
-  if (currentQ >= questions.length - 1) return;
+  if (currentQ >= questions.length - 1 || navBusy) return;
+  navBusy = true;
   var nb = document.getElementById("nextBtn");
   if (nb && userAnswers[String(questions[currentQ].id)]) {
     var orig = nb.textContent;
@@ -410,6 +457,7 @@ function confirmSubmit() {
 }
 
 function submitTest() {
+  disarmExitGuard();
   clearInterval(timerInterval);
   saveResultCentral(calculateScore());
 }
@@ -506,4 +554,4 @@ function viewAnswers() {
   showPage("answerPage");
 }
 
-function goHome() { window.location.href = "index.html"; }
+function goHome() { disarmExitGuard(); window.location.href = "index.html"; }
