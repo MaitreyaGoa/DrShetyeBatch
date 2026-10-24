@@ -744,6 +744,80 @@ var PART_TESTS = [
     password: "kon002", duration: 1800, totalMarks: 20,
     sections: { "Konkani": 20 },
     questionsFile: "questions/kon_part2.js", live: false
+  },
+
+  // ── GSSC LDC PRACTICE SETS (Oct 2026) ──
+  {
+    id:          "reason_ldc1",
+    subject:     "reasoning",
+    title:       "LDC Reasoning Practice — Set 1",
+    description: "GSSC LDC · 20 Q · Figures (mirror, folding, dice, series, Venn…) + Verbal (coding, series, directions, blood relation, syllogism…)",
+    password:    "ldcr01",
+    duration:    1500,
+    totalMarks:  20,
+    sections:    { "Reasoning-I": 10, "Reasoning-II": 10 },
+    questionsFile: "questions/reason_ldc1.js",
+    live:        true
+  },
+  {
+    id:          "reason_ldc2",
+    subject:     "reasoning",
+    title:       "LDC Reasoning Practice — Set 2",
+    description: "GSSC LDC · 20 Q · Cube net, painted cube, dot situation, counting + clock, calendar, circular seating, inequality, data sufficiency…",
+    password:    "ldcr02",
+    duration:    1500,
+    totalMarks:  20,
+    sections:    { "Reasoning-I": 10, "Reasoning-II": 10 },
+    questionsFile: "questions/reason_ldc2.js",
+    live:        true
+  },
+  {
+    id:          "math_ldcA",
+    subject:     "maths",
+    title:       "LDC Numerical Ability — Set A",
+    description: "GSSC LDC · 10 Q · Percentage, profit, CI–SI, work, trains, partnership, average, mensuration, LCM, probability",
+    password:    "ldcqa",
+    duration:    900,
+    totalMarks:  10,
+    sections:    { "Maths": 10 },
+    questionsFile: "questions/math_ldcA.js",
+    live:        true
+  },
+  {
+    id:          "math_ldcB",
+    subject:     "maths",
+    title:       "LDC Numerical Ability — Set B",
+    description: "GSSC LDC · 10 Q · BODMAS, LCM, ages, boats, pipes, mixture, heights & distances, statistics, cylinder, algebra",
+    password:    "ldcqb",
+    duration:    900,
+    totalMarks:  10,
+    sections:    { "Maths": 10 },
+    questionsFile: "questions/math_ldcB.js",
+    live:        true
+  },
+  {
+    id:          "eng_ldc1",
+    subject:     "english",
+    title:       "LDC English Practice — Set 1",
+    description: "GSSC LDC · 20 Q · Voice, narration, vocabulary, idioms, grammar, error spotting, rearrangement, spelling",
+    password:    "ldce01",
+    duration:    1200,
+    totalMarks:  20,
+    sections:    { "English": 20 },
+    questionsFile: "questions/eng_ldc1.js",
+    live:        true
+  },
+  {
+    id:          "eng_ldc2",
+    subject:     "english",
+    title:       "LDC English Practice — Set 2",
+    description: "GSSC LDC · 20 Q · Voice, narration, vocabulary, idioms, grammar, error spotting, rearrangement, spelling",
+    password:    "ldce02",
+    duration:    1200,
+    totalMarks:  20,
+    sections:    { "English": 20 },
+    questionsFile: "questions/eng_ldc2.js",
+    live:        true
   }
 ];
 
