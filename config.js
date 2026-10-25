@@ -1,3 +1,8 @@
+// ── PASSWORD SWITCH ─────────────────────────────────────────
+// true  = every test asks for its password (currently "excelbicholim" for all tests)
+// false = tests open with the student's name only
+var REQUIRE_PASSWORDS = true;
+
 // ╔══════════════════════════════════════════════════════════╗
 // ║         Dr Shetye Academic Program – MASTER CONFIG       ║
 // ║  Edit this file to control tests, PDFs, question bank    ║
