@@ -46,9 +46,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.getElementById("studentPassword").addEventListener("keydown", function (e) { if (e.key === "Enter") login(); });
   document.getElementById("studentName").addEventListener("keydown",     function (e) { if (e.key === "Enter") login(); });
+  applyPasswordMode();
 
   loadQuestions(currentTest.questionsFile);
 });
+
+// ── PASSWORD SWITCH ──────────────────────────────────────
+// Tests now open with just the student's name. To bring passwords back for ALL tests,
+// add  var REQUIRE_PASSWORDS = true;  in config.js. To lock ONE test only, add
+// requirePassword: true  to that test's entry in config.js.
+function passwordNeeded() {
+  if (!currentTest) return false;
+  if (currentTest.requirePassword === true) return true;
+  return window.REQUIRE_PASSWORDS === true;
+}
+function applyPasswordMode() {
+  var pw = document.getElementById("studentPassword");
+  if (!pw) return;
+  var group = pw.closest(".form-group") || pw.parentNode;
+  if (group) group.style.display = passwordNeeded() ? "" : "none";
+}
 
 function loadQuestions(filename) {
   var script = document.createElement("script");
@@ -119,7 +136,7 @@ function login() {
   var err  = document.getElementById("loginError");
   if (!name) { err.textContent = "Please enter your full name."; err.style.display = "block"; return; }
   if (!currentTest) { err.textContent = "Test not found. Please go back and click Start again."; err.style.display = "block"; return; }
-  if (pass !== currentTest.password) { err.textContent = "Incorrect password. Please check with your coordinator."; err.style.display = "block"; return; }
+  if (passwordNeeded() && pass !== currentTest.password) { err.textContent = "Incorrect password. Please check with your coordinator."; err.style.display = "block"; return; }
   if (!questions || questions.length === 0) { err.textContent = "Questions not loaded yet. Please wait 2 seconds and try again."; err.style.display = "block"; return; }
   err.style.display  = "none";
   currentStudent     = name;
