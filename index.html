@@ -826,11 +826,11 @@
     }
     .eight-tiles{
       display:grid;
-      grid-template-columns:repeat(4,1fr);
+      grid-template-columns:repeat(3,1fr);
       gap:8px;
       margin-bottom:36px;
     }
-    @media(max-width:900px){.eight-tiles{grid-template-columns:repeat(4,1fr);}}
+    @media(max-width:900px){.eight-tiles{grid-template-columns:repeat(3,1fr);}}
     @media(max-width:640px){.eight-tiles{grid-template-columns:repeat(2,1fr);}}
 
     .stile{
@@ -1085,7 +1085,7 @@
     <h2 class="section-title">Test Series</h2>
     <p class="section-sub">Choose a category below to jump straight to those tests.</p>
 
-    <!-- 8 SUB-CATEGORY TILES (order matches the sections below) -->
+    <!-- 9 SUB-CATEGORY TILES (order matches the sections below) -->
     <div class="eight-tiles">
 
       <a href="#sec-gssc" class="stile" style="--stile-color:#0071e3;">
@@ -1099,6 +1099,13 @@
         <div class="stile-emoji">🎯</div>
         <div class="stile-title">GPSC / JSO Tests</div>
         <div class="stile-sub">JSO Pre-Screening</div>
+        <span class="stile-arrow">↓</span>
+      </a>
+
+      <a href="#sec-cat" class="stile" style="--stile-color:#c2410c;">
+        <div class="stile-emoji">🎓</div>
+        <div class="stile-title">CAT Preparation</div>
+        <div class="stile-sub">Full mocks · real CAT interface</div>
         <span class="stile-arrow">↓</span>
       </a>
 
@@ -1150,6 +1157,7 @@
     <!-- ANCHORED SUBSECTIONS — JS renders into these divs (same order as the tiles) -->
     <div id="sec-gssc" class="test-subsection"></div>
     <div id="sec-gpsc" class="test-subsection"></div>
+    <div id="sec-cat" class="test-subsection"></div>
     <div id="sec-pyq" class="test-subsection"></div>
     <div id="sec-monthly" class="test-subsection"></div>
     <div id="sec-part" class="test-subsection"></div>
@@ -1307,6 +1315,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var routeMap = [
     { match: "GSSC Mock Tests",        target: "sec-gssc"    },
     { match: "GPSC / JSO Tests",       target: "sec-gpsc"    },
+    { match: "CAT Preparation",        target: "sec-cat"     },
     { match: "Previous Year Papers",   target: "sec-pyq"     },
     { match: "Monthly Tests",          target: "sec-monthly" },
     { match: "Part Tests",             target: "sec-part"    },
@@ -1354,12 +1363,13 @@ document.addEventListener("DOMContentLoaded", function () {
     var labels = {
       "sec-gssc":    { n:1, emoji:"🏛", title:"GSSC Mock Tests",        sub:"Police Constable · PC · LDC · Clerk posts", c: cnt(window.GSSC_TESTS) },
       "sec-gpsc":    { n:2, emoji:"🎯", title:"GPSC / JSO Tests",       sub:"Junior Statistical Officer pre-screening",  c: cnt(window.GPSC_TESTS) },
-      "sec-pyq":     { n:3, emoji:"📄", title:"Previous Year Papers",   sub:"Official GSSC question papers",             c: cnt(window.PYQ_TESTS) },
-      "sec-monthly": { n:4, emoji:"📆", title:"Monthly Tests",          sub:"Full 100-mark · 4 sections · 90 min",       c: cnt(window.MONTHLY_TESTS) },
-      "sec-part":    { n:5, emoji:"📝", title:"Part Tests",             sub:"Subject-wise section practice",             c: cnt(window.PART_TESTS) },
-      "sec-topic":   { n:6, emoji:"🔬", title:"Topic Drills",           sub:"Topic-focused 10–15 question sets",         c: cnt(window.TOPIC_TESTS) },
-      "sec-special": { n:7, emoji:"🧪", title:"Core Subject Tests",     sub:"CBSE Std 10 Science special papers",        c: cnt(window.SPECIAL_TESTS) },
-      "sec-scholar": { n:8, emoji:"🏆", title:"Scholarship & Olympiad", sub:"Class 7–10 aptitude training",              c: cnt(window.SCHOLARSHIP_TESTS) }
+      "sec-cat":     { n:3, emoji:"🎓", title:"CAT Preparation",        sub:"Full-length CAT mocks in the real CAT exam interface", c: cnt(window.CAT_TESTS) },
+      "sec-pyq":     { n:4, emoji:"📄", title:"Previous Year Papers",   sub:"Official GSSC &amp; GPSC question papers",     c: cnt(window.PYQ_TESTS) },
+      "sec-monthly": { n:5, emoji:"📆", title:"Monthly Tests",          sub:"Full 100-mark · 4 sections · 90 min",       c: cnt(window.MONTHLY_TESTS) },
+      "sec-part":    { n:6, emoji:"📝", title:"Part Tests",             sub:"Subject-wise section practice",             c: cnt(window.PART_TESTS) },
+      "sec-topic":   { n:7, emoji:"🔬", title:"Topic Drills",           sub:"Topic-focused 10–15 question sets",         c: cnt(window.TOPIC_TESTS) },
+      "sec-special": { n:8, emoji:"🧪", title:"Core Subject Tests",     sub:"CBSE Std 10 Science special papers",        c: cnt(window.SPECIAL_TESTS) },
+      "sec-scholar": { n:9, emoji:"🏆", title:"Scholarship & Olympiad", sub:"Class 7–10 aptitude training",              c: cnt(window.SCHOLARSHIP_TESTS) }
     };
 
     // The mini header replaces the old small grey group label inside each section
