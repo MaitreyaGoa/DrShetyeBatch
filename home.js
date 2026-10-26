@@ -30,6 +30,7 @@ function renderTestsGrid() {
   // Organised order: Govt-exam full mocks → full-length practice → subject-wise → topic-wise → school level
   appendGroup(grid, "🏛 GSSC Mock Tests", window.GSSC_TESTS || []);   // 1. GSSC (PC · LDC · Clerk)
   appendGroup(grid, "🎯 GPSC / JSO Tests", window.GPSC_TESTS || []);  // 2. GPSC / JSO
+  appendGroup(grid, "🎓 CAT Preparation", window.CAT_TESTS || []);     // 3. CAT mocks (CAT exam interface)
   appendGroup(grid, "📄 Previous Year Papers", window.PYQ_TESTS || []); // 3. Official PYQs
   appendMonthlyTests(grid);     // 4. Monthly full tests (100 marks)
   appendPartTests(grid);        // 5. Subject-wise part tests
@@ -54,7 +55,7 @@ function appendGroup(grid, label, tests) {
 
 // Compact row for GSSC/GPSC/PYQ/Special — same style as part tests
 function buildFullTestRowHTML(test) {
-  var icon = test.id && test.id.includes("pyq") ? "📜" : test.id && test.id.includes("sci") ? "🔬" : "📋";
+  var icon = test.engine === "cat" ? "🎓" : test.id && test.id.includes("pyq") ? "📜" : test.id && test.id.includes("sci") ? "🔬" : "📋";
   var badge = test.live
     ? '<span class="badge-live">Live</span>'
     : '<span class="badge-soon">Soon</span>';
@@ -691,7 +692,11 @@ function buildScholarshipRowHTML(test) {
 }
 
 // ══ NAV & ADMIN ═══════════════════════════════════════════
-function goToTest(testId){ window.location.href="test.html?id="+testId; }
+function goToTest(testId){
+  // CAT tests open in the CAT-style exam console; everything else uses the standard test page
+  var t = (window.ALL_TESTS || []).filter(function(x){ return x.id === testId; })[0];
+  window.location.href = (t && t.engine === "cat" ? "cat-test.html" : "test.html") + "?id=" + testId;
+}
 
 function openAdminModal(){
   var m=document.getElementById("adminModal");
