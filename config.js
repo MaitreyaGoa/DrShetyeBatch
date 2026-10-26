@@ -1175,6 +1175,37 @@ var SPECIAL_TESTS = [
 // ── ALL_TESTS: used by test.js to find every test by ID ──
 // FULL_TESTS itself stays as fulltest1-7 only (for homepage display)
 // test.js checks window.ALL_TESTS first, then falls back to FULL_TESTS
+// ──────────────────────────────────────────────────────────
+// CAT PREPARATION  (opens in cat-test.html — CAT exam interface)
+// engine: "cat" → home.js sends these tests to cat-test.html
+// ──────────────────────────────────────────────────────────
+var CAT_TESTS = [
+  {
+    id:          "cat_mock1",
+    engine:      "cat",
+    title:       "CAT Full-Length Mock Test 1",
+    description: "VARC 24 · DILR 22 · QA 22 · MCQ +3/−1 · TITA +3/0 · 40 min per section",
+    password:    "excelbicholim",
+    duration:    7200,
+    totalMarks:  204,
+    sections:    { "VARC": 24, "DILR": 22, "QA": 22 },
+    questionsFile: "questions/cat_mock1.js",
+    live:        true
+  },
+  {
+    id:          "cat_mock2",
+    engine:      "cat",
+    title:       "CAT Full-Length Mock Test 2",
+    description: "VARC 24 · DILR 22 · QA 22 · MCQ +3/−1 · TITA +3/0 · 40 min per section",
+    password:    "excelbicholim",
+    duration:    7200,
+    totalMarks:  204,
+    sections:    { "VARC": 24, "DILR": 22, "QA": 22 },
+    questionsFile: "questions/cat_mock2.js",
+    live:        true
+  }
+];
+
 var ALL_TESTS = (GSSC_TESTS       || [])
   .concat(GPSC_TESTS         || [])
   .concat(DAILY_TESTS        || [])
@@ -1183,4 +1214,5 @@ var ALL_TESTS = (GSSC_TESTS       || [])
   .concat(PART_TESTS         || [])
   .concat(TOPIC_TESTS        || [])
   .concat(SPECIAL_TESTS      || [])
-  .concat(SCHOLARSHIP_TESTS  || []);
+  .concat(SCHOLARSHIP_TESTS  || [])
+  .concat(CAT_TESTS          || []);
