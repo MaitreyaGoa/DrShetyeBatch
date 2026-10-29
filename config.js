@@ -425,6 +425,50 @@ var PYQ_TESTS = [
     sections:    { "Konkani": 10, "English": 30, "Numerical Ability": 10, "Reasoning": 10 },
     questionsFile: "questions/pyq_pc2026.js",
     live:        true
+  },
+  {
+    id:          "pyq_jan25",
+    title:       "GSSC LDC / Recovery Clerk CBT — 2025 · 11 Jan",
+    description: "Adv. No. 3 of 2024 · 11 Jan 2025, 2:15 PM · 60 Q · Konkani 10 | English 20 | Numerical 10 | Reasoning-I 10 | Reasoning-II 10",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Konkani": 10, "English": 20, "Numerical Ability": 10, "Reasoning-I": 10, "Reasoning-II": 10 },
+    questionsFile: "questions/pyq_jan25.js",
+    live:        true
+  },
+  {
+    id:          "pyq_jul25a",
+    title:       "GSSC CBT-I — 2025 · 27 Jul Shift 1",
+    description: "Adv. No. 1 of 2025 · 27 Jul 2025, 12:00 PM · 60 Q · Konkani 10 | English 20 | Reasoning-I 5 | Numerical 20 | Reasoning-II 5",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Konkani": 10, "English": 20, "Reasoning-I": 5, "Numerical Ability": 20, "Reasoning-II": 5 },
+    questionsFile: "questions/pyq_jul25a.js",
+    live:        true
+  },
+  {
+    id:          "pyq_jul25b",
+    title:       "GSSC CBT-I — 2025 · 27 Jul Shift 2",
+    description: "Adv. No. 1 of 2025 · 27 Jul 2025, 2:15 PM · 60 Q · Konkani 10 | English 20 | Reasoning-I 5 | Numerical 20 | Reasoning-II 5",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Konkani": 10, "English": 20, "Reasoning-I": 5, "Numerical Ability": 20, "Reasoning-II": 5 },
+    questionsFile: "questions/pyq_jul25b.js",
+    live:        true
+  },
+  {
+    id:          "pyq_jul25c",
+    title:       "GSSC CBT-I — 2025 · 27 Jul Shift 3",
+    description: "Adv. No. 1 of 2025 · 27 Jul 2025, 4:15 PM · 60 Q · Konkani 10 | English 20 | Reasoning-I 5 | Numerical 20 | Reasoning-II 5",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Konkani": 10, "English": 20, "Reasoning-I": 5, "Numerical Ability": 20, "Reasoning-II": 5 },
+    questionsFile: "questions/pyq_jul25c.js",
+    live:        true
   }
 ];
 
