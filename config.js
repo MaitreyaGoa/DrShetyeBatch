@@ -909,6 +909,30 @@ var PART_TESTS = [
     live:        true
   },
   {
+    id:          "reason_ldc3",
+    subject:     "reasoning",
+    title:       "LDC Reasoning Practice — Set 3",
+    description: "GSSC LDC · 20 Q · Mirror & clock image, balance scale, grouping, paper punching, series, triangles, dice, Venn + coding, series, blood relation, shadow direction, syllogism, ranking, seating",
+    password:    "excelbicholim",
+    duration:    1500,
+    totalMarks:  20,
+    sections:    { "Reasoning-I": 10, "Reasoning-II": 10 },
+    questionsFile: "questions/reason_ldc3.js",
+    live:        true
+  },
+  {
+    id:          "reason_ldc4",
+    subject:     "reasoning",
+    title:       "LDC Reasoning Practice — Set 4",
+    description: "GSSC LDC · 20 Q · Mirror & water image, cube net, rectangles, figure matrix, odd figure, rotation, embedded figure, Venn numbers + coded relations, directions, inequality, calendar, clock, ordering",
+    password:    "excelbicholim",
+    duration:    1500,
+    totalMarks:  20,
+    sections:    { "Reasoning-I": 10, "Reasoning-II": 10 },
+    questionsFile: "questions/reason_ldc4.js",
+    live:        true
+  },
+  {
     id:          "math_ldcA",
     subject:     "maths",
     title:       "LDC Numerical Ability — Set A",
@@ -933,6 +957,30 @@ var PART_TESTS = [
     live:        true
   },
   {
+    id:          "math_ldcC",
+    subject:     "maths",
+    title:       "LDC Numerical Ability — Set C",
+    description: "GSSC LDC · 10 Q · Discount, ratio, average speed, work & wages, CI half-yearly, unit digit, triangle area, bar graph, population, simplification",
+    password:    "excelbicholim",
+    duration:    900,
+    totalMarks:  10,
+    sections:    { "Maths": 10 },
+    questionsFile: "questions/math_ldcC.js",
+    live:        true
+  },
+  {
+    id:          "math_ldcD",
+    subject:     "maths",
+    title:       "LDC Numerical Ability — Set D",
+    description: "GSSC LDC · 10 Q · False weight, average, ages, trains, alligation, room walls, pie chart, SI, remainders, coins",
+    password:    "excelbicholim",
+    duration:    900,
+    totalMarks:  10,
+    sections:    { "Maths": 10 },
+    questionsFile: "questions/math_ldcD.js",
+    live:        true
+  },
+  {
     id:          "eng_ldc1",
     subject:     "english",
     title:       "LDC English Practice — Set 1",
@@ -954,6 +1002,30 @@ var PART_TESTS = [
     totalMarks:  20,
     sections:    { "English": 20 },
     questionsFile: "questions/eng_ldc2.js",
+    live:        true
+  },
+  {
+    id:          "eng_ldc3",
+    subject:     "english",
+    title:       "LDC English Practice — Set 3",
+    description: "GSSC LDC · 20 Q · Voice, narration, vocabulary, idioms, grammar, error spotting, rearrangement, spelling",
+    password:    "excelbicholim",
+    duration:    1200,
+    totalMarks:  20,
+    sections:    { "English": 20 },
+    questionsFile: "questions/eng_ldc3.js",
+    live:        true
+  },
+  {
+    id:          "eng_ldc4",
+    subject:     "english",
+    title:       "LDC English Practice — Set 4",
+    description: "GSSC LDC · 20 Q · Voice, narration, vocabulary, idioms, grammar, error spotting, rearrangement, spelling",
+    password:    "excelbicholim",
+    duration:    1200,
+    totalMarks:  20,
+    sections:    { "English": 20 },
+    questionsFile: "questions/eng_ldc4.js",
     live:        true
   }
 ];
