@@ -135,7 +135,7 @@ var GSSC_TESTS = [
   },
 
   // ── GSSC LDC / Recovery Clerk CBT-I Mocks (Konkani 10 · English 20 · Reasoning-I 10 · Numerical 10 · Reasoning-II 10) ──
-  // Homepage shows the list newest-first, so these appear at the top of "GSSC Mock Tests" (Test 5 → Test 1).
+  // Homepage shows the list newest-first, so these appear at the top of "GSSC Mock Tests" (Test 8 → Test 1).
   {
     id:          "ldc_mock01",
     title:       "GSSC LDC Full Mock Test 1",
@@ -189,6 +189,39 @@ var GSSC_TESTS = [
     totalMarks:  60,
     sections:    { "Konkani": 10, "English": 20, "Reasoning-I": 10, "Numerical Ability": 10, "Reasoning-II": 10 },
     questionsFile: "questions/ldc_mock05.js",
+    live:        true
+  },
+  {
+    id:          "ldc_mock06",
+    title:       "GSSC LDC Full Mock Test 6",
+    description: "LDC / Recovery Clerk CBT-I · Konkani · English · Reasoning · Numerical · 60 Questions",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Konkani": 10, "English": 20, "Reasoning-I": 10, "Numerical Ability": 10, "Reasoning-II": 10 },
+    questionsFile: "questions/ldc_mock06.js",
+    live:        true
+  },
+  {
+    id:          "ldc_mock07",
+    title:       "GSSC LDC Full Mock Test 7",
+    description: "LDC / Recovery Clerk CBT-I · Konkani · English · Reasoning · Numerical · 60 Questions",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Konkani": 10, "English": 20, "Reasoning-I": 10, "Numerical Ability": 10, "Reasoning-II": 10 },
+    questionsFile: "questions/ldc_mock07.js",
+    live:        true
+  },
+  {
+    id:          "ldc_mock08",
+    title:       "GSSC LDC Full Mock Test 8",
+    description: "LDC / Recovery Clerk CBT-I · Konkani · English · Reasoning · Numerical · 60 Questions",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Konkani": 10, "English": 20, "Reasoning-I": 10, "Numerical Ability": 10, "Reasoning-II": 10 },
+    questionsFile: "questions/ldc_mock08.js",
     live:        true
   }
 ];
