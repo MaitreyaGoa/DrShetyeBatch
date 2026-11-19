@@ -100,29 +100,6 @@ var MONTHLY_TESTS = [
 // 1a. GSSC TESTS  (Goa State Service Commission — PC / Clerk / Junior posts)
 // ──────────────────────────────────────────────────────────
 var GSSC_TESTS = [
-  {
-    id:          "fulltest1",
-    title:       "Goa Police CBT 1",
-    description: "English · Maths · Reasoning · 50 Questions",
-    password:    "excelbicholim",
-    duration:    3600,
-    totalMarks:  50,
-    sections:    { "English": 30, "Maths": 10, "Reasoning": 10 },
-    questionsFile: "questions/fulltest1.js",
-    live:        true
-  },
-  {
-    id:          "fulltest2",
-    title:       "Goa Police CBT 2",
-    description: "English · Maths · Reasoning · 50 Questions",
-    password:    "excelbicholim",
-    duration:    3600,
-    totalMarks:  50,
-    sections:    { "English": 30, "Maths": 10, "Reasoning": 10 },
-    questionsFile: "questions/fulltest2.js",
-    live:        true
-  },
-
   // ── GSSC LDC / Recovery Clerk CBT-I Mocks (Konkani 10 · English 20 · Reasoning-I 10 · Numerical 10 · Reasoning-II 10) ──
   // Homepage shows the list newest-first, so these appear at the top of "GSSC Mock Tests" (Test 8 → Test 1).
   {
