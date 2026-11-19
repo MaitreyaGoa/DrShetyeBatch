@@ -122,17 +122,6 @@ var GSSC_TESTS = [
     questionsFile: "questions/fulltest2.js",
     live:        true
   },
-  {
-    id:          "fulltest4",
-    title:       "Goa Police CBT 3",
-    description: "English · Maths · Reasoning · 50 Questions",
-    password:    "excelbicholim",
-    duration:    3600,
-    totalMarks:  50,
-    sections:    { "English": 30, "Maths": 10, "Reasoning": 10 },
-    questionsFile: "questions/fulltest4.js",
-    live:        false
-  },
 
   // ── GSSC LDC / Recovery Clerk CBT-I Mocks (Konkani 10 · English 20 · Reasoning-I 10 · Numerical 10 · Reasoning-II 10) ──
   // Homepage shows the list newest-first, so these appear at the top of "GSSC Mock Tests" (Test 8 → Test 1).
@@ -222,6 +211,21 @@ var GSSC_TESTS = [
     totalMarks:  60,
     sections:    { "Konkani": 10, "English": 20, "Reasoning-I": 10, "Numerical Ability": 10, "Reasoning-II": 10 },
     questionsFile: "questions/ldc_mock08.js",
+    live:        true
+  },
+
+  // ── Goa Police CBT-II Mocks (GSSC Advt. No. 2 of 2026: Reasoning 10 · Numerical 10 · English 20 · History of Goa 20) ──
+  // Kept at the END of this list so they show ABOVE the LDC mocks (homepage is newest-first).
+  // Add Mock 2, 3, 4 … after this entry.
+  {
+    id:          "gssc_police_cbt2_mock1",
+    title:       "CBT 2 Goa Police Mock 1",
+    description: "Police Constable CBT-II · Reasoning · Numerical · English · History of Goa · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "History of Goa": 20 },
+    questionsFile: "questions/gssc_police_cbt2_mock1.js",
     live:        true
   }
 ];
