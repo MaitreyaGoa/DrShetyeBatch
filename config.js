@@ -204,6 +204,28 @@ var GSSC_TESTS = [
     sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "History of Goa": 20 },
     questionsFile: "questions/gssc_police_cbt2_mock1.js",
     live:        true
+  },
+  {
+    id:          "gssc_police_cbt2_mock2",
+    title:       "CBT 2 Goa Police Mock 2",
+    description: "Police Constable CBT-II · Reasoning · Numerical · English · History of Goa · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "History of Goa": 20 },
+    questionsFile: "questions/gssc_police_cbt2_mock2.js",
+    live:        true
+  },
+  {
+    id:          "gssc_police_cbt2_mock3",
+    title:       "CBT 2 Goa Police Mock 3",
+    description: "Police Constable CBT-II · Reasoning · Numerical · English · History of Goa · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "History of Goa": 20 },
+    questionsFile: "questions/gssc_police_cbt2_mock3.js",
+    live:        true
   }
 ];
 
