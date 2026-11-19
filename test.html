@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>GOA SSC PC Test – Dr Shetye Academic Program</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="styles.css"/>
@@ -454,6 +454,8 @@
   }
   .btn-next:hover:not(:disabled) { background: #15803d; }
   .btn-next:disabled { opacity: 0.35; cursor: not-allowed; }
+  /* very narrow phones / large text: let bottom-bar buttons shrink instead of pushing Next off-screen */
+  .bottom-bar > button { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 
   /* ── PALETTE DRAWER ── */
   .palette-overlay {
@@ -465,16 +467,19 @@
   }
   .palette-drawer {
     position: fixed;
-    top: 0; right: -100%;
+    top: 0; bottom: 0; right: -100%;   /* pin to the VISIBLE screen, not 100vh */
     width: 100%;           /* full screen on mobile like screenshot */
     max-width: 420px;
-    height: 100vh;
+    height: auto;          /* 100vh = screen + hidden browser toolbar on phones -> Submit fell off-screen */
+    max-height: 100dvh;
     background: #ccfbf1;  /* mint/teal bg from screenshot */
     z-index: 299;
     transition: right 0.25s cubic-bezier(.4,0,.2,1);
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;      /* very short screens (landscape / big fonts): drawer scrolls, Submit stays reachable */
+    -webkit-overflow-scrolling: touch;
   }
   .palette-drawer.open { right: 0; }
 
@@ -589,6 +594,7 @@
   /* Scrollable palette area */
   .pal-scroll {
     flex: 1;
+    min-height: 120px;     /* keep question grid usable on short screens */
     overflow-y: auto;
     padding: 14px;
     background: #ccfbf1;
@@ -644,6 +650,7 @@
     background: #ccfbf1;
     border-top: 1px solid #a7f3d0;
     padding: 10px 14px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom)); /* clear iPhone home bar */
   }
   .pal-footer-btns {
     display: flex;
