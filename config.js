@@ -191,6 +191,253 @@ var GSSC_TESTS = [
     live:        true
   },
 
+  // ── CBT-II Mocks for all 14 posts of GSSC Advt. No. 2 of 2026, grouped exactly as GSSC conducts CBT-II ──
+  // Group A common paper: Platoon Cdr, PC Armed, Asst Supdt, Warden, Matron, Lascar, Escort (History of Goa)
+  // Forest common paper: Round Forester + Forest Guard (Geography of Goa) · Separate: RFO (80 marks/100 min), PC Driver, Greaser, Electrician
+  // Listed bottom-up because the homepage shows newest-first. Add new mocks of a group directly after that group's last entry.
+  {
+    id:          "gssc_cbt2_electrician_mock1",
+    title:       "CBT 2 Electrician Mock 1",
+    description: "CBT-II · Constable (Electrician) · Reasoning · Numerical · English · Trade (Electrician) · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "Trade (Electrician)": 20 },
+    questionsFile: "questions/gssc_cbt2_electrician_mock1.js",
+    live:        true
+  },
+  {
+    id:          "gssc_cbt2_electrician_mock2",
+    title:       "CBT 2 Electrician Mock 2",
+    description: "CBT-II · Constable (Electrician) · Reasoning · Numerical · English · Trade (Electrician) · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "Trade (Electrician)": 20 },
+    questionsFile: "questions/gssc_cbt2_electrician_mock2.js",
+    live:        true
+  },
+  {
+    id:          "gssc_cbt2_electrician_mock3",
+    title:       "CBT 2 Electrician Mock 3",
+    description: "CBT-II · Constable (Electrician) · Reasoning · Numerical · English · Trade (Electrician) · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "Trade (Electrician)": 20 },
+    questionsFile: "questions/gssc_cbt2_electrician_mock3.js",
+    live:        true
+  },
+  {
+    id:          "gssc_cbt2_greaser_mock1",
+    title:       "CBT 2 Greaser Mock 1",
+    description: "CBT-II · Constable (Greaser) · Reasoning · Numerical · English · Trade (Diesel Mechanic / Fitter) · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "Trade (Diesel Mechanic / Fitter)": 20 },
+    questionsFile: "questions/gssc_cbt2_greaser_mock1.js",
+    live:        true
+  },
+  {
+    id:          "gssc_cbt2_greaser_mock2",
+    title:       "CBT 2 Greaser Mock 2",
+    description: "CBT-II · Constable (Greaser) · Reasoning · Numerical · English · Trade (Diesel Mechanic / Fitter) · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "Trade (Diesel Mechanic / Fitter)": 20 },
+    questionsFile: "questions/gssc_cbt2_greaser_mock2.js",
+    live:        true
+  },
+  {
+    id:          "gssc_cbt2_greaser_mock3",
+    title:       "CBT 2 Greaser Mock 3",
+    description: "CBT-II · Constable (Greaser) · Reasoning · Numerical · English · Trade (Diesel Mechanic / Fitter) · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "Trade (Diesel Mechanic / Fitter)": 20 },
+    questionsFile: "questions/gssc_cbt2_greaser_mock3.js",
+    live:        true
+  },
+  {
+    id:          "gssc_cbt2_rfo_mock1",
+    title:       "CBT 2 RFO Mock 1",
+    description: "CBT-II · Range Forest Officer · Reasoning · Numerical · English · Subject (Forestry & Science) · 80 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    6000,
+    totalMarks:  80,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "Subject (Forestry & Science)": 40 },
+    questionsFile: "questions/gssc_cbt2_rfo_mock1.js",
+    live:        true
+  },
+  {
+    id:          "gssc_cbt2_rfo_mock2",
+    title:       "CBT 2 RFO Mock 2",
+    description: "CBT-II · Range Forest Officer · Reasoning · Numerical · English · Subject (Forestry & Science) · 80 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    6000,
+    totalMarks:  80,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "Subject (Forestry & Science)": 40 },
+    questionsFile: "questions/gssc_cbt2_rfo_mock2.js",
+    live:        true
+  },
+  {
+    id:          "gssc_cbt2_rfo_mock3",
+    title:       "CBT 2 RFO Mock 3",
+    description: "CBT-II · Range Forest Officer · Reasoning · Numerical · English · Subject (Forestry & Science) · 80 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    6000,
+    totalMarks:  80,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "Subject (Forestry & Science)": 40 },
+    questionsFile: "questions/gssc_cbt2_rfo_mock3.js",
+    live:        true
+  },
+  {
+    id:          "gssc_cbt2_rfo_mock4",
+    title:       "CBT 2 RFO Mock 4",
+    description: "CBT-II · Range Forest Officer · Reasoning · Numerical · English · Subject (Forestry & Science) · 80 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    6000,
+    totalMarks:  80,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "Subject (Forestry & Science)": 40 },
+    questionsFile: "questions/gssc_cbt2_rfo_mock4.js",
+    live:        true
+  },
+  {
+    id:          "gssc_cbt2_pcdriver_mock1",
+    title:       "CBT 2 PC Driver Mock 1",
+    description: "CBT-II · Police Constable Driver (Grade-III) · Reasoning · Numerical · English · Traffic Rules & Vehicle Maintenance · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "Traffic Rules & Vehicle Maintenance": 20 },
+    questionsFile: "questions/gssc_cbt2_pcdriver_mock1.js",
+    live:        true
+  },
+  {
+    id:          "gssc_cbt2_pcdriver_mock2",
+    title:       "CBT 2 PC Driver Mock 2",
+    description: "CBT-II · Police Constable Driver (Grade-III) · Reasoning · Numerical · English · Traffic Rules & Vehicle Maintenance · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "Traffic Rules & Vehicle Maintenance": 20 },
+    questionsFile: "questions/gssc_cbt2_pcdriver_mock2.js",
+    live:        true
+  },
+  {
+    id:          "gssc_cbt2_pcdriver_mock3",
+    title:       "CBT 2 PC Driver Mock 3",
+    description: "CBT-II · Police Constable Driver (Grade-III) · Reasoning · Numerical · English · Traffic Rules & Vehicle Maintenance · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "Traffic Rules & Vehicle Maintenance": 20 },
+    questionsFile: "questions/gssc_cbt2_pcdriver_mock3.js",
+    live:        true
+  },
+  {
+    id:          "gssc_cbt2_pcdriver_mock4",
+    title:       "CBT 2 PC Driver Mock 4",
+    description: "CBT-II · Police Constable Driver (Grade-III) · Reasoning · Numerical · English · Traffic Rules & Vehicle Maintenance · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "Traffic Rules & Vehicle Maintenance": 20 },
+    questionsFile: "questions/gssc_cbt2_pcdriver_mock4.js",
+    live:        true
+  },
+  {
+    id:          "gssc_cbt2_forest_mock1",
+    title:       "CBT 2 Forest Mock 1",
+    description: "CBT-II · Round Forester · Forest Guard · Reasoning · Numerical · English · Geography of Goa · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "Geography of Goa": 20 },
+    questionsFile: "questions/gssc_cbt2_forest_mock1.js",
+    live:        true
+  },
+  {
+    id:          "gssc_cbt2_forest_mock2",
+    title:       "CBT 2 Forest Mock 2",
+    description: "CBT-II · Round Forester · Forest Guard · Reasoning · Numerical · English · Geography of Goa · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "Geography of Goa": 20 },
+    questionsFile: "questions/gssc_cbt2_forest_mock2.js",
+    live:        true
+  },
+  {
+    id:          "gssc_cbt2_forest_mock3",
+    title:       "CBT 2 Forest Mock 3",
+    description: "CBT-II · Round Forester · Forest Guard · Reasoning · Numerical · English · Geography of Goa · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "Geography of Goa": 20 },
+    questionsFile: "questions/gssc_cbt2_forest_mock3.js",
+    live:        true
+  },
+  {
+    id:          "gssc_cbt2_forest_mock4",
+    title:       "CBT 2 Forest Mock 4",
+    description: "CBT-II · Round Forester · Forest Guard · Reasoning · Numerical · English · Geography of Goa · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "Geography of Goa": 20 },
+    questionsFile: "questions/gssc_cbt2_forest_mock4.js",
+    live:        true
+  },
+  {
+    id:          "gssc_cbt2_groupA_mock1",
+    title:       "CBT 2 Group A Mock 1",
+    description: "CBT-II · Platoon Cdr · PC Armed · Asst Supdt · Warden · Matron · Lascar · Escort · Reasoning · Numerical · English · History of Goa · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "History of Goa": 20 },
+    questionsFile: "questions/gssc_cbt2_groupA_mock1.js",
+    live:        true
+  },
+  {
+    id:          "gssc_cbt2_groupA_mock2",
+    title:       "CBT 2 Group A Mock 2",
+    description: "CBT-II · Platoon Cdr · PC Armed · Asst Supdt · Warden · Matron · Lascar · Escort · Reasoning · Numerical · English · History of Goa · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "History of Goa": 20 },
+    questionsFile: "questions/gssc_cbt2_groupA_mock2.js",
+    live:        true
+  },
+  {
+    id:          "gssc_cbt2_groupA_mock3",
+    title:       "CBT 2 Group A Mock 3",
+    description: "CBT-II · Platoon Cdr · PC Armed · Asst Supdt · Warden · Matron · Lascar · Escort · Reasoning · Numerical · English · History of Goa · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "History of Goa": 20 },
+    questionsFile: "questions/gssc_cbt2_groupA_mock3.js",
+    live:        true
+  },
+  {
+    id:          "gssc_cbt2_groupA_mock4",
+    title:       "CBT 2 Group A Mock 4",
+    description: "CBT-II · Platoon Cdr · PC Armed · Asst Supdt · Warden · Matron · Lascar · Escort · Reasoning · Numerical · English · History of Goa · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "History of Goa": 20 },
+    questionsFile: "questions/gssc_cbt2_groupA_mock4.js",
+    live:        true
+  },
+
   // ── Goa Police CBT-II Mocks (GSSC Advt. No. 2 of 2026: Reasoning 10 · Numerical 10 · English 20 · History of Goa 20) ──
   // Kept at the END of this list so they show ABOVE the LDC mocks (homepage is newest-first).
   // Add Mock 2, 3, 4 … after this entry.
@@ -225,6 +472,28 @@ var GSSC_TESTS = [
     totalMarks:  60,
     sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "History of Goa": 20 },
     questionsFile: "questions/gssc_police_cbt2_mock3.js",
+    live:        true
+  },
+  {
+    id:          "gssc_police_cbt2_mock4",
+    title:       "CBT 2 Goa Police Mock 4",
+    description: "Police Constable CBT-II · Reasoning · Numerical · English · History of Goa · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "History of Goa": 20 },
+    questionsFile: "questions/gssc_police_cbt2_mock4.js",
+    live:        true
+  },
+  {
+    id:          "gssc_police_cbt2_mock5",
+    title:       "CBT 2 Goa Police Mock 5",
+    description: "Police Constable CBT-II · Reasoning · Numerical · English · History of Goa · 60 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    4500,
+    totalMarks:  60,
+    sections:    { "Reasoning": 10, "Numerical Ability": 10, "English": 20, "History of Goa": 20 },
+    questionsFile: "questions/gssc_police_cbt2_mock5.js",
     live:        true
   }
 ];
