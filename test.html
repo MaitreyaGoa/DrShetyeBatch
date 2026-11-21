@@ -715,6 +715,82 @@
   .palette-panel, .nav-btns, .submit-btn,
   .timer-box, .test-info { display: none !important; }
   </style>
+  <style id="mobileUiFix">
+  /* ═══ Mobile UI fixes (Nov 2026): compact header, big buttons, exam mode, answer review ═══ */
+  .wa-bar{padding:8px 12px;font-size:12.5px;gap:8px;flex-wrap:nowrap;min-height:44px}
+  .wa-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+  .site-header{position:relative;height:auto;min-height:56px;padding:8px 14px}
+  .header-inner{display:flex;align-items:center;gap:10px;justify-content:flex-start}
+  .header-logo{font-size:22px;line-height:1;flex-shrink:0}
+  .header-text{min-width:0;flex:1}
+  .header-title{font-size:16px;font-weight:700;margin:0;line-height:1.25;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.2px}
+  .header-sub{font-size:11.5px;margin:2px 0 0;color:rgba(255,255,255,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  /* exam mode: nothing but the test while it runs */
+  body.in-test .wa-bar, body.in-test .site-header, body.in-test .site-footer{display:none !important}
+  /* big, clearly pressable buttons */
+  #loginPage .btn, #resultPage .btn, #answerPage .btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:50px;padding:12px 18px;font-size:16px;font-weight:700;border-radius:12px;margin-top:10px;-webkit-tap-highlight-color:transparent}
+  #resultPage .btn, #answerPage .btn{white-space:normal;line-height:1.25;text-align:center}
+  #loginPage .btn:active, #resultPage .btn:active, #answerPage .btn:active{transform:scale(.98)}
+  .btn-outline{border:1px solid rgba(255,255,255,.35) !important;color:#fff !important;background:rgba(255,255,255,.06) !important}
+  .back-link{display:inline-flex;align-items:center;min-height:44px;padding:0 6px 0 0;font-size:15px;cursor:pointer}
+  .form-group input{min-height:50px;font-size:16px !important}   /* 16px stops iPhone zooming in */
+  #loginForm .btn{margin-top:14px}
+  @media (max-width:520px){
+    .login-card{margin:14px 12px;padding:22px 18px;max-width:none}
+    .result-card{margin:14px 12px !important;padding:26px 18px !important}
+  }
+  /* question screen */
+  .lang-select{min-height:40px;font-size:16px}
+  .btn-save-q,.btn-report-q{min-height:40px;padding:8px 16px;font-size:14px}
+  .option-item{min-height:54px}
+  @media (max-width:520px){
+    .opt-label-cell{width:66px;padding:10px 10px;gap:8px}
+    .opt-text-cell{padding:12px 12px;font-size:15px}
+    .question-text{font-size:16px;padding:14px 14px}
+    .sec-tab{padding:10px 14px}
+  }
+  .bottom-bar{gap:6px;padding:8px 8px calc(8px + env(safe-area-inset-bottom)) !important}
+  .bottom-bar > button{min-height:50px;font-size:14px;border-radius:10px}
+  @media (max-width:360px){ .bottom-bar > button{font-size:12.5px;padding:8px 4px} }
+  .float-palette-btn{width:56px;height:56px;font-size:1.35rem;bottom:calc(78px + env(safe-area-inset-bottom)) !important}
+  .question-main{padding-bottom:calc(170px + env(safe-area-inset-bottom))}
+  .pal-btn{width:46px;height:46px}
+  .pal-close{width:44px;height:44px}
+  .btn-qpaper,.btn-instructions{min-height:46px}
+  .btn-submit-pal{min-height:52px}
+  /* short screens (phone held sideways): slimmer timer */
+  @media (max-height:500px){
+    .sec-tab-bar{position:relative}
+    .q-meta-row{padding:4px 12px}
+    .timer-bar{padding:4px 12px}
+    .t-digits{font-size:1rem;padding:2px 6px;min-width:34px}
+    .t-label{display:none}.t-sep{margin-bottom:0;font-size:1.1rem}
+    .question-main{padding-bottom:110px}
+    .float-palette-btn{bottom:calc(70px + env(safe-area-inset-bottom)) !important}
+  }
+  /* answer review */
+  #answerPage{padding:0 0 calc(96px + env(safe-area-inset-bottom))}
+  .answer-header{position:sticky;top:0;z-index:150;max-width:none;margin:0 0 12px;padding:10px 12px 8px;background:rgba(12,12,14,.96);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.1);display:block}
+  .ans-top{display:flex;align-items:center;gap:10px;max-width:800px;margin:0 auto}
+  .answer-header h2{font-size:18px;margin:0;flex:1;min-width:0}
+  #answerPage .answer-header .btn{width:auto;min-height:44px;margin:0;padding:8px 14px;font-size:14px;flex-shrink:0}
+  .ans-filters{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;max-width:800px;margin:10px auto 0;padding-bottom:2px}
+  .ans-filters::-webkit-scrollbar{display:none}
+  .ans-filters button{flex-shrink:0;min-height:40px;padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.05);color:#fff;font:600 14px 'Source Sans 3',sans-serif;cursor:pointer}
+  .ans-filters button.on{background:#166534;border-color:#22c55e}
+  .answer-list{padding:0 12px}
+  .answer-item{padding:14px 14px}
+  .answer-q{font-size:15.5px;line-height:1.55;margin-bottom:8px}
+  .ans-line{font-size:14.5px;line-height:1.5;margin:4px 0}
+  .ans-status{display:inline-block;font-weight:700;font-size:13px;padding:2px 10px;border-radius:999px;margin-bottom:4px}
+  .answer-item.correct .ans-status{background:rgba(34,197,94,.18);color:#4ade80}
+  .answer-item.incorrect .ans-status{background:rgba(239,68,68,.18);color:#f87171}
+  .answer-item.skipped .ans-status{background:rgba(255,255,255,.1);color:#d1d5db}
+  .ans-explanation{font-size:14px !important;font-style:normal !important;color:#374151 !important}
+  .ans-bottom{position:fixed;left:0;right:0;bottom:0;z-index:160;display:flex;gap:10px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(12,12,14,.97);border-top:1px solid rgba(255,255,255,.12)}
+  #answerPage .ans-bottom .btn{margin:0;flex:1}
+  .ans-empty{text-align:center;color:rgba(255,255,255,.6);padding:30px 10px}
+  </style>
   <!-- Excel Bicholim app (PWA) -->
   <link rel="manifest" href="/manifest.webmanifest"/>
   <meta name="theme-color" content="#0b1f66"/>
@@ -901,18 +977,26 @@
       <div class="score-breakdown" id="scoreBreakdown"></div>
       <div id="rankBadge" class="rank-badge"></div>
       <div id="savingStatus" style="display:none;padding:10px 16px;border-radius:8px;font-size:.88rem;font-weight:600;margin-bottom:14px;text-align:center;"></div>
-      <button class="btn btn-primary" onclick="viewAnswers()">View Answer Key</button>
-      <button class="btn btn-outline" style="margin-top:10px;width:100%;" onclick="goHome()">← Back to Tests</button>
+      <button class="btn btn-primary" onclick="viewAnswers()">📖 View Answer Key &amp; Solutions</button>
+      <a class="btn btn-outline" id="resAccountBtn" href="account.html" style="display:none;text-decoration:none">📊 My Progress</a>
+      <button class="btn btn-outline" onclick="goHome()">← Back to Tests</button>
     </div>
   </section>
 
   <!-- ══ ANSWER REVIEW PAGE ══ -->
   <section id="answerPage" style="display:none;">
     <div class="answer-header">
-      <h2>Answer Key Review</h2>
-      <button class="btn btn-outline" onclick="showPage('resultPage')">← Back to Result</button>
+      <div class="ans-top">
+        <h2>Answer Key</h2>
+        <button class="btn btn-outline" onclick="showPage('resultPage')">← Result</button>
+      </div>
+      <div class="ans-filters" id="ansFilters"></div>
     </div>
     <div id="answerList" class="answer-list"></div>
+    <div class="ans-bottom">
+      <button class="btn btn-outline" onclick="showPage('resultPage')">← Back to Result</button>
+      <button class="btn btn-primary" onclick="goHome()">All Tests</button>
+    </div>
   </section>
 
   <footer class="site-footer">

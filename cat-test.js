@@ -394,6 +394,14 @@
       }).join("") + "</div>" +
       '<h3 id="solHead" style="margin:18px 0 0;color:#1d3d63">Solutions</h3><div class="filters" id="filters"></div><div id="solList"></div>';
     $("toSol").onclick = function () { $("solHead").scrollIntoView({ behavior: "smooth" }); };
+    // floating "back to score" button once the student scrolls into the solutions
+    var tb = document.getElementById("ebTopBtn");
+    if (!tb) { tb = document.createElement("button"); tb.id = "ebTopBtn"; tb.className = "eb-top-btn"; tb.type = "button"; tb.innerHTML = "↑ Score card"; document.body.appendChild(tb); }
+    tb.onclick = function () { window.scrollTo({ top: 0, behavior: "smooth" }); };
+    window.addEventListener("scroll", function () {
+      var h = $("solHead"); if (!h || $("result").classList.contains("hidden")) { tb.classList.remove("show"); return; }
+      tb.classList.toggle("show", h.getBoundingClientRect().top < 0);
+    }, { passive: true });
     $("newAtt").onclick = function () { if (confirm("Start a fresh attempt? This score card will be cleared from this device.")) { clearSaved(); location.reload(); } };
     renderSolutions();
   }

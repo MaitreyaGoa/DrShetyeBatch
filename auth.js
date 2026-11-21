@@ -167,7 +167,7 @@
     var st = document.createElement("style");
     st.id = "excelAuthCss";
     st.textContent =
-      ".xa-gbtn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:11px 16px;background:#fff;color:#1f2937;border:1.5px solid #d1d5db;border-radius:8px;font:600 15px/1.2 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.06)}" +
+      ".xa-gbtn{min-height:48px;display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:11px 16px;background:#fff;color:#1f2937;border:1.5px solid #d1d5db;border-radius:8px;font:600 15px/1.2 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.06)}" +
       ".xa-gbtn:hover{background:#f9fafb;border-color:#9ca3af}.xa-gbtn:disabled{opacity:.6;cursor:wait}" +
       ".xa-gbtn svg{flex-shrink:0}" +
       ".xa-gate{margin:0 0 16px;padding:14px;border:1.5px solid #bbf7d0;background:#f0fdf4;border-radius:10px;font:14px/1.45 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:#14532d;text-align:left}" +
@@ -176,7 +176,7 @@
       ".xa-who{display:flex;align-items:center;gap:10px}" +
       ".xa-who img,.xa-ph{width:38px;height:38px;border-radius:50%;flex-shrink:0;object-fit:cover;background:#166534;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}" +
       ".xa-who .xa-meta{flex:1;min-width:0}.xa-who .xa-mail{font-size:12px;color:#4b5563;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}" +
-      ".xa-link{background:none;border:none;color:#166534;font-weight:700;font-size:13px;cursor:pointer;padding:4px 0;text-decoration:underline}" +
+      ".xa-link{background:none;border:none;color:#166534;font-weight:700;font-size:14px;cursor:pointer;padding:10px 4px;min-height:40px;text-decoration:underline}" +
       ".xa-err{margin-top:8px;color:#b91c1c;font-size:13px;font-weight:600}" +
       ".xa-hdr{display:inline-flex;align-items:center;gap:7px;padding:4px 12px 4px 4px;border-radius:999px;background:#fff;border:1px solid rgba(0,0,0,.14);color:#1d1d1f;text-decoration:none;font:600 12px/1 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;cursor:pointer;white-space:nowrap}" +
       ".xa-hdr:hover{background:#f0fdf4;border-color:#86efac}" +

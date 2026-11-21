@@ -95,6 +95,25 @@ function showPage(id) {
     document.getElementById(p).style.display = "none";
   });
   document.getElementById(id).style.display = "block";
+  document.body.classList.toggle("in-test", id === "testPage");
+  if (id === "testPage" && !window.__ebTimerFix) {
+    window.__ebTimerFix = true;
+    window.addEventListener("resize", function () {
+      var tb = document.getElementById("sectionTabBar"), tm = document.querySelector(".timer-bar");
+      if (tb && tm) tm.style.top = (getComputedStyle(tb).position === "sticky" ? tb.offsetHeight : 0) + "px";
+    });
+  }
+  if (id === "testPage") {
+    // keep the timer directly under the section tabs, whatever their height
+    setTimeout(function () {
+      var tb = document.getElementById("sectionTabBar"), tm = document.querySelector(".timer-bar");
+      if (tb && tm) tm.style.top = (getComputedStyle(tb).position === "sticky" ? tb.offsetHeight : 0) + "px";
+    }, 0);
+  }
+  if (id === "resultPage") {
+    var acc = document.getElementById("resAccountBtn");
+    if (acc) acc.style.display = (window.ExcelAuth && ExcelAuth.user) ? "flex" : "none";
+  }
   // The site footer sat on top of the fixed bottom bar when scrolled to the end,
   // so Next/Prev taps hit the footer. Hide it while the test is running.
   var ft = document.querySelector(".site-footer");
@@ -582,29 +601,51 @@ function renderResult(result) {
 }
 
 // ── ANSWER REVIEW ─────────────────────────────────────────
+var ansFilter = "all";
 function viewAnswers() {
+  ansFilter = "all";
+  renderAnswers();
+  showPage("answerPage");
+}
+function renderAnswers() {
   var list   = document.getElementById("answerList");
   var labels = ["A", "B", "C", "D", "E"];
+  var counts = { all: questions.length, incorrect: 0, skipped: 0, correct: 0 };
+  questions.forEach(function (q) {
+    var g = userAnswers[String(q.id)];
+    counts[g === q.answer ? "correct" : g ? "incorrect" : "skipped"]++;
+  });
+  var fb = document.getElementById("ansFilters");
+  if (fb) {
+    fb.innerHTML = [["all", "All"], ["incorrect", "❌ Wrong"], ["skipped", "⬜ Skipped"], ["correct", "✅ Correct"]].map(function (f) {
+      return '<button type="button" data-f="' + f[0] + '" class="' + (ansFilter === f[0] ? "on" : "") + '">' + f[1] + " (" + counts[f[0]] + ")</button>";
+    }).join("");
+    Array.prototype.forEach.call(fb.querySelectorAll("button"), function (b) {
+      b.onclick = function () { ansFilter = this.getAttribute("data-f"); renderAnswers(); window.scrollTo(0, 0); };
+    });
+  }
   list.innerHTML = "";
+  var shown = 0;
   questions.forEach(function (q, i) {
     var given   = userAnswers[String(q.id)];
     var correct = q.answer;
     var optText = function (lbl) { return lbl ? q.options[labels.indexOf(lbl)] : "—"; };
     var status  = given === correct ? "correct" : given ? "incorrect" : "skipped";
+    if (ansFilter !== "all" && ansFilter !== status) return;
+    shown++;
     var div     = document.createElement("div");
     div.className = "answer-item " + status;
     div.innerHTML =
       '<div class="answer-q"><span class="ans-num">Q' + (i + 1) + '</span> ' + q.text + '</div>' +
       '<div class="answer-detail">' +
-      (given === correct ? "✅ Correct" : given ? "❌ Incorrect" : "⬜ Skipped") +
-      ' | Your answer: <span class="' + (given === correct ? "correct-ans" : "wrong-ans") + '">' +
-      (given ? given + ". " + optText(given) : "Not Attempted") + '</span>' +
-      ' | Correct: <span class="correct-ans">' + correct + ". " + optText(correct) + '</span>' +
+      '<span class="ans-status">' + (status === "correct" ? "✅ Correct" : status === "incorrect" ? "❌ Wrong" : "⬜ Skipped") + '</span>' +
+      (status !== "correct" ? '<div class="ans-line">Your answer: <span class="wrong-ans">' + (given ? given + ". " + optText(given) : "Not attempted") + '</span></div>' : '') +
+      '<div class="ans-line">Correct answer: <span class="correct-ans">' + correct + ". " + optText(correct) + '</span></div>' +
       (q.explanation ? '<div class="ans-explanation">💡 ' + q.explanation + '</div>' : '') +
       '</div>';
     list.appendChild(div);
   });
-  showPage("answerPage");
+  if (!shown) list.innerHTML = '<div class="ans-empty">No questions in this view.</div>';
 }
 
 function goHome() { disarmExitGuard(); window.location.href = "index.html"; }
