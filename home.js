@@ -465,7 +465,7 @@ function renderResourcesSection() {
   var sections = [
     { id:"books",      icon:"📚", title:"Reference Books",           desc:"Recommended books & PDFs" },
     { id:"qbank",      icon:"❓", title:"Question Bank",             desc:"Daily questions with answers & explanations" },
-    { id:"blackboard", icon:"🖊", title:"Live Blackboard & Classes", desc:"Live board · Live classes · Daily 6–8:30 PM" },
+    { id:"blackboard", icon:"🖊", title:"Live Blackboard & Classes", desc:"Live board · Live classes · Daily 6:30–8:30 PM" },
   ];
 
   sections.forEach(function(sec) {
@@ -587,7 +587,7 @@ function renderBlackboard() {
     +'<span style="font-size:26px;">📺</span>'
     +'<div style="flex:1;">'
     +'<div style="font-size:14px;font-weight:700;color:#e65100;margin-bottom:2px;">Live Classes</div>'
-    +'<div style="font-size:11px;color:#6e6e73;">Daily 6:00 PM – 8:30 PM · Maths · English · Reasoning · General Studies</div>'
+    +'<div style="font-size:11px;color:#6e6e73;">Daily 6:30 PM – 8:30 PM · Maths · English · Reasoning · General Studies</div>'
     +'</div>'
     +'<div style="display:flex;align-items:center;gap:5px;background:#fff3e0;border:1px solid rgba(255,152,0,0.25);border-radius:20px;padding:4px 12px;white-space:nowrap;">'
     +'<span style="font-size:8px;color:#e65100;">●</span>'
