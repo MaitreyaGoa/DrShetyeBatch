@@ -40,6 +40,10 @@
   sc.onerror = function () { $("loginErr").textContent = "Question file not found: " + TEST.questionsFile; $("signIn").disabled = true; };
   document.body.appendChild(sc);
 
+  if (window.ExcelAuth) {
+    ExcelAuth.gate({ mount: $("catLoginForm"), nameInput: $("candName"), hide: [$("catLoginForm"), $("resumeBox")] });
+  }
+
   ["candName", "candPw"].forEach(function (id) { $(id).addEventListener("keydown", function (e) { if (e.key === "Enter") signIn(); }); });
   $("signIn").onclick = signIn;
 
@@ -49,13 +53,14 @@
     var box = $("resumeBox"); box.classList.remove("hidden");
     box.innerHTML = "An unfinished attempt by <b>" + esc(old.name) + "</b> was found (Section " + (old.sec + 1) + ", " + fmt(old.left[old.sec]) + " left). " +
       '<div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-blue" id="resumeGo">Resume attempt</button><button class="btn" id="resumeNo">Start fresh</button></div>';
-    $("resumeGo").onclick = function () { if (needPw && $("candPw").value.trim() !== TEST.password) { $("loginErr").textContent = "Enter the test password to resume."; return; } S = old; startExam(); };
+    $("resumeGo").onclick = function () { if (window.ExcelAuth && !ExcelAuth.canStart()) { $("loginErr").textContent = "Please sign in with Google to resume."; return; } if (needPw && $("candPw").value.trim() !== TEST.password) { $("loginErr").textContent = "Enter the test password to resume."; return; } S = old; startExam(); };
     $("resumeNo").onclick = function () { clearSaved(); box.classList.add("hidden"); };
   }
 
   function signIn() {
     var name = $("candName").value.trim(), err = $("loginErr");
     if (!SECS) { err.textContent = "Questions are still loading — please wait a moment."; return; }
+    if (window.ExcelAuth && !ExcelAuth.canStart()) { err.textContent = "Please sign in with Google to start the test."; return; }
     if (!name) { err.textContent = "Please enter your full name."; return; }
     if (needPw && $("candPw").value.trim() !== TEST.password) { err.textContent = "Incorrect password. Please check with your coordinator."; return; }
     err.textContent = "";
@@ -341,7 +346,22 @@
   function finish() {
     stopTick(); examActive = false; S.finished = true; S.finishedAt = Date.now(); save();
     if (calcOpen) toggleCalc();
-    renderResult(); saveCentral();
+    renderResult(); saveCentral(); saveToAccount();
+  }
+  function saveToAccount() {
+    if (!window.ExcelAuth || !ExcelAuth.user) return;
+    var g = grade();
+    ExcelAuth.saveAttempt({
+      testId: TEST.id, testTitle: TEST.title, engine: "cat",
+      score: g.reduce(function (a, x) { return a + x.score; }, 0),
+      outOf: g.reduce(function (a, x) { return a + x.n * 3; }, 0),
+      sections: g.map(function (x) { return { name: x.short || x.name, score: x.score, max: x.n * 3 }; }),
+      correct: g.reduce(function (a, x) { return a + x.c; }, 0),
+      wrong: g.reduce(function (a, x) { return a + x.w; }, 0),
+      skipped: g.reduce(function (a, x) { return a + x.sk; }, 0),
+      totalQ: g.reduce(function (a, x) { return a + x.n; }, 0),
+      timeUsedSec: Math.round(g.reduce(function (a, x) { return a + (x.used || 0); }, 0) / 1000)
+    });
   }
   function saveCentral() {
     var g = grade(), by = {}; g.forEach(function (x) { by[x.short] = x.score; });

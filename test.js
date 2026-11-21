@@ -48,6 +48,15 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("studentName").addEventListener("keydown",     function (e) { if (e.key === "Enter") login(); });
   applyPasswordMode();
 
+  // Google sign-in gate (auth.js). Name comes from the signed-in account.
+  if (window.ExcelAuth) {
+    ExcelAuth.gate({
+      mount: document.getElementById("loginForm"),
+      nameInput: document.getElementById("studentName"),
+      hide: [document.getElementById("loginForm")]
+    });
+  }
+
   loadQuestions(currentTest.questionsFile);
 });
 
@@ -134,6 +143,7 @@ function login() {
   var name = document.getElementById("studentName").value.trim();
   var pass = document.getElementById("studentPassword").value.trim();
   var err  = document.getElementById("loginError");
+  if (window.ExcelAuth && !ExcelAuth.canStart()) { err.textContent = "Please sign in with Google to start the test."; err.style.display = "block"; return; }
   if (!name) { err.textContent = "Please enter your full name."; err.style.display = "block"; return; }
   if (!currentTest) { err.textContent = "Test not found. Please go back and click Start again."; err.style.display = "block"; return; }
   if (passwordNeeded() && pass !== currentTest.password) { err.textContent = "Incorrect password. Please check with your coordinator."; err.style.display = "block"; return; }
@@ -496,6 +506,7 @@ function calculateScore() {
 function saveResultCentral(result) {
   showPage("resultPage");
   renderResult(result);
+  saveToAccount(result);
   var statusEl = document.getElementById("savingStatus");
   if (!window.SCRIPT_URL || SCRIPT_URL === "PASTE_YOUR_APPS_SCRIPT_URL_HERE") { statusEl.style.display = "none"; return; }
   statusEl.style.display = "block";
@@ -520,6 +531,31 @@ function saveResultCentral(result) {
       else throw new Error(res.error || "Save failed");
     })
     .catch(function () { statusEl.textContent = "⚠️ Could not save. Please inform coordinator."; });
+}
+
+// ── SAVE TO STUDENT'S ACCOUNT (My Account history) ───────
+function saveToAccount(result) {
+  if (!window.ExcelAuth || !ExcelAuth.user) return;
+  var correct = 0, wrong = 0, skipped = 0, answers = {};
+  questions.forEach(function (q) {
+    var a = userAnswers[String(q.id)];
+    if (!a) skipped++; else if (a === q.answer) correct++; else wrong++;
+    if (a) answers[String(q.id)] = a;
+  });
+  var secMax = {};
+  questions.forEach(function (q) { secMax[q.section] = (secMax[q.section] || 0) + 1; });
+  var sections = Object.keys(result.scores).map(function (k) {
+    var max = (currentTest.sections && currentTest.sections[k]) || secMax[k] || 0;
+    return { name: k, score: result.scores[k], max: max };
+  });
+  ExcelAuth.saveAttempt({
+    testId: result.testId, testTitle: result.testTitle, engine: "standard",
+    score: result.total, outOf: result.outOf || questions.length,
+    sections: sections, correct: correct, wrong: wrong, skipped: skipped,
+    totalQ: questions.length,
+    timeUsedSec: Math.max(0, (currentTest.duration || 0) - Math.max(0, timeLeft)),
+    answers: answers
+  });
 }
 
 // ── RENDER RESULT ─────────────────────────────────────────

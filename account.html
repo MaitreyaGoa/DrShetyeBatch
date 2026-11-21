@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>My Account – Dr Shetye Academic Programme</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root{--g:#166534;--g2:#15803d;--gl:#f0fdf4;--gb:#bbf7d0;--ink:#1d1d1f;--mut:#6e6e73;--line:#e5e7eb;--bg:#f5f5f7;--red:#dc2626;--amb:#d97706}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:15px;line-height:1.45}
+  a{color:var(--g)}
+  .hdr{position:sticky;top:0;z-index:50;background:rgba(245,245,247,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.08)}
+  .hdr-in{max-width:960px;margin:0 auto;height:56px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .brand{font-weight:700;font-size:14px}.brand small{display:block;font-weight:500;font-size:10px;color:var(--mut)}
+  .back{font-size:13px;font-weight:600;text-decoration:none;border:1px solid rgba(0,0,0,.14);background:#fff;border-radius:8px;padding:6px 12px;color:var(--ink);white-space:nowrap}
+  main{max-width:960px;margin:0 auto;padding:18px 16px 60px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px}
+  h2{font-size:16px;margin:0 0 12px;font-weight:700}
+  .muted{color:var(--mut);font-size:13px}
+  .center{text-align:center}
+  /* profile */
+  .prof{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .prof .pic img,.prof .pic .xa-ph{width:60px;height:60px;border-radius:50%;object-fit:cover;font-size:24px;background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+  .prof .who{flex:1;min-width:180px}
+  .prof .nm{font-size:19px;font-weight:800;letter-spacing:-.3px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 14px;border-radius:8px;border:1px solid rgba(0,0,0,.14);background:#fff;color:var(--ink);font:600 13px Inter,sans-serif;cursor:pointer;text-decoration:none}
+  .btn:hover{background:#f9fafb}
+  .btn.pri{background:var(--g);border-color:var(--g);color:#fff}.btn.pri:hover{background:var(--g2)}
+  .btn.sm{padding:5px 10px;font-size:12px}
+  .edit-row{display:none;gap:8px;margin-top:8px;flex-wrap:wrap}
+  .edit-row input{flex:1;min-width:160px;padding:8px 10px;border:1px solid #d1d5db;border-radius:8px;font:500 14px Inter,sans-serif}
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+  @media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}
+  .stat .v{font-size:26px;font-weight:800;letter-spacing:-.5px;color:var(--g)}
+  .stat .l{font-size:12px;color:var(--mut);font-weight:600}
+  /* chart */
+  .chart-wrap{position:relative;width:100%}
+  .chart-wrap svg{display:block;width:100%;height:auto}
+  /* subjects */
+  .subj{display:grid;grid-template-columns:110px 1fr 46px;align-items:center;gap:10px;margin:9px 0;font-size:13px}
+  .subj .bar{height:10px;border-radius:6px;background:#f1f5f9;overflow:hidden}
+  .subj .bar i{display:block;height:100%;border-radius:6px}
+  .subj b{text-align:right}
+  .tip{margin-top:12px;padding:10px 12px;border-radius:10px;background:#fffbeb;border:1px solid #fde68a;font-size:13px;color:#78350f}
+  /* history */
+  .tools{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+  .tools input{flex:1;min-width:160px;padding:8px 10px;border:1px solid #d1d5db;border-radius:8px;font:500 14px Inter,sans-serif}
+  .att{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start}
+  .att .pct{flex-shrink:0;width:58px;height:58px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:#fff}
+  .att .pct small{font-size:9px;font-weight:600;opacity:.9}
+  .att .body{flex:1;min-width:0}
+  .att .t{font-weight:700;font-size:14px}
+  .att .meta{font-size:12px;color:var(--mut);margin-top:2px}
+  .chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+  .chip{font-size:11px;font-weight:600;padding:3px 8px;border-radius:999px;background:#f1f5f9;color:#334155}
+  .att .act{flex-shrink:0}
+  .empty{padding:26px 10px;text-align:center;color:var(--mut)}
+  .next a{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;text-decoration:none;color:var(--ink);font-size:14px;font-weight:600}
+  .next a span{color:var(--g);white-space:nowrap}
+  .signin{max-width:420px;margin:30px auto}
+  .signin h1{font-size:22px;margin:0 0 6px;letter-spacing:-.4px}
+  .loading{padding:40px;text-align:center;color:var(--mut)}
+  footer{text-align:center;font-size:12px;color:var(--mut);padding:20px}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-in">
+    <div class="brand">Dr Shetye Academic Programme<small>My Account · excelbicholim.in</small></div>
+    <a class="back" href="index.html">← All Tests</a>
+  </div>
+</header>
+
+<main id="app"><div class="loading">Loading your account…</div></main>
+
+<footer>Maitreya Hinde · Academic Coordinator · 📞 7358425108</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<script src="config.js"></script>
+<script src="auth.js"></script>
+<script>
+(function () {
+  "use strict";
+  var A = window.ExcelAuth, app = document.getElementById("app");
+  var esc = A ? A.esc : function (s) { return String(s); };
+  var attempts = [], loadedFor = null;
+
+  var ALL = (window.ALL_TESTS || []).concat(window.CAT_TESTS || []);
+  var byId = {}; ALL.forEach(function (t) { if (t && t.id && !byId[t.id]) byId[t.id] = t; });
+  ALL = Object.keys(byId).map(function (k) { return byId[k]; });
+
+  function testUrl(id) {
+    var t = byId[id];
+    return (t && t.engine === "cat" ? "cat-test.html" : "test.html") + "?id=" + encodeURIComponent(id);
+  }
+  function pctColor(p) { return p >= 80 ? "#15803d" : p >= 60 ? "#0d9488" : p >= 40 ? "#d97706" : "#dc2626"; }
+  function fmtDate(ms) {
+    if (!ms) return "";
+    var d = new Date(ms);
+    return d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) + ", " +
+           d.toLocaleTimeString("en-IN", { hour: "numeric", minute: "2-digit" });
+  }
+  function fmtDur(s) { if (!s) return ""; var m = Math.floor(s / 60); return m >= 60 ? Math.floor(m / 60) + "h " + (m % 60) + "m" : m + "m " + (s % 60) + "s"; }
+
+  // Group section names into subjects
+  function subjectOf(name) {
+    var n = String(name || "").toLowerCase();
+    if (/varc|verbal/.test(n)) return "VARC (CAT)";
+    if (/dilr/.test(n)) return "DILR (CAT)";
+    if (/^qa$|quant/.test(n)) return "QA (CAT)";
+    if (/english/.test(n)) return "English";
+    if (/reason|intelligence/.test(n)) return "Reasoning";
+    if (/math|numerical|aptitude/.test(n)) return "Maths";
+    if (/konkani/.test(n)) return "Konkani";
+    if (/history of goa|goa history/.test(n)) return "Goa History";
+    if (/general knowledge|gk|awareness/.test(n)) return "General Knowledge";
+    return name || "Other";
+  }
+
+  // ── signed out ──
+  function renderSignedOut() {
+    var inApp = A && A.inAppBrowser();
+    app.innerHTML =
+      '<div class="card signin center"><h1>My Account</h1>' +
+      '<p class="muted" style="margin:0 0 16px">Sign in with Google to see every test you have taken, your scores and your progress.</p>' +
+      '<div id="gbtn"></div>' +
+      (inApp ? '<p style="color:#b91c1c;font-size:13px;font-weight:600;margin-top:12px">You are inside the Instagram/Facebook app. Tap ⋮ → "Open in Chrome" first, then sign in.</p>' : "") +
+      (A && A.lastError ? '<p style="color:#b91c1c;font-size:13px;font-weight:600;margin-top:12px">' + esc(A.lastError) + "</p>" : "") +
+      "</div>";
+    document.getElementById("gbtn").appendChild(A.googleButton("Sign in with Google"));
+  }
+
+  // ── signed in ──
+  function renderShell(u) {
+    var nm = A.name();
+    app.innerHTML =
+      '<div class="card"><div class="prof"><div class="pic">' + A.avatar(u, nm) + '</div>' +
+        '<div class="who"><div class="nm" id="pName">' + esc(nm) + '</div><div class="muted">' + esc(u.email || "") + "</div>" +
+        '<div class="edit-row" id="editRow"><input id="nameIn" maxlength="60" value="' + esc(nm) + '"/><button class="btn pri sm" id="nameSave">Save</button><button class="btn sm" id="nameCancel">Cancel</button></div></div>' +
+        '<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" id="editName">✎ Edit name</button><button class="btn sm" id="signOut">Sign out</button></div>' +
+      '</div><p class="muted" style="margin:10px 0 0">This name appears on your results and the toppers list.</p></div>' +
+      '<div id="dash"><div class="loading">Loading your test history…</div></div>';
+
+    document.getElementById("signOut").onclick = function () { A.signOut(); };
+    var row = document.getElementById("editRow");
+    document.getElementById("editName").onclick = function () { row.style.display = "flex"; document.getElementById("nameIn").focus(); };
+    document.getElementById("nameCancel").onclick = function () { row.style.display = "none"; };
+    document.getElementById("nameSave").onclick = function () {
+      var v = document.getElementById("nameIn").value.trim();
+      if (v.length < 2) { alert("Please enter your full name."); return; }
+      A.updateName(v).then(function () { document.getElementById("pName").textContent = v; row.style.display = "none"; })
+        .catch(function () { alert("Could not save. Please try again."); });
+    };
+  }
+
+  function renderDash() {
+    var dash = document.getElementById("dash");
+    if (!dash) return;
+    if (!attempts.length) {
+      dash.innerHTML = '<div class="card empty"><div style="font-size:34px">📝</div><b style="color:#1d1d1f">No tests yet</b><br>Take your first test — your score and progress will show up here.<br><br><a class="btn pri" href="index.html">Browse tests →</a></div>' + nextHtml();
+      return;
+    }
+    var n = attempts.length;
+    var pcts = attempts.map(function (a) { return a.pct || 0; });
+    var avg = Math.round(pcts.reduce(function (s, x) { return s + x; }, 0) / n);
+    var best = Math.round(Math.max.apply(null, pcts));
+    var weekAgo = Date.now() - 7 * 864e5;
+    var week = attempts.filter(function (a) { return (a.clientTime || 0) >= weekAgo; }).length;
+    var uniq = {}; attempts.forEach(function (a) { uniq[a.testId] = 1; });
+
+    dash.innerHTML =
+      '<div class="stats">' +
+        stat(n, "Tests taken") + stat(avg + "%", "Average score") + stat(best + "%", "Best score") + stat(week, "This week") +
+      "</div>" +
+      '<div class="card"><h2>Progress</h2>' + chartSvg() + '<p class="muted" style="margin:6px 0 0">Score % in your last ' + Math.min(n, 20) + " tests (oldest → latest).</p></div>" +
+      subjectsHtml() +
+      '<div class="card"><h2>Test history <span class="muted" style="font-weight:500">· ' + n + " attempts · " + Object.keys(uniq).length + ' different tests</span></h2>' +
+        '<div class="tools"><input id="q" placeholder="Search tests…"/></div><div id="list"></div></div>' +
+      nextHtml();
+    document.getElementById("q").oninput = function () { renderList(this.value); };
+    renderList("");
+  }
+
+  function stat(v, l) { return '<div class="stat"><div class="v">' + v + '</div><div class="l">' + l + "</div></div>"; }
+
+  function chartSvg() {
+    var pts = attempts.slice(0, 20).reverse();
+    var W = 640, H = 200, L = 34, R = 12, T = 12, B = 26;
+    var w = W - L - R, h = H - T - B;
+    var x = function (i) { return L + (pts.length === 1 ? w / 2 : (i * w) / (pts.length - 1)); };
+    var y = function (p) { return T + h - (Math.max(0, Math.min(100, p)) / 100) * h; };
+    var g = "";
+    [0, 25, 50, 75, 100].forEach(function (v) {
+      g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(v) + '" y2="' + y(v) + '" stroke="#eef0f3"/>' +
+           '<text x="' + (L - 6) + '" y="' + (y(v) + 4) + '" text-anchor="end" font-size="10" fill="#9ca3af">' + v + "</text>";
+    });
+    var path = pts.map(function (a, i) { return (i ? "L" : "M") + x(i).toFixed(1) + " " + y(a.pct || 0).toFixed(1); }).join(" ");
+    var area = path + " L" + x(pts.length - 1).toFixed(1) + " " + (T + h) + " L" + x(0).toFixed(1) + " " + (T + h) + " Z";
+    var dots = pts.map(function (a, i) {
+      return '<circle cx="' + x(i).toFixed(1) + '" cy="' + y(a.pct || 0).toFixed(1) + '" r="4" fill="#fff" stroke="' + pctColor(a.pct || 0) + '" stroke-width="2.5"><title>' +
+        esc(a.testTitle) + " — " + (a.pct || 0) + "%</title></circle>";
+    }).join("");
+    var first = pts[0], last = pts[pts.length - 1];
+    var lbl = '<text x="' + L + '" y="' + (H - 6) + '" font-size="10" fill="#9ca3af">' + esc(fmtDate(first.clientTime).split(",")[0]) + "</text>" +
+              (pts.length > 1 ? '<text x="' + (W - R) + '" y="' + (H - 6) + '" text-anchor="end" font-size="10" fill="#9ca3af">' + esc(fmtDate(last.clientTime).split(",")[0]) + "</text>" : "");
+    return '<div class="chart-wrap"><svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Score trend">' + g +
+      '<path d="' + area + '" fill="#16653414"/><path d="' + path + '" fill="none" stroke="#166534" stroke-width="2.5" stroke-linejoin="round"/>' + dots + lbl + "</svg></div>";
+  }
+
+  function subjectsHtml() {
+    var agg = {};
+    attempts.forEach(function (a) {
+      (a.sections || []).forEach(function (s) {
+        if (!s.max) return;
+        var k = subjectOf(s.name);
+        agg[k] = agg[k] || { got: 0, max: 0 };
+        agg[k].got += Math.max(0, s.score || 0); agg[k].max += s.max;
+      });
+    });
+    var rows = Object.keys(agg).map(function (k) { return { k: k, p: Math.round((agg[k].got / agg[k].max) * 100) }; })
+      .sort(function (a, b) { return a.p - b.p; });
+    if (!rows.length) return "";
+    var html = rows.map(function (r) {
+      return '<div class="subj"><span>' + esc(r.k) + '</span><div class="bar"><i style="width:' + r.p + "%;background:" + pctColor(r.p) + '"></i></div><b>' + r.p + "%</b></div>";
+    }).join("");
+    var weak = rows[0];
+    var tip = rows.length > 1 && weak.p < 70 ? '<div class="tip">💡 <b>Focus area: ' + esc(weak.k) + "</b> — your lowest subject at " + weak.p + "%. Try a few Topic Tests in it this week.</div>" : "";
+    return '<div class="card"><h2>Subject strength</h2>' + html + tip + "</div>";
+  }
+
+  function renderList(filter) {
+    var f = String(filter || "").toLowerCase();
+    var list = attempts.filter(function (a) { return !f || String(a.testTitle || "").toLowerCase().indexOf(f) >= 0; });
+    var el = document.getElementById("list");
+    if (!list.length) { el.innerHTML = '<div class="empty">No matching tests.</div>'; return; }
+    el.innerHTML = list.map(function (a) {
+      var p = a.pct || 0;
+      var chips = (a.sections || []).map(function (s) { return '<span class="chip">' + esc(s.name) + " " + s.score + (s.max ? "/" + s.max : "") + "</span>"; }).join("");
+      var meta = [fmtDate(a.clientTime)];
+      if (a.totalQ) meta.push((a.correct || 0) + " correct · " + (a.wrong || 0) + " wrong · " + (a.skipped || 0) + " skipped");
+      if (a.timeUsedSec) meta.push("⏱ " + fmtDur(a.timeUsedSec));
+      var live = byId[a.testId] && byId[a.testId].live;
+      return '<div class="att"><div class="pct" style="background:' + pctColor(p) + '">' + Math.round(p) + "%<small>" + a.score + "/" + a.outOf + "</small></div>" +
+        '<div class="body"><div class="t">' + esc(a.testTitle || a.testId) + '</div><div class="meta">' + esc(meta.join("  ·  ")) + "</div>" +
+        (chips ? '<div class="chips">' + chips + "</div>" : "") + "</div>" +
+        (live ? '<div class="act"><a class="btn sm" href="' + testUrl(a.testId) + '">Retake</a></div>' : "") + "</div>";
+    }).join("");
+  }
+
+  function nextHtml() {
+    var done = {}; attempts.forEach(function (a) { done[a.testId] = 1; });
+    var todo = ALL.filter(function (t) { return t.live && !done[t.id]; });
+    if (!todo.length) return "";
+    var items = todo.slice(0, 5).map(function (t) {
+      return '<a href="' + testUrl(t.id) + '">' + esc(t.title) + "<span>Start →</span></a>";
+    }).join("");
+    return '<div class="card next"><h2>Tests you haven\'t tried <span class="muted" style="font-weight:500">· ' + todo.length + " available</span></h2>" + items +
+      (todo.length > 5 ? '<a href="index.html" style="justify-content:center"><span>See all tests →</span></a>' : "") + "</div>";
+  }
+
+  if (!A) { app.innerHTML = '<div class="card center">Sign-in could not load. Please refresh the page.</div>'; return; }
+
+  A.onChange(function (u) {
+    if (!A.ok) { app.innerHTML = '<div class="card center">Sign-in could not load. Please check your internet connection and refresh.</div>'; return; }
+    if (!u) { loadedFor = null; renderSignedOut(); return; }
+    if (loadedFor === u.uid) return;
+    loadedFor = u.uid;
+    renderShell(u);
+    A.listAttempts(300).then(function (list) { attempts = list; renderDash(); })
+      .catch(function (e) {
+        console.error(e);
+        var d = document.getElementById("dash");
+        if (d) d.innerHTML = '<div class="card center">Could not load your history. Please refresh.<br><span class="muted">' + esc(e && e.code || "") + "</span></div>";
+      });
+  });
+})();
+</script>
+</body>
+</html>

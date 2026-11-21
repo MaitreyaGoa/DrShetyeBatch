@@ -195,9 +195,11 @@ table.sum th{background:#eef3f8}
           </div>
           <div>
             <p id="loginSub" style="margin:0 0 14px;color:#555;font-size:13px"></p>
+            <div id="catLoginForm">
             <div class="field"><label for="candName">Candidate Name</label><input id="candName" autocomplete="off" placeholder="Enter your full name"></div>
             <div class="field" id="pwField"><label for="candPw">Test Password</label><input id="candPw" type="password" placeholder="Enter test password"></div>
             <button class="btn btn-blue" id="signIn">Sign In</button>
+            </div>
             <div class="err" id="loginErr"></div>
             <div id="resumeBox" class="hidden" style="margin-top:10px;padding:10px;border:1px solid var(--blue);background:#eef5fc;border-radius:3px;font-size:13px"></div>
           </div>
@@ -268,7 +270,12 @@ table.sum th{background:#eef3f8}
   <div class="wrap" id="resultWrap"></div>
 </section>
 
+<!-- Google sign-in (Firebase) -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 <script src="config.js"></script>
+<script src="auth.js"></script>
 <script src="cat-test.js"></script>
 </body>
 </html>

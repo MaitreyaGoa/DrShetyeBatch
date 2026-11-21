@@ -911,7 +911,10 @@
         <div class="brand-sub">GSSC · GPSC · Govt Exam Preparation</div>
       </div>
     </div>
-    <button class="admin-btn" onclick="openAdminModal()">⚙ Admin</button>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div id="authHeader"></div>
+      <button class="admin-btn" onclick="openAdminModal()">⚙ Admin</button>
+    </div>
   </div>
 </header>
 
@@ -1305,7 +1308,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 <script src="config.js"></script>
+<script src="auth.js"></script>
+<script>if (window.ExcelAuth) ExcelAuth.mountHeader(document.getElementById("authHeader"));</script>
 <script src="home.js"></script>
 
 <script>
