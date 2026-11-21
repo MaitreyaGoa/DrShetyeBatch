@@ -1,0 +1,24 @@
+{
+  "id": "/",
+  "name": "Excel Bicholim",
+  "short_name": "Excel Bicholim",
+  "description": "Free GSSC, GPSC, Goa Police and CAT mock tests — Dr Shetye Academic Programme, Bicholim.",
+  "start_url": "/?source=app",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b2470",
+  "theme_color": "#0b1f66",
+  "lang": "en-IN",
+  "categories": ["education"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "My Account", "short_name": "My Account", "url": "/account.html", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "GSSC Mock Tests", "short_name": "Mock Tests", "url": "/index.html#sec-gssc", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
