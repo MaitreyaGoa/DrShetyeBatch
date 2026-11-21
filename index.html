@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>ExcelBicholim – Dr Shetye Academic Programme · GSSC · GPSC · Goa Police CBT-II</title>
-  <meta name="description" content="Free GSSC, GPSC and Goa Police CBT-II mock tests, topic drills, previous year papers and daily classes — an initiative by Dr. Chandrakant P. Shetye, MLA Bicholim."/>
+  <meta name="description" content="Free GSSC, GPSC and Goa Police CBT-II mock tests, topic drills, previous year papers and daily classes — an initiative by Dr. Chandrkant P. Shetye, MLA Bicholim."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet"/>
@@ -511,7 +511,7 @@
       <img src="images/excelbicholim-wordmark.png" class="brand-logo" alt="ExcelBicholim.in" width="167" height="44"/>
       <span class="brand-divider"></span>
       <span class="brand-patron">
-        <img src="images/dr-shetye-photo.jpg" alt="Dr. Chandrakant P. Shetye"/>
+        <img src="images/dr-shetye-photo.jpg" alt="Dr. Chandrkant P. Shetye"/>
         <span><b>Dr Shetye Academic Programme</b>GSSC · GPSC · Govt Exams</span>
       </span>
     </a>
@@ -548,7 +548,7 @@
         <span class="kicker"><span class="dot"></span>Free online test series · Goa</span>
         <img src="images/excelbicholim-wordmark.png" class="hero-logo" alt="ExcelBicholim.in" width="420" height="111"/>
         <h1 class="hero-title">Empowering <span class="grad">Goa's Youth</span> Forward.</h1>
-        <p class="hero-desc">A premier academic initiative by Dr. Chandrakant P. Shetye — MLA Bicholim — preparing Goa's youth for government service with exam-pattern mock tests, topic drills and daily classes.</p>
+        <p class="hero-desc">A premier academic initiative by Dr. Chandrkant P. Shetye — MLA Bicholim — preparing Goa's youth for government service with exam-pattern mock tests, topic drills and daily classes.</p>
         <div class="cta-row">
           <a href="#tests" class="btn-cta primary">Start a mock test <span>→</span></a>
           <a href="#sec-gssc" class="btn-cta green">🚔 Goa Police CBT-II</a>
@@ -643,10 +643,10 @@
 
       <!-- Patron -->
       <div class="tile t-patron glass reveal">
-        <div class="patron-photo"><img src="images/dr-shetye-portrait.png" loading="lazy" class="patron-img" alt="Dr. Chandrakant P. Shetye"/></div>
+        <div class="patron-photo"><img src="images/dr-shetye-portrait.png" loading="lazy" class="patron-img" alt="Dr. Chandrkant P. Shetye"/></div>
         <div class="patron-info">
           <span class="eyebrow">Founder &amp; Patron</span>
-          <h3>Dr. Chandrakant P. Shetye</h3>
+          <h3>Dr. Chandrkant P. Shetye</h3>
           <p>MLA, Bicholim Constituency &amp; Chairman, Info Tech Corporation of Goa Ltd.</p>
           <span class="badge-mla">🏛 MLA · Bicholim Constituency</span>
         </div>
@@ -770,7 +770,7 @@
     <div class="footer-top">
       <div>
         <div class="footer-logo-chip"><img src="images/excelbicholim-logo.jpg" alt="ExcelBicholim.in — an initiative by Dr. Chandrkant Shetye" loading="lazy"/></div>
-        <p class="footer-desc">A premier academic initiative by Dr. Chandrakant P. Shetye, MLA Bicholim, empowering Goa's youth through competitive exam preparation — GSSC, GPSC, Goa Police and more.</p>
+        <p class="footer-desc">A premier academic initiative by Dr. Chandrkant P. Shetye, MLA Bicholim, empowering Goa's youth through competitive exam preparation — GSSC, GPSC, Goa Police and more.</p>
         <div class="footer-coord">
           <div class="footer-coord-avatar">👨‍🏫</div>
           <div>
@@ -820,7 +820,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-copy">© 2026 <strong>ExcelBicholim · Dr Shetye Academic Programme</strong> · Patron: Dr. Chandrakant P. Shetye, MLA Bicholim</div>
+      <div class="footer-copy">© 2026 <strong>ExcelBicholim · Dr Shetye Academic Programme</strong> · Patron: Dr. Chandrkant P. Shetye, MLA Bicholim</div>
       <a href="https://www.facebook.com/MHCdigital" target="_blank" class="footer-dev">Developed by <strong>MHC Digital</strong> ↗</a>
     </div>
   </div>
@@ -1047,17 +1047,18 @@ document.addEventListener("DOMContentLoaded", function () {
   // mobile dock active state
   var dockLinks = document.querySelectorAll('.dock a[href^="#"]');
   var secs = ['home','sec-gssc','tests','resources'].map(function(id){ return document.getElementById(id); });
-  if('IntersectionObserver' in window){
-    var dio = new IntersectionObserver(function(es){
-      es.forEach(function(en){ if(en.isIntersecting){
-        var id = en.target.id;
-        var map = {home:'#home', 'sec-gssc':'#sec-gssc', tests:'#tests', resources:'#resources'};
-        if(id === 'tests' && document.getElementById('sec-gssc').getBoundingClientRect().top < innerHeight*0.5 && document.getElementById('sec-gssc').getBoundingClientRect().bottom > innerHeight*0.5) return;
-        dockLinks.forEach(function(l){ l.classList.toggle('on', l.getAttribute('href') === map[id]); });
-      } });
-    }, {rootMargin:'-45% 0px -50% 0px'});
-    secs.forEach(function(s){ if(s) dio.observe(s); });
+  function dockSync(){
+    var mid = innerHeight * 0.45, cur = 'home';
+    [['home','#home'],['tests','#tests'],['sec-gssc','#sec-gssc'],['resources','#resources']].forEach(function(p){
+      var el = document.getElementById(p[0]); if(el && el.getBoundingClientRect().top < mid) cur = p[1];
+    });
+    var g = document.getElementById('sec-gssc');
+    if(cur === '#sec-gssc' && g && g.getBoundingClientRect().bottom < mid) cur = '#tests';
+    var top = document.getElementById('home');
+    if(top && top.getBoundingClientRect().top >= 0) cur = '#home';
+    dockLinks.forEach(function(l){ l.classList.toggle('on', l.getAttribute('href') === cur); });
   }
+  window.addEventListener('scroll', dockSync, {passive:true}); window.addEventListener('load', dockSync); dockSync();
 
   // test finder (filters rows rendered by home.js)
   var inp = document.getElementById('testFinder'), sec = document.getElementById('tests'), empty = document.getElementById('finderEmpty');
