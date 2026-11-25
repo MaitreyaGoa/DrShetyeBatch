@@ -1512,7 +1512,11 @@ var TOPIC_TESTS = [
   { id:"topic_mo",  subject:"reasoning", topic:"Mathematical Operations",
     title:"Mathematical Operations", description:"10 topic-focused questions",
     password:"excelbicholim", duration:600, totalMarks:10,
-    sections:{"Reasoning":10}, questionsFile:"questions/topic_mathematical_operations.js", live:true }
+    sections:{"Reasoning":10}, questionsFile:"questions/topic_mathematical_operations.js", live:true },
+  { id:"topic_mwi", subject:"reasoning", topic:"Mirror & Water Images",
+    title:"Mirror & Water Images", description:"15 picture-based questions · letters, figures & clocks",
+    password:"excelbicholim", duration:900, totalMarks:15,
+    sections:{"Reasoning":15}, questionsFile:"questions/topic_mirror_water.js", live:true }
 ];
 
 // ──────────────────────────────────────────────────────────
