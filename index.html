@@ -224,6 +224,18 @@
 
   /* Quick tiles */
   .q-ico{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;}
+  .t-flash{grid-column:1/-1;display:flex;align-items:center;gap:14px;padding:14px 20px!important;min-height:0;color:#fff!important;
+    background:linear-gradient(110deg,#B42318,#D93A3A 45%,#E8B634);border:0;animation:flashGlow 1.6s ease-in-out infinite;}
+  .t-flash .f-ico{flex:none;width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:22px}
+  .t-flash .f-txt{flex:1;min-width:0}
+  .t-flash .f-txt b{display:block;font-family:var(--display);font-size:16px;font-weight:800;letter-spacing:-.2px;line-height:1.25}
+  .t-flash .f-txt small{display:block;font-size:12px;opacity:.92;margin-top:2px;font-weight:500}
+  .t-flash .f-new{flex:none;font-size:11px;font-weight:900;letter-spacing:1px;padding:5px 10px;border-radius:999px;background:#fff;color:#B42318;animation:flashBlink 1s steps(2,start) infinite}
+  .t-flash .f-go{flex:none;font-weight:800;font-size:13px;padding:8px 14px;border-radius:999px;background:rgba(14,26,74,.85);color:#fff;white-space:nowrap}
+  @keyframes flashGlow{0%,100%{box-shadow:0 0 0 0 rgba(217,58,58,.55)}50%{box-shadow:0 0 0 8px rgba(217,58,58,0)}}
+  @keyframes flashBlink{to{visibility:hidden}}
+  @media (max-width:640px){.t-flash{padding:12px 14px!important;gap:10px}.t-flash .f-go{display:none}.t-flash .f-txt b{font-size:14.5px}.t-flash .f-ico{width:38px;height:38px;font-size:19px}}
+  @media (prefers-reduced-motion:reduce){.t-flash,.t-flash .f-new{animation:none}}
   .t-quick h4{font-family:var(--display);font-size:16px;font-weight:800;color:var(--navy-2);letter-spacing:-.2px;line-height:1.2;}
   .t-quick small{display:block;font-size:11.5px;color:var(--muted);margin-top:3px;font-weight:500;}
   .t-quick .arrow{position:absolute;right:18px;top:18px;font-size:14px;color:var(--muted);transition:transform .25s,color .25s;}
@@ -617,6 +629,14 @@
           <defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2C94C"/><stop offset="1" stop-color="#E8B634"/></linearGradient></defs>
         </svg>
         <span class="go">↗</span>
+      </a>
+
+      <!-- Flash: CBT-II eligibility analyser -->
+      <a href="CBT2eligibility.html" class="tile t-flash reveal">
+        <span class="f-ico">📊</span>
+        <span class="f-txt"><b>CBT-II Eligibility Analyser — Goa Police &amp; Jail posts</b><small>Find your rank in all 11 lists · seats · cut-offs · rank after higher-post removal</small></span>
+        <span class="f-new">NEW</span>
+        <span class="f-go">Check now →</span>
       </a>
 
       <!-- Quick tiles -->
