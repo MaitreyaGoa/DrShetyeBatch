@@ -1631,6 +1631,23 @@ var CAT_TESTS = [
   }
 ];
 
+// ──────────────────────────────────────────────────────────
+// SESSION TESTS  (opened from session pages, e.g. session-28-29nov.html — not listed on the homepage)
+// ──────────────────────────────────────────────────────────
+var SESSION_TESTS = [
+  {
+    id:          "session_28nov_pretest",
+    title:       "28–29 Nov Session · Pre-Test",
+    description: "Task 1 · Maths · Reasoning · English · Konkani · 20 Questions · No negative marking",
+    password:    "excelbicholim",
+    duration:    1500,
+    totalMarks:  20,
+    sections:    { "Maths": 5, "Reasoning": 5, "English": 5, "Konkani": 5 },
+    questionsFile: "questions/session_28nov_pretest.js",
+    live:        true
+  }
+];
+
 var ALL_TESTS = (GSSC_TESTS       || [])
   .concat(GPSC_TESTS         || [])
   .concat(DAILY_TESTS        || [])
@@ -1640,4 +1657,5 @@ var ALL_TESTS = (GSSC_TESTS       || [])
   .concat(TOPIC_TESTS        || [])
   .concat(SPECIAL_TESTS      || [])
   .concat(SCHOLARSHIP_TESTS  || [])
-  .concat(CAT_TESTS          || []);
+  .concat(CAT_TESTS          || [])
+  .concat(SESSION_TESTS      || []);
